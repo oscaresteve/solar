@@ -1,3 +1,11 @@
 import { Routes } from '@angular/router';
+import { PlantaList } from './plantas/planta-list/planta-list';
+import { PlantaDetail } from './plantas/planta-detail/planta-detail';
+import { Home } from './components/home/home';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: 'home', component: Home },
+  { path: 'plantas', component: PlantaList },
+  { path: 'planta/:id', component: PlantaDetail },
+  { path: '**', pathMatch: 'full', redirectTo: '#home' },
+];
