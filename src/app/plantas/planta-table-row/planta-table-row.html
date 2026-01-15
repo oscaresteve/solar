@@ -1,0 +1,13 @@
+<td>{{ planta().id }}</td>
+<td>{{ planta().nom }}</td>
+<td>{{ planta().ubicacio.latitude }}, {{ planta().ubicacio.longitude }}</td>
+<td>{{ planta().capacitat }}</td>
+<td>{{ planta().user }}</td>
+<td>{{ planta().created_at }}</td>
+<td>
+  @if (planta().foto) {
+  <img [src]="planta().foto" alt="{{ planta().nom }}" width="80" />
+  } @else {
+  <span>-</span>
+  }
+</td>
