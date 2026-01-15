@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'plantas', component: PlantaList },
   { path: 'tabla', component: PlantaTable },
+  { path: 'lista', component: PlantaList },
   { path: 'planta/:id', component: PlantaDetail },
   { path: '**', pathMatch: 'full', redirectTo: '#home' },
 ];

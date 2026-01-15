@@ -8,7 +8,7 @@ export const PLANTAS_DEMO: Planta[] = [
     location: { latitude: 40.4168, longitude: -3.7038 },
     capacity: 5000,
     user: 'usuario1',
-    photo: 'https://example.com/foto1.jpg',
+    photo: 'plantas/planta-1.jpg',
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const PLANTAS_DEMO: Planta[] = [
     location: { latitude: 41.6497, longitude: -0.8891 },
     capacity: 8000,
     user: 'usuario3',
-    photo: 'https://example.com/foto3.jpg',
+    photo: 'plantas/planta-3.jpg',
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ export const PLANTAS_DEMO: Planta[] = [
     location: { latitude: 39.4699, longitude: -0.3763 },
     capacity: 6000,
     user: 'usuario5',
-    photo: 'https://example.com/foto5.jpg',
+    photo: 'plantas/planta-5.jpg',
   },
   {
     id: 6,
@@ -59,7 +59,7 @@ export const PLANTAS_DEMO: Planta[] = [
     location: { latitude: 41.3851, longitude: 2.1734 },
     capacity: 7000,
     user: 'usuario7',
-    photo: 'https://example.com/foto7.jpg',
+    photo: '/plantas/planta-7.jpg',
   },
   {
     id: 8,
@@ -76,7 +76,7 @@ export const PLANTAS_DEMO: Planta[] = [
     location: { latitude: 37.9922, longitude: -1.1307 },
     capacity: 5500,
     user: 'usuario9',
-    photo: 'https://example.com/foto9.jpg',
+    photo: 'plantas/planta-9.jpg',
   },
   {
     id: 10,

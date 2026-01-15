@@ -1,1 +1,16 @@
-<p>planta-item works!</p>
+<div class="card">
+  <img
+    [src]="planta().photo || '/placeholder.png'"
+    class="card-img-top"
+    alt="{{ planta().name }}"
+  />
+
+  <div class="card-body">
+    <h5 class="card-title">{{ planta().name }}</h5>
+    <p class="card-text">
+      Latitud: {{ planta().location.latitude }}, Longitud: {{ planta().location.longitude }}
+    </p>
+    <p class="card-text">capacidad: {{ planta().capacity }}</p>
+    <a [routerLink]="['/planta', planta().id]" class="btn btn-primary">Ver más</a>
+  </div>
+</div>
