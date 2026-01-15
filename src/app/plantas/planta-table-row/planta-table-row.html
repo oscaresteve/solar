@@ -1,12 +1,12 @@
 <td>{{ planta().id }}</td>
-<td>{{ planta().nom }}</td>
-<td>{{ planta().ubicacio.latitude }}, {{ planta().ubicacio.longitude }}</td>
-<td>{{ planta().capacitat }}</td>
+<td>{{ planta().name }}</td>
+<td>{{ planta().location.latitude }}, {{ planta().location.longitude }}</td>
+<td>{{ planta().capacity }}</td>
 <td>{{ planta().user }}</td>
 <td>{{ planta().created_at }}</td>
 <td>
-  @if (planta().foto) {
-  <img [src]="planta().foto" alt="{{ planta().nom }}" width="80" />
+  @if (planta().photo) {
+  <img [src]="planta().photo" alt="{{ planta().name }}" width="80" />
   } @else {
   <span>-</span>
   }

@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Planta } from '../planta';
 import { PLANTAS_DEMO } from '../plantas_demo';
 import { CommonModule } from '@angular/common';
-import { PlantaTableRow } from "../planta-table-row/planta-table-row";
+import { PlantaTableRow } from '../planta-table-row/planta-table-row';
 
 @Component({
   selector: 'app-planta-table',
@@ -11,5 +11,5 @@ import { PlantaTableRow } from "../planta-table-row/planta-table-row";
   styleUrl: './planta-table.css',
 })
 export class PlantaTable {
-  plantas: Planta[] = PLANTAS_DEMO;
+  plantas = signal<Planta[]>(PLANTAS_DEMO);
 }
