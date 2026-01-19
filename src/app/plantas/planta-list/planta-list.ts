@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PlantaItem } from '../planta-item/planta-item';
 import { PLANTAS_DEMO } from '../plantas_demo';
 import { Planta } from '../planta';
@@ -9,6 +9,10 @@ import { Planta } from '../planta';
   templateUrl: './planta-list.html',
   styleUrl: './planta-list.css',
 })
-export class PlantaList {
-  plantas = signal<Planta[]>(PLANTAS_DEMO);
+export class PlantaList implements OnInit {
+  plantas = signal<Planta[]>([]);
+
+  ngOnInit(): void {
+    this.plantas.set(PLANTAS_DEMO);
+  }
 }

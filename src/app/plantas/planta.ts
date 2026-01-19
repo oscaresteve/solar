@@ -6,4 +6,5 @@ export interface Planta {
   capacity: number;
   user: string;
   photo?: string;
+  //favorite: Boolean;
 }
