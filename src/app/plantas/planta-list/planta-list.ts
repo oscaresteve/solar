@@ -15,4 +15,8 @@ export class PlantaList implements OnInit {
   ngOnInit(): void {
     this.plantas.set(PLANTAS_DEMO);
   }
+
+  toggleFavorite(planta: Planta) {
+    planta.favorite = !planta.favorite;
+  }
 }
