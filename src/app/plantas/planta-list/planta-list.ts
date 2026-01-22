@@ -1,7 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PlantaItem } from '../planta-item/planta-item';
-import { PLANTAS_DEMO } from '../plantas_demo';
 import { Planta } from '../planta';
+import { SupabaseService } from '../../services/supabase-service';
 
 @Component({
   selector: 'app-planta-list',
@@ -10,10 +10,14 @@ import { Planta } from '../planta';
   styleUrl: './planta-list.css',
 })
 export class PlantaList implements OnInit {
+  private supabaseService: SupabaseService = inject(SupabaseService);
+
   plantas = signal<Planta[]>([]);
 
   ngOnInit(): void {
-    this.plantas.set(PLANTAS_DEMO);
+    this.supabaseService
+      .readPlantas()
+      .subscribe((plantasSupabase: Planta[]) => this.plantas.set(plantasSupabase));
   }
 
   toggleFavorite(planta: Planta) {
