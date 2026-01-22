@@ -4,7 +4,9 @@
   <div class="card-body">
     <h5 class="card-title">
       {{ planta().name | uppercase }}
-      <span (click)="toggleFavorite()">{{ planta().favorite ? '♥️' : '🖤' }}</span>
+      <span style="cursor: pointer" (click)="toggleFavorite()">{{
+        planta().favorite ? '♥️' : '🖤'
+      }}</span>
     </h5>
     <p class="card-text">
       Latitud: {{ planta().location.latitude }}, Longitud: {{ planta().location.longitude }}

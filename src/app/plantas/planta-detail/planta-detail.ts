@@ -1,7 +1,5 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
-import { Planta } from '../planta';
-import { SupabaseService } from '../../services/supabase-service';
-
+import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { PlantaService } from '../../services/planta-service';
 @Component({
   selector: 'app-planta-detail',
   imports: [],
@@ -9,19 +7,17 @@ import { SupabaseService } from '../../services/supabase-service';
   styleUrl: './planta-detail.css',
 })
 export class PlantaDetail implements OnInit {
-  private supabaseService: SupabaseService = inject(SupabaseService);
+  private plantaService: PlantaService = inject(PlantaService);
 
   id = input<String>();
 
-  plantas = signal<Planta[]>([]);
+  plantas = this.plantaService.plantas;
 
   planta = computed(() => {
     return this.plantas().find((p) => p.id.toString() === this.id());
   });
 
   ngOnInit(): void {
-    this.supabaseService
-      .readPlantas()
-      .subscribe((plantasSupabase: Planta[]) => this.plantas.set(plantasSupabase));
+    this.plantaService.readPlantas();
   }
 }
