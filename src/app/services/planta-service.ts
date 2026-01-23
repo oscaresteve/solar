@@ -18,10 +18,8 @@ export class PlantaService {
   async readPlantas() {
     let { data, error } = await this.supabase.from('plantas').select('*');
 
-    if (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
+    if (error) throw error;
+
     this.plantas.set(data ?? []);
   }
 }

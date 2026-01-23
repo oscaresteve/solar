@@ -1,1 +1,5 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <input formControlName="email" placeholder="Email" />
+  <input formControlName="password" type="password" placeholder="Password" />
+  <button type="submit">Ingresar</button>
+</form>
