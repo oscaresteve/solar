@@ -1,7 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../data-access/auth-service';
 import { Router } from '@angular/router';
+
+interface LogInForm {
+  email: FormControl<null | string>;
+  password: FormControl<null | string>;
+}
 
 @Component({
   selector: 'app-login',
@@ -9,23 +14,27 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
 })
-export class LoginComponent {
-  private authService = inject(AuthService);
-  private router = inject(Router);
+export class Login {
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
+  private _formBuilder = inject(FormBuilder);
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+  form = this._formBuilder.group<LogInForm>({
+    email: this._formBuilder.control(null, [Validators.required, Validators.email]),
+    password: this._formBuilder.control(null, [Validators.required]),
   });
 
-  async login() {
-    if (this.loginForm.invalid) return;
-
-    const { email, password } = this.loginForm.value;
+  async submit() {
+    if (this.form.invalid) return;
 
     try {
-      await this.authService.login(email!, password!);
-      this.router.navigate(['/home']);
+      const { error } = await this._authService.logIn({
+        email: this.form.value.email ?? '',
+        password: this.form.value.password ?? '',
+      });
+      if (error) throw error;
+
+      this._router.navigate(['/home']);
     } catch (error) {
       console.error(error);
       alert('Credenciales incorrectas');
