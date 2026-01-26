@@ -10,15 +10,15 @@ import { PlantaService } from '../../data-access/planta-service';
   styleUrl: './planta-list.css',
 })
 export class PlantaList implements OnInit {
-  private plantaService: PlantaService = inject(PlantaService);
+  private _plantaService: PlantaService = inject(PlantaService);
 
-  plantas = this.plantaService.plantas;
+  plantas = this._plantaService.plantas;
 
   toggleFavorite(planta: Planta) {
     planta.favorite = !planta.favorite;
   }
 
   ngOnInit(): void {
-    this.plantaService.readPlantas();
+    this._plantaService.readPlantas();
   }
 }
