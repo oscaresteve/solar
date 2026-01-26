@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Planta } from '../planta';
+import { Planta } from '../../planta';
 import { CommonModule } from '@angular/common';
 import { PlantaTableRow } from '../planta-table-row/planta-table-row';
-import { PlantaService } from '../../services/planta-service';
+import { PlantaService } from '../../data-access/planta-service';
 
 @Component({
   selector: 'app-planta-table',

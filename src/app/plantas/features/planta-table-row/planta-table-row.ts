@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Planta } from '../planta';
+import { Planta } from '../../planta';
 
 @Component({
   selector: '[app-planta-table-row]',

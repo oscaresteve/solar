@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Planta } from '../planta';
+import { Planta } from '../../planta';
 import { RouterLink } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 

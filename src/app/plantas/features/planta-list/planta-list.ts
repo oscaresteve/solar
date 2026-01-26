@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { PlantaItem } from '../planta-item/planta-item';
-import { Planta } from '../planta';
-import { PlantaService } from '../../services/planta-service';
+import { Planta } from '../../planta';
+import { PlantaService } from '../../data-access/planta-service';
 
 @Component({
   selector: 'app-planta-list',

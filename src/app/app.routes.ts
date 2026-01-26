@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { PlantaList } from './plantas/planta-list/planta-list';
-import { PlantaDetail } from './plantas/planta-detail/planta-detail';
-import { Home } from './views/home/home';
-import { PlantaTable } from './plantas/planta-table/planta-table';
+import { PlantaList } from './plantas/features/planta-list/planta-list';
+import { PlantaDetail } from './plantas/features/planta-detail/planta-detail';
+import { Home } from './shared/features/home/home';
+import { PlantaTable } from './plantas/features/planta-table/planta-table';
 import { AuthGuard } from './services/auth-guard';
-import { LoginComponent } from './views/login/login';
+import { LoginComponent } from './auth/features/login/login';
 import { GuestGuard } from './services/guest-guard';
 
 export const routes: Routes = [

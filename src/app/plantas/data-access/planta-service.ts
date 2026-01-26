@@ -1,7 +1,7 @@
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { Injectable, signal } from '@angular/core';
-import { Planta } from '../plantas/planta';
-import { environment } from '../../environments/environment.development';
+import { Planta } from '../planta';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',

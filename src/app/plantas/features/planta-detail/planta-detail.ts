@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, OnInit } from '@angular/core';
-import { PlantaService } from '../../services/planta-service';
+import { PlantaService } from '../../data-access/planta-service';
 @Component({
   selector: 'app-planta-detail',
   imports: [],
