@@ -13,6 +13,8 @@ export class PlantaList implements OnInit {
   private _plantaService = inject(PlantaService);
 
   plantas = this._plantaService.plantas;
+  loading = this._plantaService.loading;
+  error = this._plantaService.error;
 
   toggleFavorite(planta: Planta) {
     planta.favorite = !planta.favorite;

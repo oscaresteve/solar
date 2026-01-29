@@ -14,6 +14,8 @@ export class PlantaTable implements OnInit {
   private plantaService: PlantaService = inject(PlantaService);
 
   plantas = this.plantaService.plantas;
+  loading = this.plantaService.loading;
+  error = this.plantaService.error;
 
   ngOnInit(): void {
     this.plantaService.readPlantas();

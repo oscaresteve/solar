@@ -1,13 +1,40 @@
-<td>{{ planta().id }}</td>
-<td>{{ planta().name }}</td>
-<td>{{ planta().location.latitude }}, {{ planta().location.longitude }}</td>
-<td>{{ planta().capacity }}</td>
-<td>{{ planta().user }}</td>
-<td>{{ planta().created_at }}</td>
-<td>
+<td class="px-6 py-4">{{ planta().id }}</td>
+<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+  {{ planta().name }}
+</th>
+<td class="px-6 py-4">{{ planta().location.latitude }}, {{ planta().location.longitude }}</td>
+<td class="px-6 py-4">{{ planta().capacity }}</td>
+<td class="px-6 py-4">{{ planta().user }}</td>
+<td class="px-6 py-4">{{ planta().created_at }}</td>
+<td class="px-6 py-4">
   @if (planta().photo) {
-  <img [src]="planta().photo" alt="{{ planta().name }}" width="80" />
+    <img [src]="planta().photo" alt="{{ planta().name }}" width="80" />
   } @else {
-  <span>-</span>
+    <span>-</span>
   }
+</td>
+<td class="px-6 py-4">
+  <a
+    [routerLink]="['/plantas', planta().id]"
+    class="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+  >
+    Ver Mas
+    <svg
+      class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 12H5m14 0-4 4m4-4-4-4"
+      />
+    </svg>
+  </a>
 </td>

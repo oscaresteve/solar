@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { Planta } from '../../planta';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: '[app-planta-table-row]',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './planta-table-row.html',
   styleUrl: './planta-table-row.scss',
 })

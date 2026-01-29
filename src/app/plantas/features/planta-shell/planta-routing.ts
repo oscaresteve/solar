@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
-import { Home } from '../../../shared/features/home/home';
+import { Dashboard } from '../dashboard/dashboard';
 import { PlantaDetail } from '../planta-detail/planta-detail';
-import { PlantaList } from '../planta-list/planta-list';
-import { PlantaTable } from '../planta-table/planta-table';
+import { Plantas } from '../plantas/plantas';
 
 export default [
-  { path: 'home', component: Home },
-  { path: 'tabla', component: PlantaTable },
-  { path: 'lista', component: PlantaList },
-  { path: 'planta/:id', component: PlantaDetail },
-  { path: '**', redirectTo: 'home' },
+  { path: 'dashboard', component: Dashboard },
+  { path: 'plantas', component: Plantas },
+  { path: 'plantas/:id', component: PlantaDetail },
+  { path: '**', redirectTo: 'dashboard' },
 ] as Routes;
