@@ -1,11 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { Planta } from '../../planta';
 import { RouterLink } from '@angular/router';
-import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-planta-item',
-  imports: [RouterLink, UpperCasePipe],
+  imports: [RouterLink],
   templateUrl: './planta-item.html',
   styleUrl: './planta-item.scss',
 })
