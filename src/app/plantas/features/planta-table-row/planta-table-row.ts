@@ -5,7 +5,7 @@ import { Planta } from '../../planta';
   selector: '[app-planta-table-row]',
   imports: [],
   templateUrl: './planta-table-row.html',
-  styleUrl: './planta-table-row.css',
+  styleUrl: './planta-table-row.scss',
 })
 export class PlantaTableRow {
   //planta!: Planta;

@@ -1,12 +1,16 @@
-<div class="container">
-  <div class="row row-cols-1 row-cols-md-4 g-4">
-    @for (planta of plantas(); track planta.id) {
-      <div class="col">
+<section class="bg-neutral-primary-soft min-h-screen py-10">
+  <div class="max-w-6xl mx-auto px-4">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-heading mb-2">Plantas disponibles</h1>
+      <p class="text-body text-sm">Explora las plantas registradas, su ubicación y capacidad.</p>
+    </header>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (planta of plantas(); track planta.id) {
         <app-planta-item
           [planta]="planta"
           (favoriteToggled)="toggleFavorite(planta)"
         ></app-planta-item>
-      </div>
-    }
+      }
+    </div>
   </div>
-</div>
+</section>

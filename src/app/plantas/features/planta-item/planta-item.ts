@@ -7,7 +7,7 @@ import { UpperCasePipe } from '@angular/common';
   selector: 'app-planta-item',
   imports: [RouterLink, UpperCasePipe],
   templateUrl: './planta-item.html',
-  styleUrl: './planta-item.css',
+  styleUrl: './planta-item.scss',
 })
 export class PlantaItem {
   planta = input.required<Planta>();

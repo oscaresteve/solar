@@ -9,7 +9,11 @@
   "projects": {
     "solar": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -25,10 +29,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/tailwind.css",
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {

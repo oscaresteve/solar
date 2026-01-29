@@ -1,19 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { Header } from './shared/features/header/header';
 import { RouterOutlet } from '@angular/router';
-import { initFlowbite } from 'flowbite';
-import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.scss',
 })
-export class App implements OnInit {
+export class App {
   protected readonly title = signal('solar');
-
-  ngOnInit(): void {
-    initFlowbite();
-  }
 }

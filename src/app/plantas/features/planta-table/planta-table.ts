@@ -8,7 +8,7 @@ import { PlantaService } from '../../data-access/planta-service';
   selector: 'app-planta-table',
   imports: [CommonModule, PlantaTableRow],
   templateUrl: './planta-table.html',
-  styleUrl: './planta-table.css',
+  styleUrl: './planta-table.scss',
 })
 export class PlantaTable implements OnInit {
   private plantaService: PlantaService = inject(PlantaService);

@@ -4,7 +4,7 @@ import { PlantaService } from '../../data-access/planta-service';
   selector: 'app-planta-detail',
   imports: [],
   templateUrl: './planta-detail.html',
-  styleUrl: './planta-detail.css',
+  styleUrl: './planta-detail.scss',
 })
 export class PlantaDetail implements OnInit {
   private plantaService: PlantaService = inject(PlantaService);

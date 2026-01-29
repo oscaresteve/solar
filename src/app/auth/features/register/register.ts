@@ -12,7 +12,7 @@ interface SignUpForm {
   selector: 'app-register',
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './register.html',
-  styleUrl: './register.css',
+  styleUrl: './register.scss',
 })
 export class Register {
   private _authService = inject(AuthService);

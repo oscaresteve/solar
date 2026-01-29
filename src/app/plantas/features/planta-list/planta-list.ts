@@ -7,10 +7,10 @@ import { PlantaService } from '../../data-access/planta-service';
   selector: 'app-planta-list',
   imports: [PlantaItem],
   templateUrl: './planta-list.html',
-  styleUrl: './planta-list.css',
+  styleUrl: './planta-list.scss',
 })
 export class PlantaList implements OnInit {
-  private _plantaService: PlantaService = inject(PlantaService);
+  private _plantaService = inject(PlantaService);
 
   plantas = this._plantaService.plantas;
 
