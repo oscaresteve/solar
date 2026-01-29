@@ -2,9 +2,9 @@
 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
   {{ planta().name }}
 </th>
-<td class="px-6 py-4">{{ planta().location.latitude }}, {{ planta().location.longitude }}</td>
+<td class="px-6 py-4">{{ planta().location['latitude'] }}, {{ planta().location['longitude'] }}</td>
 <td class="px-6 py-4">{{ planta().capacity }}</td>
-<td class="px-6 py-4">{{ planta().user }}</td>
+<td class="px-6 py-4">{{ planta().user_id }}</td>
 <td class="px-6 py-4">{{ planta().created_at }}</td>
 <td class="px-6 py-4">
   @if (planta().photo) {

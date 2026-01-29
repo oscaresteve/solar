@@ -1,10 +1,10 @@
 export interface Planta {
-  id: number;
-  created_at: number;
+  id: string;
+  created_at: string;
   name: string;
-  location: { latitude: number; longitude: number };
+  location: Record<string, any>;
   capacity: number;
-  user: string;
-  photo?: string;
-  favorite: Boolean;
+  user_id: string;
+  photo?: string | null;
+  favorite?: boolean | null;
 }

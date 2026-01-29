@@ -1,23 +1,26 @@
-import { Component, computed, inject, input, OnInit } from '@angular/core';
+import { Component, computed, inject, Input, OnInit } from '@angular/core';
 import { PlantaService } from '../../data-access/planta-service';
+import { PlantaLogsList } from '../planta-logs-list/planta-logs-list';
 @Component({
   selector: 'app-planta-detail',
-  imports: [],
+  imports: [PlantaLogsList],
   templateUrl: './planta-detail.html',
   styleUrl: './planta-detail.scss',
 })
 export class PlantaDetail implements OnInit {
-  private plantaService: PlantaService = inject(PlantaService);
+  private _plantaService: PlantaService = inject(PlantaService);
 
-  id = input<String>();
+  @Input() id!: string;
 
-  plantas = this.plantaService.plantas;
+  plantas = this._plantaService.plantas;
+  plantaLogs = this._plantaService.plantaLogs;
 
   planta = computed(() => {
-    return this.plantas().find((p) => p.id.toString() === this.id());
+    return this.plantas().find((p) => p.id.toString() === this.id);
   });
 
   ngOnInit(): void {
-    this.plantaService.readPlantas();
+    this._plantaService.readPlantas();
+    this._plantaService.readLogsDePlanta(this.id);
   }
 }

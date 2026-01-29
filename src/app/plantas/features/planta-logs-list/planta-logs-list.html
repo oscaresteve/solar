@@ -1,0 +1,38 @@
+<table class="w-full text-sm text-left rtl:text-right text-body">
+  <thead
+    class="text-sm text-body bg-neutral-secondary-medium border-b border-t border-default-medium"
+  >
+    <tr>
+      <th scope="col" class="px-6 py-3 font-medium">ID</th>
+      <th scope="col" class="px-6 py-3 font-medium">Fecha</th>
+      <th scope="col" class="px-6 py-3 font-medium">Planta</th>
+      <th scope="col" class="px-6 py-3 font-medium">Produccion</th>
+      <th scope="col" class="px-6 py-3 font-medium">Consumo</th>
+      <th scope="col" class="px-6 py-3 font-medium">Mensaje</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (loading()) {
+      <p class="text-center">Cargando las plantas...</p>
+    }
+    @if (error()) {
+      <p class="text-center">Error al cargar las planas...</p>
+    }
+    @if (!loading() && !error()) {
+      @for (plantaLog of plantaLogs(); track plantaLog.id) {
+        <tr
+          class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium"
+        >
+          <td class="px-6 py-4">{{ plantaLog.id }}</td>
+          <td class="px-6 py-4">{{ plantaLog.created_at }}</td>
+          <td class="px-6 py-4">{{ plantaLog.planta_id }}</td>
+          <td class="px-6 py-4">{{ plantaLog.production }}</td>
+          <td class="px-6 py-4">{{ plantaLog.consumption }}</td>
+          <td class="px-6 py-4">{{ plantaLog.message }}</td>
+        </tr>
+      } @empty {
+        <p class="text-center">No hay plantas que mostrar...</p>
+      }
+    }
+  </tbody>
+</table>

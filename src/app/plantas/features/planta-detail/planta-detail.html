@@ -14,8 +14,8 @@
         {{ planta()?.name }}
       </h2>
       <p class="text-base lg:text-lg">
-        <span class="font-medium">Latitud:</span> {{ planta()?.location?.latitude }},
-        <span class="font-medium">Longitud:</span> {{ planta()?.location?.longitude }}
+        <span class="font-medium">Latitud:</span> {{ planta()?.location?.['latitude'] }},
+        <span class="font-medium">Longitud:</span> {{ planta()?.location?.['longitude'] }}
       </p>
       <p class="text-base lg:text-lg">
         <span class="font-medium">Capacidad:</span> {{ planta()?.capacity }}
@@ -31,4 +31,6 @@
       />
     </div>
   </div>
+  <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">Logs de la planta solar</h1>
+  <app-planta-logs-list></app-planta-logs-list>
 </section>

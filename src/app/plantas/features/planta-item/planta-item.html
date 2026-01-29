@@ -6,15 +6,15 @@
   </a>
 
   <h5 class="mt-6 mb-2 text-2xl font-semibold tracking-tight text-heading">
-    {{ planta().name | uppercase }}
+    {{ planta().name }}
     <span style="cursor: pointer" (click)="toggleFavorite()">{{
       planta().favorite ? '♥️' : '🖤'
     }}</span>
   </h5>
 
   <p class="mb-6 text-body">
-    Ubicacion: Latitud: {{ planta().location.latitude }}, Longitud:
-    {{ planta().location.longitude }}
+    Ubicacion: Latitud: {{ planta().location['latitude'] }}, Longitud:
+    {{ planta().location['latitude'] }}
     Capacidad: {{ planta().capacity }}
   </p>
 
