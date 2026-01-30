@@ -1,9 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Planta } from '../planta';
+import { PlantaLog } from '../../plantas/planta-log';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
 
-interface PlantaState {
-  plantas: Planta[];
+interface PlantaLogsState {
+  plantaLogs: PlantaLog[];
   loading: boolean;
   error: boolean;
 }
@@ -11,34 +11,37 @@ interface PlantaState {
 @Injectable({
   providedIn: 'root',
 })
-export class PlantaService {
+export class PlantaLogsService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
-  private _state = signal<PlantaState>({
-    plantas: [],
+  private _state = signal<PlantaLogsState>({
+    plantaLogs: [],
     loading: false,
     error: false,
   });
 
-  plantas = computed(() => this._state().plantas);
+  plantaLogs = computed(() => this._state().plantaLogs);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
 
-  async readPlantas() {
+  async readLogsDePlanta(plantaId: string) {
     try {
       this._state.update((state) => ({
         ...state,
         loading: true,
       }));
 
-      const { data, error } = await this._supabaseClient.from('plantas').select('*');
+      const { data, error } = await this._supabaseClient
+        .from('planta_logs')
+        .select('*')
+        .eq('planta_id', plantaId);
 
       if (error) throw error;
 
       if (data) {
         this._state.update((state) => ({
           ...state,
-          plantas: data,
+          plantaLogs: data,
         }));
       }
     } catch (error) {
