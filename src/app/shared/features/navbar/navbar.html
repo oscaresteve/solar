@@ -1,0 +1,33 @@
+<nav
+  class="sticky top-0 flex items-center justify-between border border-gray-200 bg-white px-6 py-3"
+>
+  <div class="text-2xl font-semibold text-gray-800">Solar</div>
+
+  <div class="flex gap-6 text-lg text-gray-600">
+    <a
+      [routerLink]="['/dashboard']"
+      routerLinkActive="text-blue-600 font-semibold"
+      class="hover:text-gray-900"
+      >Dashboard</a
+    >
+    <a
+      [routerLink]="['/plantas']"
+      routerLinkActive="text-blue-600 font-semibold"
+      class="hover:text-gray-900"
+      >Plantas</a
+    >
+    <a
+      [routerLink]="['/cuenta']"
+      routerLinkActive="text-blue-600 font-semibold"
+      class="hover:text-gray-900"
+      >Cuenta</a
+    >
+  </div>
+
+  <button
+    class="rounded-lg border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100"
+    (click)="logOut()"
+  >
+    Cerrar Sesión
+  </button>
+</nav>
