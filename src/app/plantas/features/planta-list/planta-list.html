@@ -1,9 +1,9 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="grid grid-cols-5 gap-10 px-6">
   @if (loading()) {
-    <p class="text-center">Cargando las plantas...</p>
+    <p class="text-xl text-gray-600 italic">Cargando las plantas...</p>
   }
   @if (error()) {
-    <p class="text-center">Error al cargar las planas...</p>
+    <p class="text-xl text-gray-600 italic">Error al cargar las planas...</p>
   }
   @if (!loading() && !error()) {
     @for (planta of plantas(); track planta.id) {
@@ -12,7 +12,7 @@
         (favoriteToggled)="toggleFavorite(planta)"
       ></app-planta-item>
     } @empty {
-      <p class="text-center">No hay plantas que mostrar...</p>
+      <p class="text-xl text-gray-600 italic">No hay plantas que mostrar...</p>
     }
   }
 </div>
