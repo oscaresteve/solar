@@ -1,26 +1,25 @@
 <td class="px-6 py-4">{{ planta().id }}</td>
-<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+<td class="px-6 py-4 font-semibold">
   {{ planta().name }}
-</th>
+</td>
 <td class="px-6 py-4">{{ planta().location['latitude'] }}, {{ planta().location['longitude'] }}</td>
 <td class="px-6 py-4">{{ planta().capacity }}</td>
 <td class="px-6 py-4">{{ planta().user_id }}</td>
 <td class="px-6 py-4">{{ planta().created_at }}</td>
 <td class="px-6 py-4">
-  @if (planta().photo) {
-    <img [src]="planta().photo" alt="{{ planta().name }}" width="80" />
-  } @else {
-    <span>-</span>
-  }
+  <img
+    class="h-12 rounded-lg border border-gray-200 object-cover"
+    [src]="planta().photo || '/placeholder.png'"
+  />
 </td>
 <td class="px-6 py-4">
   <a
     [routerLink]="['/plantas', planta().id]"
-    class="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+    class="flex items-center rounded-lg border border-gray-300 px-4 py-2 text-sm hover:bg-gray-100"
   >
     Ver Mas
     <svg
-      class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5"
+      class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="24"

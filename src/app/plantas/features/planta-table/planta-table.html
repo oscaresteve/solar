@@ -1,37 +1,43 @@
-<div
-  class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
->
-  <table class="w-full text-sm text-left rtl:text-right text-body">
-    <thead
-      class="text-sm text-body bg-neutral-secondary-medium border-b border-t border-default-medium"
-    >
+<div class="mx-auto px-6 py-8">
+  <table
+    class="table-auto border-separate border-spacing-0 overflow-hidden rounded-xl border border-gray-300 bg-white text-left shadow-md"
+  >
+    <thead class="bg-gray-100">
       <tr>
-        <th scope="col" class="px-6 py-3 font-medium">ID</th>
-        <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
-        <th scope="col" class="px-6 py-3 font-medium">Ubicación</th>
-        <th scope="col" class="px-6 py-3 font-medium">Capacidad</th>
-        <th scope="col" class="px-6 py-3 font-medium">Usuario</th>
-        <th scope="col" class="px-6 py-3 font-medium">Fecha Creación</th>
-        <th scope="col" class="px-6 py-3 font-medium">Foto</th>
-        <th scope="col" class="px-6 py-3 font-medium">Acciones</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">ID</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Nombre</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Ubicación</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Capacidad</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Usuario</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Fecha Creación</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Foto</th>
+        <th class="px-6 py-3 font-semibold text-gray-700">Acciones</th>
       </tr>
     </thead>
     <tbody>
       @if (loading()) {
-        <p class="text-center">Cargando las plantas...</p>
+        <tr>
+          <td colspan="8" class="px-6 py-4 text-gray-500 italic">Cargando las plantas...</td>
+        </tr>
       }
       @if (error()) {
-        <p class="text-center">Error al cargar las planas...</p>
+        <tr>
+          <td colspan="8" class="px-6 py-4 text-red-500 italic">Error al cargar las plantas...</td>
+        </tr>
       }
       @if (!loading() && !error()) {
         @for (planta of plantas(); track planta.id) {
           <tr
-            class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium"
+            class="transition duration-200 hover:bg-gray-50"
             app-planta-table-row
             [plantaId]="planta"
           ></tr>
         } @empty {
-          <p class="text-center">No hay plantas que mostrar...</p>
+          <tr>
+            <td colspan="8" class="px-6 py-4 text-gray-500 italic">
+              No hay plantas que mostrar...
+            </td>
+          </tr>
         }
       }
     </tbody>

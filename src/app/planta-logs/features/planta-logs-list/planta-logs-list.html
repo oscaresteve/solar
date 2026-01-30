@@ -1,14 +1,14 @@
-<table class="w-full text-sm text-left rtl:text-right text-body">
-  <thead
-    class="text-sm text-body bg-neutral-secondary-medium border-b border-t border-default-medium"
-  >
+<table
+  class="table-auto border-separate border-spacing-0 overflow-hidden rounded-xl border border-gray-300 bg-white text-left shadow-md"
+>
+  <thead class="bg-gray-100">
     <tr>
-      <th scope="col" class="px-6 py-3 font-medium">ID</th>
-      <th scope="col" class="px-6 py-3 font-medium">Fecha</th>
-      <th scope="col" class="px-6 py-3 font-medium">Planta</th>
-      <th scope="col" class="px-6 py-3 font-medium">Produccion</th>
-      <th scope="col" class="px-6 py-3 font-medium">Consumo</th>
-      <th scope="col" class="px-6 py-3 font-medium">Mensaje</th>
+      <th class="px-6 py-3 font-medium">ID</th>
+      <th class="px-6 py-3 font-medium">Fecha</th>
+      <th class="px-6 py-3 font-medium">Planta</th>
+      <th class="px-6 py-3 font-medium">Produccion</th>
+      <th class="px-6 py-3 font-medium">Consumo</th>
+      <th class="px-6 py-3 font-medium">Mensaje</th>
     </tr>
   </thead>
   <tbody>
@@ -20,9 +20,7 @@
     }
     @if (!loading() && !error()) {
       @for (plantaLog of plantaLogs(); track plantaLog.id) {
-        <tr
-          class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium"
-        >
+        <tr class="transition duration-200 hover:bg-gray-50">
           <td class="px-6 py-4">{{ plantaLog.id }}</td>
           <td class="px-6 py-4">{{ plantaLog.created_at }}</td>
           <td class="px-6 py-4">{{ plantaLog.planta_id }}</td>
