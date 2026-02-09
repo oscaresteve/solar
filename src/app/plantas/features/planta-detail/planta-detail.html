@@ -10,11 +10,7 @@
       <h1 class="text-3xl font-semibold text-gray-800">
         {{ planta()?.name }}
       </h1>
-      <img
-        class="mt-6 rounded-xl border border-gray-300"
-        [src]="planta()?.photo || '/placeholder.png'"
-        alt=""
-      />
+      <img class="mt-6 rounded-xl border border-gray-300" [src]="planta()?.photo_url" alt="" />
     </div>
     <app-planta-logs-list></app-planta-logs-list>
   </div>

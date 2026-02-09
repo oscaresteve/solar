@@ -7,10 +7,7 @@
 <td class="px-6 py-4">{{ planta().user_id }}</td>
 <td class="px-6 py-4">{{ planta().created_at }}</td>
 <td class="px-6 py-4">
-  <img
-    class="h-12 rounded-lg border border-gray-200 object-cover"
-    [src]="planta().photo || '/placeholder.png'"
-  />
+  <img class="h-12 rounded-lg border border-gray-200 object-cover" [src]="planta().photo_url" />
 </td>
 <td class="px-6 py-4">
   <a

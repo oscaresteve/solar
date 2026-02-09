@@ -1,9 +1,5 @@
 <div class="rounded-xl border border-gray-300 bg-white p-6 shadow-md">
-  <img
-    class="rounded-xl border border-gray-300"
-    [src]="planta().photo || '/placeholder.png'"
-    alt=""
-  />
+  <img class="rounded-xl border border-gray-300" [src]="planta().photo_url" alt="" />
   <div class="py-2">
     <h5 class="text-xl font-semibold text-gray-800">
       {{ planta().name }}
@@ -11,7 +7,7 @@
 
     <p class="mt-2 text-gray-600">
       Ubicacion: Latitud: {{ planta().location['latitude'] }}, Longitud:
-      {{ planta().location['latitude'] }}
+      {{ planta().location['longitude'] }}
       Capacidad: {{ planta().capacity }}
     </p>
 
