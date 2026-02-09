@@ -24,6 +24,8 @@ export class Login {
     password: this._formBuilder.control(null, [Validators.required]),
   });
 
+  //Signal para mensage de error
+
   async submit() {
     if (this.form.invalid) return;
 

@@ -23,4 +23,6 @@ export class AuthService {
   signOut() {
     return this._supabaseClient.auth.signOut();
   }
+
+  //Detectar cambios de session
 }
