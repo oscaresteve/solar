@@ -1,5 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { SignUpWithPasswordCredentials } from '@supabase/supabase-js';
+import {
+  SignInWithPasswordCredentials,
+  SignUpWithPasswordCredentials,
+} from '@supabase/supabase-js';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
 
 @Injectable({
@@ -16,7 +19,7 @@ export class AuthService {
     return this._supabaseClient.auth.signUp(credentials);
   }
 
-  logIn(credentials: SignUpWithPasswordCredentials) {
+  logIn(credentials: SignInWithPasswordCredentials) {
     return this._supabaseClient.auth.signInWithPassword(credentials);
   }
 
@@ -25,4 +28,10 @@ export class AuthService {
   }
 
   //Detectar cambios de session
+
+  /* onAuthStateChange(callback: (event: string, session: any) => void) {
+    return this._supabaseClient.auth.onAuthStateChange(
+      (event, session) => callback(event, session)
+    );
+  } */
 }
