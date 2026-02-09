@@ -1,35 +1,47 @@
 <table
-  class="table-auto border-separate border-spacing-0 overflow-hidden rounded-xl border border-gray-300 bg-white text-left shadow-md"
+  class="table-auto border-separate border-spacing-0 overflow-hidden rounded-lg border border-gray-200 bg-white text-left"
 >
-  <thead class="bg-gray-100">
+  <thead class="bg-gray-50">
     <tr>
-      <th class="px-6 py-3 font-medium">ID</th>
-      <th class="px-6 py-3 font-medium">Fecha</th>
-      <th class="px-6 py-3 font-medium">Planta</th>
-      <th class="px-6 py-3 font-medium">Produccion</th>
-      <th class="px-6 py-3 font-medium">Consumo</th>
-      <th class="px-6 py-3 font-medium">Mensaje</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">ID</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Fecha</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Planta</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Produccion</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Consumo</th>
+      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Mensaje</th>
     </tr>
   </thead>
   <tbody>
     @if (loading()) {
-      <p class="text-center">Cargando las plantas...</p>
+      <tr>
+        <td colspan="6" class="px-6 py-4 text-sm text-gray-500 italic">
+          Cargando las plantas...
+        </td>
+      </tr>
     }
     @if (error()) {
-      <p class="text-center">Error al cargar las planas...</p>
+      <tr>
+        <td colspan="6" class="px-6 py-4 text-sm text-red-500 italic">
+          Error al cargar las planas...
+        </td>
+      </tr>
     }
     @if (!loading() && !error()) {
       @for (plantaLog of plantaLogs(); track plantaLog.id) {
         <tr class="transition duration-200 hover:bg-gray-50">
-          <td class="px-6 py-4">{{ plantaLog.id }}</td>
-          <td class="px-6 py-4">{{ plantaLog.created_at }}</td>
-          <td class="px-6 py-4">{{ plantaLog.planta_id }}</td>
-          <td class="px-6 py-4">{{ plantaLog.production }}</td>
-          <td class="px-6 py-4">{{ plantaLog.consumption }}</td>
-          <td class="px-6 py-4">{{ plantaLog.message }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.id }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.created_at }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.planta_id }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.production }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.consumption }}</td>
+          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.message }}</td>
         </tr>
       } @empty {
-        <p class="text-center">No hay plantas que mostrar...</p>
+        <tr>
+          <td colspan="6" class="px-6 py-4 text-sm text-gray-500 italic">
+            No hay plantas que mostrar...
+          </td>
+        </tr>
       }
     }
   </tbody>

@@ -1,11 +1,12 @@
 import { Component, computed, inject, Input, OnInit } from '@angular/core';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { PlantaService } from '../../data-access/planta-service';
 import { PlantaLogsList } from '../../../planta-logs/features/planta-logs-list/planta-logs-list';
 import { PlantaLogsService } from '../../../planta-logs/data-access/planta-logs-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
 @Component({
   selector: 'app-planta-detail',
-  imports: [PlantaLogsList, Navbar],
+  imports: [PlantaLogsList, Navbar, DatePipe, DecimalPipe],
   templateUrl: './planta-detail.html',
   styleUrl: './planta-detail.scss',
 })
