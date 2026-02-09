@@ -1,14 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../data-access/auth-service';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 
 interface SignUpForm {
   firstName: FormControl<null | string>;
   lastName: FormControl<null | string>;
   email: FormControl<null | string>;
   password: FormControl<null | string>;
+  confirmPassword: FormControl<null | string>;
 }
+
+const passwordsMatchValidator = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+
+  if (!password || !confirmPassword) return null;
+
+  return password === confirmPassword ? null : { passwordMismatch: true };
+};
 
 @Component({
   selector: 'app-register',
@@ -20,12 +37,16 @@ export class Register {
   private _authService = inject(AuthService);
   private _formBuilder = inject(FormBuilder);
 
-  form = this._formBuilder.group<SignUpForm>({
-    firstName: this._formBuilder.control(null, [Validators.required]),
-    lastName: this._formBuilder.control(null, [Validators.required]),
-    email: this._formBuilder.control(null, [Validators.required, Validators.email]),
-    password: this._formBuilder.control(null, [Validators.required]),
-  });
+  form = this._formBuilder.group<SignUpForm>(
+    {
+      firstName: this._formBuilder.control(null, [Validators.required]),
+      lastName: this._formBuilder.control(null, [Validators.required]),
+      email: this._formBuilder.control(null, [Validators.required, Validators.email]),
+      password: this._formBuilder.control(null, [Validators.required]),
+      confirmPassword: this._formBuilder.control(null, [Validators.required]),
+    },
+    { validators: [passwordsMatchValidator] }
+  );
 
   async submit() {
     if (this.form.invalid) return;

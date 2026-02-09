@@ -16,7 +16,18 @@
               name="firstName"
               id="firstName"
               formControlName="firstName"
-              class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              class="block w-full rounded-lg border bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              [class.border-red-500]="
+                form.controls.firstName.invalid &&
+                (form.controls.firstName.dirty || form.controls.firstName.touched)
+              "
+              [class.border-blue-500]="
+                form.controls.firstName.valid &&
+                (form.controls.firstName.dirty || form.controls.firstName.touched)
+              "
+              [class.border-gray-300]="
+                !(form.controls.firstName.dirty || form.controls.firstName.touched)
+              "
               placeholder="Tu nombre"
             />
           </div>
@@ -29,7 +40,18 @@
               name="lastName"
               id="lastName"
               formControlName="lastName"
-              class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              class="block w-full rounded-lg border bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              [class.border-red-500]="
+                form.controls.lastName.invalid &&
+                (form.controls.lastName.dirty || form.controls.lastName.touched)
+              "
+              [class.border-blue-500]="
+                form.controls.lastName.valid &&
+                (form.controls.lastName.dirty || form.controls.lastName.touched)
+              "
+              [class.border-gray-300]="
+                !(form.controls.lastName.dirty || form.controls.lastName.touched)
+              "
               placeholder="Tus apellidos"
             />
           </div>
@@ -42,7 +64,16 @@
               name="email"
               id="email"
               formControlName="email"
-              class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              class="block w-full rounded-lg border bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              [class.border-red-500]="
+                form.controls.email.invalid &&
+                (form.controls.email.dirty || form.controls.email.touched)
+              "
+              [class.border-blue-500]="
+                form.controls.email.valid &&
+                (form.controls.email.dirty || form.controls.email.touched)
+              "
+              [class.border-gray-300]="!(form.controls.email.dirty || form.controls.email.touched)"
               placeholder="name@company.com"
             />
           </div>
@@ -56,19 +87,43 @@
               id="password"
               formControlName="password"
               placeholder="••••••••"
-              class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              class="block w-full rounded-lg border bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              [class.border-red-500]="
+                form.controls.password.invalid &&
+                (form.controls.password.dirty || form.controls.password.touched)
+              "
+              [class.border-blue-500]="
+                form.controls.password.valid &&
+                (form.controls.password.dirty || form.controls.password.touched)
+              "
+              [class.border-gray-300]="
+                !(form.controls.password.dirty || form.controls.password.touched)
+              "
             />
           </div>
           <div>
-            <label for="confirm-password" class="mb-2 block text-sm font-medium text-gray-700"
+            <label for="confirmPassword" class="mb-2 block text-sm font-medium text-gray-700"
               >Confirma tu contraseña</label
             >
             <input
               type="password"
-              name="confirm-password"
-              id="confirm-password"
+              name="confirmPassword"
+              id="confirmPassword"
+              formControlName="confirmPassword"
               placeholder="••••••••"
-              class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              class="block w-full rounded-lg border bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-gray-900/10 focus:outline-none"
+              [class.border-red-500]="
+                (form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched) &&
+                (form.controls.confirmPassword.invalid || form.hasError('passwordMismatch'))
+              "
+              [class.border-blue-500]="
+                (form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched) &&
+                form.controls.confirmPassword.valid &&
+                !form.hasError('passwordMismatch')
+              "
+              [class.border-gray-300]="
+                !(form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched)
+              "
             />
           </div>
           <div class="flex items-start">
