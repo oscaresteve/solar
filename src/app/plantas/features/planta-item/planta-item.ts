@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { Planta } from '../../planta';
 import { RouterLink } from '@angular/router';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 @Component({
   selector: 'app-planta-item',
-  imports: [RouterLink],
+  imports: [RouterLink, Icon],
   templateUrl: './planta-item.html',
   styleUrl: './planta-item.scss',
 })
