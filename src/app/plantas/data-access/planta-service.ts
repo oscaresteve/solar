@@ -55,19 +55,17 @@ export class PlantaService {
     return data.publicUrl;
   }
 
-  /* async uploadPlantaPhoto(file: File): Promise<string> {
-    const fileExt = file.name.split('.').pop();
-    const fileName = crypto.randomUUID();
-    const filePath = `plantas/${fileName}.${fileExt}`;
+  async uploadPlantaPhoto(file: File, plantaId: string): Promise<string> {
+    const filePath = plantaId;
 
     const { error } = await this._supabaseClient.storage.from('plantas').upload(filePath, file, {
-      upsert: false,
+      upsert: true,
     });
 
     if (error) throw error;
 
     return filePath;
-  } */
+  }
 
   async readPlantas() {
     try {
@@ -95,7 +93,7 @@ export class PlantaService {
   }
 
   async createPlanta(
-    planta: Omit<Planta, 'id' | 'created_at' | 'photo_url'>,
+    planta: Omit<Planta, 'id' | 'created_at' | 'photo_url' | 'user_id'> & { user_id?: string },
   ): Promise<Planta | null> {
     try {
       this.setLoading(true);
