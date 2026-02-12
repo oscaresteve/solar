@@ -4,7 +4,6 @@ import { SupabaseService } from '../../shared/data-access/supabase-service';
 interface UserState {
   first_name: string | null;
   last_name: string | null;
-  email: string | null;
   loading: boolean;
   error: boolean;
 }
@@ -18,14 +17,12 @@ export class UserService {
   private _state = signal<UserState>({
     first_name: null,
     last_name: null,
-    email: null,
     loading: false,
     error: false,
   });
 
   first_name = computed(() => this._state().first_name);
   last_name = computed(() => this._state().last_name);
-  email = computed(() => this._state().email);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
 
@@ -43,30 +40,19 @@ export class UserService {
     }));
   }
 
-  async readUser() {
+  async readProfile() {
     try {
       this.setLoading(true);
       this.setError(false);
 
-      const {
-        data: { user: userData },
-        error: userError,
-      } = await this._supabaseClient.auth.getUser();
+      const { data, error } = await this._supabaseClient.from('profiles').select('*').single();
 
-      if (userError) throw userError;
-
-      const { data: profileData, error: profileError } = await this._supabaseClient
-        .from('profiles')
-        .select('*')
-        .single();
-
-      if (profileError) throw profileError;
+      if (error) throw error;
 
       this._state.update((state) => ({
         ...state,
-        first_name: profileData.first_name ?? null,
-        last_name: profileData.last_name ?? null,
-        email: userData?.email ?? null,
+        first_name: data.first_name ?? null,
+        last_name: data.last_name ?? null,
       }));
     } catch (error) {
       console.error(error);
