@@ -8,6 +8,11 @@ export const routes: Routes = [
     loadChildren: () => import('./auth/features/auth-shell/auth-routing'),
   },
   {
+    path: 'user',
+    canActivate: [privateGuard],
+    loadChildren: () => import('./user/features/user-shell/user-routing'),
+  },
+  {
     path: '',
     canActivate: [privateGuard],
     loadChildren: () => import('./plantas/features/planta-shell/planta-routing'),
