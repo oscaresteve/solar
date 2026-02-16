@@ -1,6 +1,6 @@
 import { Component, computed, inject, Input, OnInit } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { PlantaLogsList } from '../../../planta-logs/features/planta-logs-list/planta-logs-list';
 import { PlantaLogsService } from '../../../planta-logs/data-access/planta-logs-service';
@@ -16,6 +16,7 @@ export class PlantaDetail implements OnInit {
   private _plantaService: PlantaService = inject(PlantaService);
   private _plantaLogsService: PlantaLogsService = inject(PlantaLogsService);
   private _authService: AuthService = inject(AuthService);
+  private _router: Router = inject(Router);
 
   @Input() id!: string;
 
@@ -30,6 +31,13 @@ export class PlantaDetail implements OnInit {
   canEdit = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
 
   canDelete = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
+
+  async onDelete() {
+    const deleted = await this._plantaService.deletePlanta(this.id);
+    if (deleted) {
+      this._router.navigateByUrl('plantas');
+    }
+  }
 
   ngOnInit(): void {
     this._authService.readUser();
