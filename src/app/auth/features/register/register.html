@@ -6,7 +6,7 @@
           <h1 class="text-2xl font-semibold text-gray-900">Crea tu cuenta</h1>
           <p class="mt-2 text-sm text-gray-500">Empieza a gestionar tus plantas solares.</p>
         </div>
-        <form class="space-y-5" action="#" [formGroup]="form" (ngSubmit)="submit()">
+        <form class="space-y-5" action="#" [formGroup]="form" (ngSubmit)="onSubmit($event)">
           <div>
             <label for="firstName" class="mb-2 block text-sm font-medium text-gray-700"
               >Nombre</label

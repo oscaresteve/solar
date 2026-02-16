@@ -45,10 +45,11 @@ export class Register {
       password: this._formBuilder.control(null, [Validators.required]),
       confirmPassword: this._formBuilder.control(null, [Validators.required]),
     },
-    { validators: [passwordsMatchValidator] }
+    { validators: [passwordsMatchValidator] },
   );
 
-  async submit() {
+  async onSubmit(event: Event) {
+    event.preventDefault();
     if (this.form.invalid) return;
 
     try {

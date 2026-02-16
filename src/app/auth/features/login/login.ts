@@ -26,7 +26,8 @@ export class Login {
 
   //Signal para mensage de error
 
-  async submit() {
+  async onSubmit(event: Event) {
+    event.preventDefault();
     if (this.form.invalid) return;
 
     try {
