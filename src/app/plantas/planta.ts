@@ -2,7 +2,8 @@ export interface Planta {
   id: string;
   created_at: string;
   name: string;
-  location: Record<string, any>;
+  latitude: number;
+  longitude: number;
   capacity: number;
   user_id: string;
   photo_path?: string | null;
