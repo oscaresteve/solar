@@ -30,7 +30,9 @@ export class PlantaDetail implements OnInit {
 
   canEdit = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
 
-  canDelete = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
+  canDelete = computed(() =>
+    this._plantaService.canDeletePlanta(this.planta()?.user_id, this.uid()),
+  );
 
   async onDelete() {
     const deleted = await this._plantaService.deletePlanta(this.id);
@@ -41,7 +43,7 @@ export class PlantaDetail implements OnInit {
 
   ngOnInit(): void {
     this._authService.readUser();
-    this._plantaService.readPlantas();
+    this._plantaService.readPlantaById(this.id);
     this._plantaLogsService.readLogsDePlanta(this.id);
   }
 }

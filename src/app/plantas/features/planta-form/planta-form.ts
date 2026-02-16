@@ -60,9 +60,13 @@ export class PlantaForm implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id.set(this._route.snapshot.paramMap.get('id'));
-    this._plantaService.readPlantas();
+
+    const id = this.id();
+    if (!id) return;
+
+    await this._plantaService.readPlantaById(id);
   }
 
   async onSubmit(event: Event) {

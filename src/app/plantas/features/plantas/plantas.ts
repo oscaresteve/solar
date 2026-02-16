@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PlantaTable } from '../planta-table/planta-table';
 import { Navbar } from '../../../shared/features/navbar/navbar';
+import { PlantaService } from '../../data-access/planta-service';
 
 @Component({
   selector: 'app-plantas',
@@ -8,4 +9,14 @@ import { Navbar } from '../../../shared/features/navbar/navbar';
   templateUrl: './plantas.html',
   styleUrl: './plantas.scss',
 })
-export class Plantas {}
+export class Plantas implements OnInit {
+  private _plantaService = inject(PlantaService);
+
+  plantas = this._plantaService.plantas;
+  loading = this._plantaService.loading;
+  error = this._plantaService.error;
+
+  ngOnInit(): void {
+    this._plantaService.ensurePlantasLoaded();
+  }
+}

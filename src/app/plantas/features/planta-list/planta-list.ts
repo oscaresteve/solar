@@ -21,6 +21,6 @@ export class PlantaList implements OnInit {
   }
 
   ngOnInit(): void {
-    this._plantaService.readPlantas();
+    this._plantaService.ensurePlantasLoaded();
   }
 }

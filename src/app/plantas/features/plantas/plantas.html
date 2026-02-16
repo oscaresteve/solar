@@ -4,5 +4,9 @@
     <h1 class="text-2xl font-semibold text-gray-900">Pagina detallada de plantas solares</h1>
     <p class="mt-1 text-sm text-gray-500">Vista tipo tabla con detalles y comparación.</p>
   </header>
-  <app-planta-table></app-planta-table>
+  <app-planta-table
+    [plantas]="plantas()"
+    [loading]="loading()"
+    [error]="error()"
+  ></app-planta-table>
 </section>

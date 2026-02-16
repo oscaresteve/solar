@@ -6,6 +6,7 @@ interface PlantaState {
   plantas: Planta[];
   loading: boolean;
   error: boolean;
+  loaded: boolean;
 }
 
 @Injectable({
@@ -18,6 +19,7 @@ export class PlantaService {
     plantas: [],
     loading: false,
     error: false,
+    loaded: false,
   });
 
   plantas = computed(() => this._state().plantas);
@@ -80,11 +82,54 @@ export class PlantaService {
         this._state.update((state) => ({
           ...state,
           plantas: plantasConFoto,
+          loaded: true,
         }));
       }
     } catch (error) {
       console.error(error);
       this.setError(true);
+    } finally {
+      this.setLoading(false);
+    }
+  }
+
+  async ensurePlantasLoaded() {
+    if (this._state().loaded) return;
+    await this.readPlantas();
+  }
+
+  async readPlantaById(id: string): Promise<Planta | null> {
+    const plantaEnEstado = this._state().plantas.find((planta) => planta.id.toString() === id);
+    if (plantaEnEstado) return plantaEnEstado;
+
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const { data, error } = await this._supabaseClient
+        .from('plantas')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        const plantaConFoto = this.mapPlantaWithPhoto(data);
+
+        this._state.update((state) => ({
+          ...state,
+          plantas: [plantaConFoto, ...state.plantas.filter((planta) => planta.id !== data.id)],
+        }));
+
+        return plantaConFoto;
+      }
+
+      return null;
+    } catch (error) {
+      console.error(error);
+      this.setError(true);
+      return null;
     } finally {
       this.setLoading(false);
     }
