@@ -5,6 +5,7 @@ import { PlantaService } from '../../data-access/planta-service';
 import { PlantaLogsList } from '../../../planta-logs/features/planta-logs-list/planta-logs-list';
 import { PlantaLogsService } from '../../../planta-logs/data-access/planta-logs-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
+import { AuthService } from '../../../auth/data-access/auth-service';
 @Component({
   selector: 'app-planta-detail',
   imports: [PlantaLogsList, Navbar, RouterLink, DatePipe, DecimalPipe],
@@ -14,17 +15,22 @@ import { Navbar } from '../../../shared/features/navbar/navbar';
 export class PlantaDetail implements OnInit {
   private _plantaService: PlantaService = inject(PlantaService);
   private _plantaLogsService: PlantaLogsService = inject(PlantaLogsService);
+  private _authService: AuthService = inject(AuthService);
 
   @Input() id!: string;
 
   plantas = this._plantaService.plantas;
   plantaLogs = this._plantaLogsService.plantaLogs;
+  uid = this._authService.uid;
 
   planta = computed(() => {
     return this.plantas().find((p) => p.id.toString() === this.id);
   });
 
+  canEdit = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
+
   ngOnInit(): void {
+    this._authService.readUser();
     this._plantaService.readPlantas();
     this._plantaLogsService.readLogsDePlanta(this.id);
   }

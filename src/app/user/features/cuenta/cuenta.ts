@@ -16,6 +16,7 @@ export class Cuenta implements OnInit {
   first_name = this._userService.first_name;
   last_name = this._userService.last_name;
   email = this._authService.email;
+  uid = this._authService.uid;
   loading = this._userService.loading;
   error = this._userService.error;
 

@@ -12,13 +12,15 @@
         <span class="rounded border border-gray-300 bg-gray-50 px-2 py-1">
           ID #{{ planta()?.id }}
         </span>
-        <button
-          class="rounded border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
-          type="button"
-          [routerLink]="['/plantas', planta()?.id, 'edit']"
-        >
-          Editar
-        </button>
+        @if (canEdit()) {
+          <button
+            class="rounded border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 hover:bg-gray-50"
+            type="button"
+            [routerLink]="['/plantas', planta()?.id, 'edit']"
+          >
+            Editar
+          </button>
+        }
         <button
           class="rounded border border-red-200 bg-red-50 px-3 py-1 text-sm text-red-700 hover:bg-red-100"
           type="button"

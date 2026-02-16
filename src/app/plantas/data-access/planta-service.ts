@@ -50,8 +50,6 @@ export class PlantaService {
 
     const { data } = this._supabaseClient.storage.from('plantas').getPublicUrl(photoPath);
 
-    console.log(data);
-
     return data.publicUrl;
   }
 
@@ -182,5 +180,13 @@ export class PlantaService {
     } finally {
       this.setLoading(false);
     }
+  }
+
+  canEditPlanta(
+    ownerUserId: string | null | undefined,
+    authUid: string | null | undefined,
+  ): boolean {
+    if (!ownerUserId || !authUid) return false;
+    return ownerUserId === authUid;
   }
 }

@@ -7,6 +7,7 @@ import { SupabaseService } from '../../shared/data-access/supabase-service';
 
 interface AuthState {
   email: string | null;
+  uid: string | null;
   loading: boolean;
   error: boolean;
 }
@@ -18,11 +19,13 @@ export class AuthService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
   private _state = signal<AuthState>({
     email: null,
+    uid: null,
     loading: false,
     error: false,
   });
 
   email = computed(() => this._state().email);
+  uid = computed(() => this._state().uid);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
 
@@ -52,6 +55,7 @@ export class AuthService {
       this._state.update((state) => ({
         ...state,
         email: data.user.email ?? null,
+        uid: data.user.id ?? null,
       }));
     } catch (error) {
       console.error(error);
