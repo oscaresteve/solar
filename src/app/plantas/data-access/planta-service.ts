@@ -182,11 +182,16 @@ export class PlantaService {
     }
   }
 
-  canEditPlanta(
-    ownerUserId: string | null | undefined,
+  canEditPlanta(ownerUid: string | null | undefined, authUid: string | null | undefined): boolean {
+    if (!ownerUid || !authUid) return false;
+    return ownerUid === authUid;
+  }
+
+  canDeletePlanta(
+    ownerUid: string | null | undefined,
     authUid: string | null | undefined,
   ): boolean {
-    if (!ownerUserId || !authUid) return false;
-    return ownerUserId === authUid;
+    if (!ownerUid || !authUid) return false;
+    return ownerUid === authUid;
   }
 }

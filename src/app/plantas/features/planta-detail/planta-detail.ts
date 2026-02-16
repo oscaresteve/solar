@@ -29,6 +29,8 @@ export class PlantaDetail implements OnInit {
 
   canEdit = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
 
+  canDelete = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
+
   ngOnInit(): void {
     this._authService.readUser();
     this._plantaService.readPlantas();
