@@ -1,31 +1,29 @@
 import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
+import { form, FormField, required } from '@angular/forms/signals';
+
+interface plantaFormData {
+  name: string;
+  capacity: number;
+  latitude: number;
+  longitude: number;
+}
 
 @Component({
   selector: 'app-planta-form',
-  imports: [Navbar, RouterLink, ReactiveFormsModule],
+  imports: [Navbar, RouterLink, FormField],
   templateUrl: './planta-form.html',
   styleUrl: './planta-form.scss',
 })
 export class PlantaForm implements OnInit {
   private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
   private _plantaService = inject(PlantaService);
-  private _formBuilder = inject(FormBuilder);
 
   plantas = this._plantaService.plantas;
   id = signal<string | null>(null);
-  photoFile = signal<File | null>(null);
-
-  form = this._formBuilder.group({
-    name: ['', [Validators.required]],
-    capacity: [null as number | null, [Validators.required]],
-    latitude: [''],
-    longitude: [''],
-    favorite: [false],
-  });
 
   planta = computed(() => {
     const id = this.id();
@@ -36,81 +34,60 @@ export class PlantaForm implements OnInit {
 
   isEditing = computed(() => Boolean(this.id()));
 
-  private _syncForm = effect(() => {
-    const planta = this.planta();
-    if (!planta) {
-      this.photoFile.set(null);
-      this.form.reset({
-        name: '',
-        capacity: null,
-        latitude: '',
-        longitude: '',
-        favorite: false,
-      });
-      return;
-    }
-
-    this.photoFile.set(null);
-    this.form.reset({
-      name: planta.name ?? '',
-      capacity: planta.capacity ?? null,
-      latitude: planta.location?.['latitude'] ?? '',
-      longitude: planta.location?.['longitude'] ?? '',
-      favorite: planta.favorite ?? false,
-    });
+  plantaFormModel = signal<plantaFormData>({
+    name: '',
+    capacity: 0,
+    latitude: 0,
+    longitude: 0,
   });
+
+  plantaForm = form(this.plantaFormModel, (schemaPath) => {
+    required(schemaPath.name, { message: 'name is required' });
+    required(schemaPath.capacity, { message: 'capacity is required' });
+    required(schemaPath.latitude, { message: 'latitude is required' });
+    required(schemaPath.longitude, { message: 'longitude is required' });
+  });
+
+  constructor() {
+    effect(() => {
+      const planta = this.planta();
+      if (!planta) return;
+
+      this.plantaForm.name().value.set(planta.name);
+      this.plantaForm.capacity().value.set(planta.capacity);
+      this.plantaForm.latitude().value.set(planta.latitude);
+      this.plantaForm.longitude().value.set(planta.longitude);
+    });
+  }
 
   ngOnInit(): void {
     this.id.set(this._route.snapshot.paramMap.get('id'));
     this._plantaService.readPlantas();
   }
 
-  onPhotoSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.photoFile.set(input.files?.[0] ?? null);
-  }
-
-  private buildPayload() {
-    const { name, capacity, latitude, longitude, favorite } = this.form.getRawValue();
-
-    return {
-      name: name ?? '',
-      capacity: typeof capacity === 'number' ? capacity : Number(capacity ?? 0),
-      location: {
-        latitude: latitude ?? '',
-        longitude: longitude ?? '',
-      },
-      favorite: favorite ?? false,
+  async onSubmit(event: Event) {
+    event.preventDefault();
+    const formValue = this.plantaFormModel();
+    const payload = {
+      ...formValue,
+      latitude: Number(formValue.latitude),
+      longitude: Number(formValue.longitude),
     };
-  }
 
-  async save() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    if (this.isEditing()) {
+      const id = this.id();
+      if (!id) return;
 
-    const payload = this.buildPayload();
-    const id = this.id();
-
-    if (!id) {
-      const nueva = await this._plantaService.createPlanta(payload);
-      const file = this.photoFile();
-
-      if (nueva && file) {
-        const photoPath = await this._plantaService.uploadPlantaPhoto(file, nueva.id);
-        await this._plantaService.updatePlanta(nueva.id, { photo_path: photoPath });
+      const updatedPlanta = await this._plantaService.updatePlanta(id, payload);
+      if (updatedPlanta) {
+        await this._router.navigate(['/plantas', updatedPlanta.id]);
       }
-
       return;
     }
 
-    await this._plantaService.updatePlanta(id, payload);
-
-    const file = this.photoFile();
-    if (file) {
-      const photoPath = await this._plantaService.uploadPlantaPhoto(file, id);
-      await this._plantaService.updatePlanta(id, { photo_path: photoPath });
+    const createdPlanta = await this._plantaService.createPlanta(payload);
+    if (createdPlanta) {
+      await this._router.navigate(['/plantas', createdPlanta.id]);
     }
   }
 }

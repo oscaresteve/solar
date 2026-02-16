@@ -37,7 +37,7 @@ export class Login {
       });
       if (error) throw error;
 
-      this._router.navigate(['/dashboard']);
+      this._router.navigateByUrl('/dashboard');
     } catch (error) {
       console.error(error);
       alert('Credenciales incorrectas');

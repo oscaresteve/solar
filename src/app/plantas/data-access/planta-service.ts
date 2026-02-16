@@ -91,7 +91,7 @@ export class PlantaService {
   }
 
   async createPlanta(
-    planta: Omit<Planta, 'id' | 'created_at' | 'photo_url' | 'user_id'> & { user_id?: string },
+    planta: Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>,
   ): Promise<Planta | null> {
     try {
       this.setLoading(true);
@@ -104,16 +104,19 @@ export class PlantaService {
         .single();
 
       if (error) throw error;
-      if (!data) return null;
 
-      const plantaConFoto = this.mapPlantaWithPhoto(data);
+      if (data) {
+        const plantaConFoto = this.mapPlantaWithPhoto(data);
 
-      this._state.update((state) => ({
-        ...state,
-        plantas: [plantaConFoto, ...state.plantas],
-      }));
+        this._state.update((state) => ({
+          ...state,
+          plantas: [plantaConFoto, ...state.plantas],
+        }));
 
-      return plantaConFoto;
+        return plantaConFoto;
+      }
+
+      return null;
     } catch (error) {
       console.error(error);
       this.setError(true);
@@ -124,9 +127,13 @@ export class PlantaService {
   }
 
   async updatePlanta(
-    id: string,
-    changes: Partial<Omit<Planta, 'id' | 'created_at' | 'photo_url'>>,
+    id: string | null,
+    changes: Partial<
+      Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>
+    >,
   ): Promise<Planta | null> {
+    if (!id) return null;
+
     try {
       this.setLoading(true);
       this.setError(false);
@@ -139,16 +146,19 @@ export class PlantaService {
         .single();
 
       if (error) throw error;
-      if (!data) return null;
 
-      const plantaConFoto = this.mapPlantaWithPhoto(data);
+      if (data) {
+        const plantaConFoto = this.mapPlantaWithPhoto(data);
 
-      this._state.update((state) => ({
-        ...state,
-        plantas: state.plantas.map((planta) => (planta.id === id ? plantaConFoto : planta)),
-      }));
+        this._state.update((state) => ({
+          ...state,
+          plantas: state.plantas.map((planta) => (planta.id === id ? plantaConFoto : planta)),
+        }));
 
-      return plantaConFoto;
+        return plantaConFoto;
+      }
+
+      return null;
     } catch (error) {
       console.error(error);
       this.setError(true);
