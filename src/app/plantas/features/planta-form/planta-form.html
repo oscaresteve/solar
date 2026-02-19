@@ -77,8 +77,8 @@
         </div>
 
         <div class="grid gap-4">
-          <label class="text-sm font-medium text-gray-700">
-            Foto
+          <label class="text-sm text-gray-700">
+            Imagen
             <input
               type="file"
               accept="image/*"
@@ -86,6 +86,14 @@
               (change)="onPhotoSelected($event)"
             />
           </label>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <img
+            class="h-48 w-full rounded border border-gray-200 object-cover"
+            [src]="previewURL()"
+            alt="Previsualizacion de la imagen"
+          />
         </div>
 
         <button

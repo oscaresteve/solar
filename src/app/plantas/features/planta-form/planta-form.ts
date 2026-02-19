@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
@@ -17,7 +17,7 @@ interface plantaFormData {
   templateUrl: './planta-form.html',
   styleUrl: './planta-form.scss',
 })
-export class PlantaForm implements OnInit {
+export class PlantaForm implements OnInit, OnDestroy {
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
   private _plantaService = inject(PlantaService);
@@ -34,6 +34,13 @@ export class PlantaForm implements OnInit {
 
   isEditing = computed(() => Boolean(this.id()));
   selectedPhoto = signal<File | null>(null);
+  private previewObjectUrl = signal<string | null>(null);
+
+  previewURL = computed(() => {
+    const objectUrl = this.previewObjectUrl();
+    if (objectUrl) return objectUrl;
+    return this.planta()?.photo_url ?? '/placeholder.png';
+  });
 
   plantaFormModel = signal<plantaFormData>({
     name: '',
@@ -104,5 +111,22 @@ export class PlantaForm implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] ?? null;
     this.selectedPhoto.set(file);
+
+    this.revokePreviewObjectUrl();
+    if (file) {
+      this.previewObjectUrl.set(URL.createObjectURL(file));
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.revokePreviewObjectUrl();
+  }
+
+  private revokePreviewObjectUrl() {
+    const currentObjectUrl = this.previewObjectUrl();
+    if (!currentObjectUrl) return;
+
+    URL.revokeObjectURL(currentObjectUrl);
+    this.previewObjectUrl.set(null);
   }
 }
