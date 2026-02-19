@@ -40,7 +40,7 @@ export class PlantaService {
     }));
   }
 
-  private mapPlantaWithPhoto(planta: Planta): Planta {
+  private mapPlantaWithPhotoUrl(planta: Planta): Planta {
     return {
       ...planta,
       photo_url: this.getPlantaPhotoUrl(planta.photo_path),
@@ -55,16 +55,47 @@ export class PlantaService {
     return data.publicUrl;
   }
 
-  async uploadPlantaPhoto(file: File, plantaId: string): Promise<string> {
-    const filePath = plantaId;
+  async uploadPlantaPhoto(file: File, plantaId: string): Promise<Planta | null> {
+    try {
+      const photoPath = plantaId;
 
-    const { error } = await this._supabaseClient.storage.from('plantas').upload(filePath, file, {
-      upsert: true,
-    });
+      const { error } = await this._supabaseClient.storage.from('plantas').upload(photoPath, file, {
+        upsert: true,
+      });
 
-    if (error) throw error;
+      if (error) throw error;
 
-    return filePath;
+      const planta = await this.updatePlantaPhotoPath(photoPath, plantaId);
+
+      if (planta) {
+        return planta;
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  async updatePlantaPhotoPath(photoPath: string, id: string): Promise<Planta | null> {
+    try {
+      const { data, error } = await this._supabaseClient
+        .from('plantas')
+        .update({ photo_path: photoPath })
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        return data;
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
   }
 
   async readPlantas() {
@@ -77,7 +108,7 @@ export class PlantaService {
       if (error) throw error;
 
       if (data) {
-        const plantasConFoto = data.map((planta) => this.mapPlantaWithPhoto(planta));
+        const plantasConFoto = data.map((planta) => this.mapPlantaWithPhotoUrl(planta));
 
         this._state.update((state) => ({
           ...state,
@@ -115,7 +146,7 @@ export class PlantaService {
       if (error) throw error;
 
       if (data) {
-        const plantaConFoto = this.mapPlantaWithPhoto(data);
+        const plantaConFoto = this.mapPlantaWithPhotoUrl(data);
 
         this._state.update((state) => ({
           ...state,
@@ -137,6 +168,7 @@ export class PlantaService {
 
   async createPlanta(
     planta: Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>,
+    file?: File | null,
   ): Promise<Planta | null> {
     try {
       this.setLoading(true);
@@ -151,7 +183,8 @@ export class PlantaService {
       if (error) throw error;
 
       if (data) {
-        const plantaConFoto = this.mapPlantaWithPhoto(data);
+        const plantaFinal = file ? await this.uploadPlantaPhoto(file, data.id) : data;
+        const plantaConFoto = this.mapPlantaWithPhotoUrl(plantaFinal ?? data);
 
         this._state.update((state) => ({
           ...state,
@@ -176,6 +209,7 @@ export class PlantaService {
     changes: Partial<
       Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>
     >,
+    file?: File | null,
   ): Promise<Planta | null> {
     if (!id) return null;
 
@@ -193,7 +227,7 @@ export class PlantaService {
       if (error) throw error;
 
       if (data) {
-        const plantaConFoto = this.mapPlantaWithPhoto(data);
+        const plantaConFoto = this.mapPlantaWithPhotoUrl(data);
 
         this._state.update((state) => ({
           ...state,
