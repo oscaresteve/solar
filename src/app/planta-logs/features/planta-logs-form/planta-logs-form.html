@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+<section class="min-h-screen bg-gray-100">
+  <header class="border-b border-gray-200 bg-white px-6 py-6">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm text-gray-500">Registro</p>
+        <h1 class="mt-1 text-2xl font-semibold text-gray-900">
+          Nuevo Registro en {{ planta()?.name }}
+        </h1>
+        <p class="mt-1 text-sm text-gray-500">Crea un nuevo registro en la Planta Solar</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a
+          class="rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          [routerLink]="['/plantas', planta()?.id]"
+        >
+          Cancelar
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="px-6 py-8">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <form
+        class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 lg:col-span-2"
+        (submit)="onSubmit($event)"
+      >
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="text-sm text-gray-700">
+            Produccion
+            <input
+              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
+              type="number"
+              placeholder="46000"
+              [formField]="plantaLogsForm.production"
+            />
+          </label>
+          <label class="text-sm text-gray-700">
+            Consumo
+            <input
+              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
+              type="number"
+              placeholder="25000"
+              [formField]="plantaLogsForm.consumption"
+            />
+          </label>
+        </div>
+
+        <div class="">
+          <label class="text-sm text-gray-700">
+            Mensaje
+            <input
+              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
+              type="text"
+              placeholder="Mensaje de el registro"
+              [formField]="plantaLogsForm.message"
+            />
+          </label>
+        </div>
+
+        <button
+          class="rounded bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-800"
+          type="submit"
+          [disabled]="loading()"
+        >
+          Guardar
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

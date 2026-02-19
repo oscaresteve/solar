@@ -5,7 +5,7 @@ import { Navbar } from '../../../shared/features/navbar/navbar';
 import { form, FormField, required } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 
-interface plantaFormData {
+interface PlantaFormData {
   name: string;
   capacity: number;
   latitude: number;
@@ -32,7 +32,7 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   private previewObjectUrl = signal<string | null>(null);
 
-  private plantaFormModel = signal<plantaFormData>({
+  private plantaFormModel = signal<PlantaFormData>({
     name: '',
     capacity: 0,
     latitude: 0,

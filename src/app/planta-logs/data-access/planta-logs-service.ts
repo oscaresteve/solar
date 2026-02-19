@@ -24,12 +24,24 @@ export class PlantaLogsService {
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
 
-  async readLogsDePlanta(plantaId: string) {
+  private setLoading(loading: boolean) {
+    this._state.update((state) => ({
+      ...state,
+      loading,
+    }));
+  }
+
+  private setError(error: boolean) {
+    this._state.update((state) => ({
+      ...state,
+      error,
+    }));
+  }
+
+  async readPlantaLogs(plantaId: string) {
     try {
-      this._state.update((state) => ({
-        ...state,
-        loading: true,
-      }));
+      this.setLoading(true);
+      this.setError(false);
 
       const { data, error } = await this._supabaseClient
         .from('planta_logs')
@@ -45,15 +57,43 @@ export class PlantaLogsService {
         }));
       }
     } catch (error) {
-      this._state.update((state) => ({
-        ...state,
-        error: true,
-      }));
+      this.setError(true);
+      console.error(error);
     } finally {
-      this._state.update((state) => ({
-        ...state,
-        loading: false,
-      }));
+      this.setLoading(false);
+    }
+  }
+
+  async createPlantaLog(
+    plantaLog: Omit<PlantaLog, 'id' | 'created_at'>,
+  ): Promise<PlantaLog | null> {
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const { data, error } = await this._supabaseClient
+        .from('planta_logs')
+        .insert(plantaLog)
+        .select('*')
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        this._state.update((state) => ({
+          ...state,
+          plantaLogs: [...state.plantaLogs, data],
+        }));
+
+        return data;
+      }
+      return null;
+    } catch (error) {
+      this.setError(true);
+      console.error(error);
+      return null;
+    } finally {
+      this.setLoading(false);
     }
   }
 }
