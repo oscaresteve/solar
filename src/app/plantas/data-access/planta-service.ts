@@ -227,7 +227,8 @@ export class PlantaService {
       if (error) throw error;
 
       if (data) {
-        const plantaConFoto = this.mapPlantaWithPhotoUrl(data);
+        const plantaFinal = file ? await this.uploadPlantaPhoto(file, data.id) : data;
+        const plantaConFoto = this.mapPlantaWithPhotoUrl(plantaFinal ?? data);
 
         this._state.update((state) => ({
           ...state,
