@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
 import { form, FormField, required } from '@angular/forms/signals';
+import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 
 interface plantaFormData {
   name: string;
@@ -21,9 +22,22 @@ export class PlantaForm implements OnInit, OnDestroy {
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
   private _plantaService = inject(PlantaService);
+  private _geolocationService = inject(GeolocationService);
 
-  plantas = this._plantaService.plantas;
-  id = signal<string | null>(null);
+  private plantas = this._plantaService.plantas;
+
+  private id = signal<string | null>(null);
+
+  private selectedPhoto = signal<File | null>(null);
+
+  private previewObjectUrl = signal<string | null>(null);
+
+  private plantaFormModel = signal<plantaFormData>({
+    name: '',
+    capacity: 0,
+    latitude: 0,
+    longitude: 0,
+  });
 
   planta = computed(() => {
     const id = this.id();
@@ -33,20 +47,11 @@ export class PlantaForm implements OnInit, OnDestroy {
   });
 
   isEditing = computed(() => Boolean(this.id()));
-  selectedPhoto = signal<File | null>(null);
-  private previewObjectUrl = signal<string | null>(null);
 
   previewURL = computed(() => {
     const objectUrl = this.previewObjectUrl();
     if (objectUrl) return objectUrl;
     return this.planta()?.photo_url ?? '/placeholder.png';
-  });
-
-  plantaFormModel = signal<plantaFormData>({
-    name: '',
-    capacity: 0,
-    latitude: 0,
-    longitude: 0,
   });
 
   plantaForm = form(this.plantaFormModel, (schemaPath) => {
@@ -70,6 +75,11 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.id.set(this._route.snapshot.paramMap.get('id'));
+
+    if (!this.isEditing()) {
+      await this.obtenerUbicacion();
+      return;
+    }
 
     const id = this.id();
     if (!id) return;
@@ -118,15 +128,25 @@ export class PlantaForm implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.revokePreviewObjectUrl();
-  }
-
   private revokePreviewObjectUrl() {
     const currentObjectUrl = this.previewObjectUrl();
     if (!currentObjectUrl) return;
 
     URL.revokeObjectURL(currentObjectUrl);
     this.previewObjectUrl.set(null);
+  }
+
+  private async obtenerUbicacion(): Promise<void> {
+    try {
+      const pos = await this._geolocationService.getCurrentPosition();
+      this.plantaForm.latitude().value.set(pos.coords.latitude);
+      this.plantaForm.longitude().value.set(pos.coords.longitude);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.revokePreviewObjectUrl();
   }
 }
