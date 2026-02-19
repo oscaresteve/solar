@@ -272,15 +272,7 @@ export class PlantaService {
     }
   }
 
-  canEditPlanta(ownerUid: string | null | undefined, authUid: string | null | undefined): boolean {
-    if (!ownerUid || !authUid) return false;
-    return ownerUid === authUid;
-  }
-
-  canDeletePlanta(
-    ownerUid: string | null | undefined,
-    authUid: string | null | undefined,
-  ): boolean {
+  isPlantaOwner(ownerUid: string | null | undefined, authUid: string | null | undefined): boolean {
     if (!ownerUid || !authUid) return false;
     return ownerUid === authUid;
   }

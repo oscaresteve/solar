@@ -28,11 +28,7 @@ export class PlantaDetail implements OnInit {
     return this.plantas().find((p) => p.id.toString() === this.id);
   });
 
-  canEdit = computed(() => this._plantaService.canEditPlanta(this.planta()?.user_id, this.uid()));
-
-  canDelete = computed(() =>
-    this._plantaService.canDeletePlanta(this.planta()?.user_id, this.uid()),
-  );
+  isOwner = computed(() => this._plantaService.isPlantaOwner(this.planta()?.user_id, this.uid()));
 
   async onDelete() {
     const deleted = await this._plantaService.deletePlanta(this.id);
