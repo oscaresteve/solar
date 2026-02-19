@@ -75,6 +75,19 @@
             />
           </label>
         </div>
+
+        <div class="grid gap-4">
+          <label class="text-sm font-medium text-gray-700">
+            Foto
+            <input
+              type="file"
+              accept="image/*"
+              class="mt-2 w-full rounded border border-gray-300 text-sm text-gray-600 file:mr-4 file:rounded file:bg-gray-100 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-200"
+              (change)="onPhotoSelected($event)"
+            />
+          </label>
+        </div>
+
         <button
           class="rounded bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-800"
           type="submit"

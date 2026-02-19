@@ -33,6 +33,7 @@ export class PlantaForm implements OnInit {
   });
 
   isEditing = computed(() => Boolean(this.id()));
+  selectedPhoto = signal<File | null>(null);
 
   plantaFormModel = signal<plantaFormData>({
     name: '',
@@ -82,16 +83,26 @@ export class PlantaForm implements OnInit {
       const id = this.id();
       if (!id) return;
 
-      const updatedPlanta = await this._plantaService.updatePlanta(id, payload);
+      const updatedPlanta = await this._plantaService.updatePlanta(
+        id,
+        payload,
+        this.selectedPhoto(),
+      );
       if (updatedPlanta) {
         await this._router.navigate(['/plantas', updatedPlanta.id]);
       }
       return;
     }
 
-    const createdPlanta = await this._plantaService.createPlanta(payload);
+    const createdPlanta = await this._plantaService.createPlanta(payload, this.selectedPhoto());
     if (createdPlanta) {
       await this._router.navigate(['/plantas', createdPlanta.id]);
     }
+  }
+
+  onPhotoSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    this.selectedPhoto.set(file);
   }
 }
