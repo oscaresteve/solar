@@ -2,7 +2,7 @@ import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { Navbar } from '../../../shared/features/navbar/navbar';
-import { form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, min, minLength, required, validate } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 
 interface PlantaFormData {
@@ -61,9 +61,30 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   plantaForm = form(this.plantaFormModel, (schemaPath) => {
     required(schemaPath.name, { message: 'name is required' });
+
     required(schemaPath.capacity, { message: 'capacity is required' });
+    /*     validate(schemaPath.capacity, ({ value }) => {
+      if (value() > 0) {
+        return { kind: 'capacity-invalid', message: 'capacity must be bigger than 0 ' };
+      }
+      return undefined;
+    }); */
+
     required(schemaPath.latitude, { message: 'latitude is required' });
+    /*     validate(schemaPath.latitude, ({ value }) => {
+      if (value() > 0) {
+        return { kind: 'latitude-invalid', message: 'latitude must be bigger than 0 ' };
+      }
+      return undefined;
+    }); */
+
     required(schemaPath.longitude, { message: 'longitude is required' });
+    /*     validate(schemaPath.longitude, ({ value }) => {
+      if (value() > 0) {
+        return { kind: 'longitude-invalid', message: 'longitude must be bigger than 0 ' };
+      }
+      return undefined;
+    }); */
   });
 
   constructor() {
