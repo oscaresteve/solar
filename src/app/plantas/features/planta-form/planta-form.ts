@@ -48,6 +48,11 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   isEditing = computed(() => Boolean(this.id()));
 
+  cancelLink = computed(() => {
+    const planta = this.planta();
+    return planta ? ['/plantas', planta.id] : ['/plantas'];
+  });
+
   previewURL = computed(() => {
     const objectUrl = this.previewObjectUrl();
     if (objectUrl) return objectUrl;
@@ -75,11 +80,6 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.id.set(this._route.snapshot.paramMap.get('id'));
-
-    if (!this.isEditing()) {
-      await this.obtenerUbicacion();
-      return;
-    }
 
     const id = this.id();
     if (!id) return;
@@ -136,7 +136,7 @@ export class PlantaForm implements OnInit, OnDestroy {
     this.previewObjectUrl.set(null);
   }
 
-  private async obtenerUbicacion(): Promise<void> {
+  async setCurrentPosition(): Promise<void> {
     try {
       const pos = await this._geolocationService.getCurrentPosition();
       this.plantaForm.latitude().value.set(pos.coords.latitude);

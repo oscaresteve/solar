@@ -18,7 +18,7 @@
       <div class="flex items-center gap-2">
         <a
           class="rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-          [routerLink]="['/plantas', planta()?.id]"
+          [routerLink]="cancelLink()"
         >
           Cancelar
         </a>
@@ -53,7 +53,7 @@
           </label>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2">
+        <div class="grid gap-4 sm:grid-cols-3">
           <label class="text-sm text-gray-700">
             Latitud
             <input
@@ -74,6 +74,13 @@
               [formField]="plantaForm.longitude"
             />
           </label>
+          <button
+            class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
+            type="button"
+            (click)="setCurrentPosition()"
+          >
+            Obtener ubicación actual
+          </button>
         </div>
 
         <div class="grid gap-4">
