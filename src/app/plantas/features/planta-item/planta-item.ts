@@ -11,11 +11,11 @@ import { Icon } from '../../../shared/ui/icon/icon';
 })
 export class PlantaItem {
   planta = input.required<Planta>();
+  isFavorite = input(false);
 
   favoriteToggled = output<void>();
 
   toggleFavorite() {
     this.favoriteToggled.emit();
-    //this.planta().favorite = !this.planta().favorite;
   }
 }

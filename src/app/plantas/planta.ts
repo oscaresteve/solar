@@ -8,5 +8,4 @@ export interface Planta {
   user_id: string;
   photo_path?: string | null;
   photo_url?: string | null;
-  favorite?: boolean | null;
 }

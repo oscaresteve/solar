@@ -167,7 +167,7 @@ export class PlantaService {
   }
 
   async createPlanta(
-    planta: Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>,
+    planta: Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url'>,
     file?: File | null,
   ): Promise<Planta | null> {
     try {
@@ -206,9 +206,7 @@ export class PlantaService {
 
   async updatePlanta(
     id: string | null,
-    changes: Partial<
-      Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url' | 'favorite'>
-    >,
+    changes: Partial<Omit<Planta, 'id' | 'created_at' | 'user_id' | 'photo_path' | 'photo_url'>>,
     file?: File | null,
   ): Promise<Planta | null> {
     if (!id) return null;

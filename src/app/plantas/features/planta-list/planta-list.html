@@ -9,6 +9,7 @@
     @for (planta of plantas(); track planta.id) {
       <app-planta-item
         [planta]="planta"
+        [isFavorite]="isFavorite(planta.id)"
         (favoriteToggled)="toggleFavorite(planta)"
       ></app-planta-item>
     } @empty {
