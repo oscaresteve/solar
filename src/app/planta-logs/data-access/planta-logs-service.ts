@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { PlantaLog } from '../../plantas/planta-log';
+import { PlantaLog } from '../../plantas/interfaces/planta-log';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
 
 interface PlantaLogsState {

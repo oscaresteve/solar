@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { Planta } from '../../planta';
+import { Planta } from '../../interfaces/planta';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../../shared/ui/icon/icon';
 

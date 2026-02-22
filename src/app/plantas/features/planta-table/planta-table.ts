@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Planta } from '../../planta';
+import { Planta } from '../../interfaces/planta';
 import { CommonModule } from '@angular/common';
 import { PlantaTableRow } from '../planta-table-row/planta-table-row';
 
