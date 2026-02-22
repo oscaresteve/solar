@@ -5,11 +5,13 @@ import { PlantaForm } from '../planta-form/planta-form';
 import { Plantas } from '../plantas/plantas';
 import { plantaOwnerGuard } from '../../guards/planta-owner-guard';
 import { PlantaLogsForm } from '../../../planta-logs/features/planta-logs-form/planta-logs-form';
+import { Favorites } from '../favorites/favorites';
 
 export default [
   { path: 'dashboard', component: Dashboard },
   { path: 'plantas', component: Plantas },
-  { path: 'plantas/nueva', component: PlantaForm },
+  { path: 'favorites', component: Favorites },
+  { path: 'plantas/new-planta', component: PlantaForm },
   { path: 'plantas/:id/edit', component: PlantaForm, canActivate: [plantaOwnerGuard] },
   { path: 'plantas/:id/new-log', component: PlantaLogsForm, canActivate: [plantaOwnerGuard] },
   { path: 'plantas/:id', component: PlantaDetail },

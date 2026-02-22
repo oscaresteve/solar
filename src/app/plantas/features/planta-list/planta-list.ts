@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { PlantaItem } from '../planta-item/planta-item';
-import { Planta } from '../../planta';
+import { Planta } from '../../interfaces/planta';
 import { PlantaService } from '../../data-access/planta-service';
 import { FavoritesService } from '../../data-access/favorites-service';
 
@@ -18,17 +18,16 @@ export class PlantaList implements OnInit {
   loading = this._plantaService.loading;
   error = this._plantaService.error;
 
-  favorites = this._favoritesService.favorites;
-
   isFavorite(plantaId: string) {
     return this._favoritesService.isFavorite(plantaId);
   }
+
   async toggleFavorite(planta: Planta) {
     await this._favoritesService.toggleFavorite(planta.id);
   }
 
   ngOnInit(): void {
     this._plantaService.ensurePlantasLoaded();
-    this._favoritesService.readFavorites();
+    this._favoritesService.ensureFavoritesLoaded();
   }
 }

@@ -1,17 +1,12 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
-
-interface Favorite {
-  id: string;
-  user_id: string;
-  created_at: string;
-  planta_id: string;
-}
+import { Planta } from '../interfaces/planta';
 
 interface FavoritesState {
-  favorites: Favorite[];
+  plantasFavorites: Planta[];
   loading: boolean;
   error: boolean;
+  loaded: boolean;
 }
 
 @Injectable({
@@ -21,12 +16,13 @@ export class FavoritesService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
   private _state = signal<FavoritesState>({
-    favorites: [],
+    plantasFavorites: [],
     loading: false,
     error: false,
+    loaded: false,
   });
 
-  favorites = computed(() => this._state().favorites);
+  plantasFavorites = computed(() => this._state().plantasFavorites);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
 
@@ -39,7 +35,7 @@ export class FavoritesService {
   }
 
   isFavorite(plantaId: string): boolean {
-    return this.favorites().some((favorite) => favorite.planta_id === plantaId);
+    return this.plantasFavorites().some((planta) => planta.id === plantaId);
   }
 
   private async getCurrentUserId(): Promise<string | null> {
@@ -48,30 +44,45 @@ export class FavoritesService {
     return data.user?.id ?? null;
   }
 
-  async readFavorites(): Promise<Favorite[] | null> {
+  async readFavorites(): Promise<Planta[] | null> {
     try {
       this.setLoading(true);
       this.setError(false);
 
       const userId = await this.getCurrentUserId();
       if (!userId) {
-        this._state.update((state) => ({ ...state, favorites: [] }));
+        this._state.update((state) => ({ ...state, plantasFavorites: [], loaded: true }));
         return [];
       }
 
-      const { data, error } = await this._supabaseClient.from('favorites').select('*');
+      const { data: favoriteRows, error: favoritesError } = await this._supabaseClient
+        .from('favorites')
+        .select('planta_id');
 
-      if (error) throw error;
+      if (favoritesError) throw favoritesError;
 
-      if (data) {
-        this._state.update((state) => ({
-          ...state,
-          favorites: data,
-        }));
-        return data;
+      const plantaIds = favoriteRows?.map((favorite) => favorite.planta_id) ?? [];
+      if (plantaIds.length === 0) {
+        this._state.update((state) => ({ ...state, plantasFavorites: [], loaded: true }));
+        return [];
       }
 
-      return null;
+      const { data: plantas, error: plantasError } = await this._supabaseClient
+        .from('plantas')
+        .select('*')
+        .in('id', plantaIds);
+
+      if (plantasError) throw plantasError;
+
+      const plantasConFoto = (plantas ?? []).map((planta) => this.mapPlantaWithPhotoUrl(planta));
+
+      this._state.update((state) => ({
+        ...state,
+        plantasFavorites: plantasConFoto,
+        loaded: true,
+      }));
+
+      return plantasConFoto;
     } catch (error) {
       console.error(error);
       this.setError(true);
@@ -83,53 +94,72 @@ export class FavoritesService {
 
   async toggleFavorite(plantaId: string): Promise<void> {
     try {
-      this.setLoading(true);
-      this.setError(false);
-
       const userId = await this.getCurrentUserId();
       if (!userId) return;
 
-      const favorites = this.favorites();
-      const existing = favorites.find((favorite) => favorite.planta_id === plantaId);
+      const existing = this.isFavorite(plantaId);
 
       if (existing) {
         const { error } = await this._supabaseClient
           .from('favorites')
           .delete()
-          .eq('planta_id', existing.planta_id);
+          .eq('planta_id', plantaId);
 
         if (error) throw error;
 
         this._state.update((state) => ({
           ...state,
-          favorites: state.favorites.filter(
-            (favorite) => favorite.planta_id !== existing.planta_id,
-          ),
+          plantasFavorites: state.plantasFavorites.filter((planta) => planta.id !== plantaId),
+          loaded: true,
         }));
+      } else {
+        const { error } = await this._supabaseClient
+          .from('favorites')
+          .insert({ user_id: userId, planta_id: plantaId });
 
-        return;
-      }
+        if (error) throw error;
 
-      const { data, error } = await this._supabaseClient
-        .from('favorites')
-        .insert({ user_id: userId, planta_id: plantaId })
-        .select('*')
-        .single();
+        const { data: planta, error: plantaError } = await this._supabaseClient
+          .from('plantas')
+          .select('*')
+          .eq('id', plantaId)
+          .single();
 
-      if (error) throw error;
+        if (plantaError) throw plantaError;
 
-      if (data) {
-        this._state.update((state) => ({
-          ...state,
-          favorites: [...state.favorites, data],
-        }));
+        if (planta) {
+          const plantaConFoto = this.mapPlantaWithPhotoUrl(planta);
+          this._state.update((state) => ({
+            ...state,
+            plantasFavorites: state.plantasFavorites.some((item) => item.id === plantaConFoto.id)
+              ? state.plantasFavorites
+              : [...state.plantasFavorites, plantaConFoto],
+            loaded: true,
+          }));
+        }
       }
     } catch (error) {
       console.error(error);
-      this.setError(true);
-      await this.readFavorites();
-    } finally {
-      this.setLoading(false);
     }
+  }
+
+  getPlantaPhotoUrl(photoPath?: string | null): string | null {
+    if (!photoPath) return '/placeholder.png';
+
+    const { data } = this._supabaseClient.storage.from('plantas').getPublicUrl(photoPath);
+
+    return data.publicUrl;
+  }
+
+  private mapPlantaWithPhotoUrl(planta: Planta): Planta {
+    return {
+      ...planta,
+      photo_url: this.getPlantaPhotoUrl(planta.photo_path),
+    };
+  }
+
+  async ensureFavoritesLoaded() {
+    if (this._state().loaded) return;
+    await this.readFavorites();
   }
 }
