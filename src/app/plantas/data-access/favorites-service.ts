@@ -59,10 +59,7 @@ export class FavoritesService {
         return [];
       }
 
-      const { data, error } = await this._supabaseClient
-        .from('favorites')
-        .select('*')
-        .eq('user_id', userId);
+      const { data, error } = await this._supabaseClient.from('favorites').select('*');
 
       if (error) throw error;
 

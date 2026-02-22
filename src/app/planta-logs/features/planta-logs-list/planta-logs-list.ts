@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { PlantaLogsService } from '../../data-access/planta-logs-service';
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { EnergyBalancePipe } from '../../../shared/pipes/energy-balance-pipe';
 
 @Component({
   selector: 'app-planta-logs-list',
-  imports: [],
+  imports: [DatePipe, DecimalPipe, EnergyBalancePipe],
   templateUrl: './planta-logs-list.html',
   styleUrl: './planta-logs-list.scss',
 })
