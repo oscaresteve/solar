@@ -7,7 +7,9 @@
 <td>{{ planta().user_id }}</td>
 <td>{{ planta().created_at }}</td>
 <td>
-  <img [src]="planta().photo_url" class="rounded-box aspect-video h-20" />
+  <div class="aspect-video h-20 overflow-hidden">
+    <img [src]="planta().photo_url" class="rounded-box h-full w-full object-cover" />
+  </div>
 </td>
 <td>
   <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max">

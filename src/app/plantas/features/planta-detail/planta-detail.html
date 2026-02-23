@@ -12,7 +12,7 @@
         <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
-      <p class="text-base-content/70">Creado en {{ planta()?.created_at | date: 'longDate' }}</p>
+      <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
     </div>
     <div class="flex items-center gap-2 text-sm">
       @if (isOwner()) {
@@ -31,7 +31,13 @@
   </div>
 
   <div class="grid grid-cols-2 gap-4">
-    <img [src]="planta()?.photo_url" alt="Imagen de la planta" class="rounded-box" />
+    <div class="aspect-video overflow-hidden">
+      <img
+        [src]="planta()?.photo_url"
+        alt="Imagen de la planta"
+        class="rounded-box h-full w-full object-cover"
+      />
+    </div>
 
     <div>
       <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>

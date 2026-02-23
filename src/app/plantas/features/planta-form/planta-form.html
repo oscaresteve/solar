@@ -1,81 +1,95 @@
 <app-navbar></app-navbar>
-<section class="min-h-screen bg-gray-100">
-  <header class="border-b border-gray-200 bg-white px-6 py-6">
-    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p class="text-sm text-gray-500">Planta Solar</p>
-        <h1 class="mt-1 text-2xl font-semibold text-gray-900">
-          {{ isEditing() ? 'Editar planta' : 'Crear planta' }}
-        </h1>
-        <p class="mt-1 text-sm text-gray-500">
-          {{
-            isEditing()
-              ? 'Actualiza la informacion principal de la planta.'
-              : 'Completa los datos basicos para registrar una nueva planta.'
-          }}
-        </p>
-      </div>
-      <div class="flex items-center gap-2">
-        <a
-          class="rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-          [routerLink]="cancelLink()"
-        >
-          Cancelar
-        </a>
-      </div>
-    </div>
+<section class="bg-base-100 mx-48 min-h-screen">
+  <header class="mb-10">
+    <h1 class="text-base-content text-2xl font-semibold">
+      {{ isEditing() ? 'Editar planta' : 'Crear planta' }}
+    </h1>
+    <p class="text-base-content/70 mt-2 text-sm">
+      {{
+        isEditing()
+          ? 'Actualiza la informacion principal de la planta.'
+          : 'Completa los datos basicos para registrar una nueva planta.'
+      }}
+    </p>
   </header>
 
-  <div class="px-6 py-8">
-    <div class="grid gap-6 lg:grid-cols-3">
-      <form
-        class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 lg:col-span-2"
-        (submit)="onSubmit($event)"
-      >
-        <div class="grid gap-4 sm:grid-cols-2">
-          <label class="text-sm text-gray-700">
-            Nombre
-            <input
-              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
-              type="text"
-              placeholder="Parque Solar Andino"
-              [formField]="plantaForm.name"
-            />
-          </label>
-          <label class="text-sm text-gray-700">
-            Capacidad (MW)
-            <input
-              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
-              type="number"
-              placeholder="120"
-              [formField]="plantaForm.capacity"
-            />
-          </label>
+  <div class="mb-4 flex flex-row items-center justify-between">
+    <div>
+      @if (isEditing()) {
+        <div class="mb-2 flex items-center gap-2">
+          <span class="badge badge-soft badge-success text-xs">Activa</span>
+          <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
+        </div>
+      }
+      <h1 class="text-base-content mb-2 text-4xl font-semibold">
+        {{ isEditing() ? planta()?.name : 'Nueva Planta' }}
+      </h1>
+      @if (isEditing()) {
+        <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
+      }
+    </div>
+    <a class="btn btn-soft btn-warning min-w-max" [routerLink]="cancelLink()"> Cancelar </a>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div class="aspect-video overflow-hidden">
+      <img
+        [src]="previewURL()"
+        alt="Imagen de la planta"
+        class="rounded-box h-full w-full object-cover"
+      />
+    </div>
+
+    <div>
+      <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
+
+      <form class="" (submit)="onSubmit($event)">
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
+          <input
+            class="input w-full"
+            type="text"
+            placeholder="Parque Solar Andino"
+            [formField]="plantaForm.name"
+          />
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-3">
-          <label class="text-sm text-gray-700">
-            Latitud
-            <input
-              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
-              type="number"
-              step="any"
-              placeholder="-33.456"
-              [formField]="plantaForm.latitude"
-            />
-          </label>
-          <label class="text-sm text-gray-700">
-            Longitud
-            <input
-              class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
-              type="number"
-              step="any"
-              placeholder="-70.648"
-              [formField]="plantaForm.longitude"
-            />
-          </label>
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Capacidad (MW)</p>
+          <input
+            class="input w-full"
+            type="number"
+            placeholder="120"
+            [formField]="plantaForm.capacity"
+          />
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <div class="mb-4 grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-base-content mb-2 text-lg font-semibold">Latitud</p>
+              <input
+                class="input w-full"
+                type="number"
+                step="any"
+                placeholder="-33.456"
+                [formField]="plantaForm.latitude"
+              />
+            </div>
+            <div>
+              <p class="text-base-content mb-2 text-lg font-semibold">Longitud</p>
+              <input
+                class="input w-full"
+                type="number"
+                step="any"
+                placeholder="-70.648"
+                [formField]="plantaForm.longitude"
+              />
+            </div>
+          </div>
+
           <button
-            class="mt-2 w-full rounded border border-gray-300 px-3 py-2 text-sm"
+            class="btn btn-soft btn-primary min-w-max"
             type="button"
             (click)="setCurrentPosition()"
           >
@@ -83,50 +97,20 @@
           </button>
         </div>
 
-        <div class="grid gap-4">
-          <label class="text-sm text-gray-700">
-            Imagen
-            <input
-              type="file"
-              accept="image/*"
-              class="mt-2 w-full rounded border border-gray-300 text-sm text-gray-600 file:mr-4 file:rounded file:bg-gray-100 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-200"
-              (change)="onPhotoSelected($event)"
-            />
-          </label>
-        </div>
-
-        <div class="mt-6 grid gap-4 sm:grid-cols-2">
-          <img
-            class="h-48 w-full rounded border border-gray-200 object-cover"
-            [src]="previewURL()"
-            alt="Previsualizacion de la imagen"
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Imagen</p>
+          <input
+            type="file"
+            accept="image/*"
+            class="file-input file-input-ghost file-input-primary w-full"
+            (change)="onPhotoSelected($event)"
           />
         </div>
 
-        <button
-          class="rounded bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-800"
-          type="submit"
-        >
+        <button class="btn btn-soft btn-block btn-success mt-4 min-w-max" type="submit">
           {{ isEditing() ? 'Guardar cambios' : 'Crear planta' }}
         </button>
       </form>
-
-      <aside class="space-y-6">
-        <div class="rounded-lg border border-gray-200 bg-white p-6">
-          <h2 class="text-lg font-semibold text-gray-900">Resumen</h2>
-          <div class="mt-4 space-y-3 text-sm text-gray-600">
-            <p>ID: {{ planta()?.id ?? 'Sin asignar' }}</p>
-            <p>Creacion: {{ planta()?.created_at || 'Pendiente' }}</p>
-          </div>
-        </div>
-
-        <div class="rounded-lg border border-gray-200 bg-white p-6">
-          <h3 class="text-lg font-semibold text-gray-900">Vista previa</h3>
-          <div
-            class="mt-4 rounded border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600"
-          ></div>
-        </div>
-      </aside>
     </div>
   </div>
 </section>
