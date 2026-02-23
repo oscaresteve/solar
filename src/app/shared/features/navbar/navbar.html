@@ -22,9 +22,7 @@
         class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-sm p-2 shadow-xl"
       >
         <li>
-          <a [routerLink]="['/dashboard']" routerLinkActive="font-semibold text-primary"
-            >Dashboard</a
-          >
+          <a [routerLink]="['/dashboard']" routerLinkActive="font-semibold text-primary">Inicio</a>
         </li>
         <li>
           <a [routerLink]="['/plantas']" routerLinkActive="font-semibold text-primary">Plantas</a>
@@ -44,10 +42,8 @@
 
   <div class="navbar-end">
     <label class="swap swap-rotate mr-4">
-      <!-- this hidden checkbox controls the state -->
       <input type="checkbox" class="theme-controller" value="dark" />
 
-      <!-- sun icon -->
       <svg
         class="swap-off size-7 fill-current"
         xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +54,6 @@
         />
       </svg>
 
-      <!-- moon icon -->
       <svg
         class="swap-on size-7 fill-current"
         xmlns="http://www.w3.org/2000/svg"
@@ -95,13 +90,13 @@
             >Cuenta</a
           >
         </li>
-        <li><a>Settings</a></li>
+        <li><a>Configuración</a></li>
         <li>
           <button (click)="logOut()" class="text-error" [disabled]="loading()">
             @if (loading()) {
               <span class="loading loading-spinner"></span>
             } @else {
-              Log Out
+              Cerrar sesión
             }
           </button>
         </li>

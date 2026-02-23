@@ -6,8 +6,8 @@
     <p class="text-base-content/70 mt-2 text-sm">
       {{
         isEditing()
-          ? 'Actualiza la informacion principal de la planta.'
-          : 'Completa los datos basicos para registrar una nueva planta.'
+          ? 'Actualiza la información principal de la planta.'
+          : 'Completa los datos básicos para registrar una nueva planta.'
       }}
     </p>
   </header>
@@ -23,10 +23,12 @@
         </div>
       }
       <h1 class="text-base-content mb-2 text-4xl font-semibold">
-        {{ isEditing() ? planta()?.name : 'Nueva Planta' }}
+        {{ isEditing() ? planta()?.name : 'Nueva planta' }}
       </h1>
       @if (isEditing()) {
-        <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
+        <p class="text-base-content/70">
+          Fecha de creación: {{ planta()?.created_at | date: 'long' }}
+        </p>
       }
     </div>
     <a class="btn btn-soft btn-warning min-w-max shadow-md" [routerLink]="cancelLink()">

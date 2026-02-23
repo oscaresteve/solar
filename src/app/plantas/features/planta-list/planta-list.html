@@ -3,7 +3,7 @@
     <p class="text-xl text-gray-500 italic">Cargando las plantas...</p>
   }
   @if (error()) {
-    <p class="text-xl text-red-500 italic">Error al cargar las planas...</p>
+    <p class="text-xl text-red-500 italic">Error al cargar las plantas.</p>
   }
   @if (!loading() && !error()) {
     @for (planta of plantas(); track planta.id) {
@@ -13,7 +13,7 @@
         (favoriteToggled)="toggleFavorite(planta)"
       ></app-planta-item>
     } @empty {
-      <p class="text-xl text-gray-500 italic">No hay plantas que mostrar...</p>
+      <p class="text-xl text-gray-500 italic">No hay plantas para mostrar.</p>
     }
   }
 </div>

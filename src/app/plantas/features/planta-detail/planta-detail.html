@@ -1,7 +1,7 @@
 <section class="bg-base-100 mx-48 min-h-screen">
   <header class="mb-10">
     <h1 class="text-base-content text-2xl font-semibold">Detalle de la planta</h1>
-    <p class="text-base-content/70 mt-2 text-sm">Información general y logs.</p>
+    <p class="text-base-content/70 mt-2 text-sm">Información general y registros.</p>
   </header>
 
   <div class="mb-4 flex flex-row items-center justify-between">
@@ -11,7 +11,9 @@
         <span class="badge badge-soft badge-info text-xs shadow-md"> ID #{{ planta()?.id }} </span>
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
-      <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
+      <p class="text-base-content/70">
+        Fecha de creación: {{ planta()?.created_at | date: 'long' }}
+      </p>
     </div>
     <div class="flex items-center gap-2 text-sm">
       @if (isOwner()) {
@@ -43,14 +45,13 @@
     <div>
       <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Capacidad</p>
+        <p class="text-base-content mb-2 text-lg font-semibold">Capacidad instalada (MW)</p>
         <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
       </div>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Ubicacion</p>
+        <p class="text-base-content mb-2 text-lg font-semibold">Ubicación</p>
         <p class="text-base-content/70">
-          Lat {{ planta()?.latitude ?? 'N/A' }} · Lon
-          {{ planta()?.longitude ?? 'N/A' }}
+          Lat {{ planta()?.latitude ?? 'N/A' }} · Lon {{ planta()?.longitude ?? 'N/A' }}
         </p>
       </div>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
@@ -70,7 +71,7 @@
         type="button"
         [routerLink]="['/plantas', planta()?.id, 'new-log']"
       >
-        Añadir Registro
+        Añadir registro
       </button>
     }
   </div>

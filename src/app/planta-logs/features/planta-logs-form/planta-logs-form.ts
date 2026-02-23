@@ -42,8 +42,8 @@ export class PlantaLogsForm implements OnInit {
   });
 
   plantaLogsForm = form(this.plantaLogsFormModel, (schemaPath) => {
-    required(schemaPath.production, { message: 'production is required' });
-    required(schemaPath.consumption, { message: 'consumption is required' });
+    required(schemaPath.production, { message: 'La producción es obligatoria.' });
+    required(schemaPath.consumption, { message: 'El consumo es obligatorio.' });
   });
 
   async onSubmit(event: Event) {

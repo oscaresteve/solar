@@ -25,8 +25,6 @@ export class Login {
     password: this._formBuilder.control(null, [Validators.required]),
   });
 
-  //Signal para mensage de error
-
   async onSubmit(event: Event) {
     event.preventDefault();
     if (this.form.invalid || this.loading()) return;
@@ -41,7 +39,7 @@ export class Login {
       this._router.navigateByUrl('/dashboard');
     } catch (error) {
       console.error(error);
-      alert('Credenciales incorrectas');
+      alert('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
     }
   }
 }

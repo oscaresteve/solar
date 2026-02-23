@@ -1,8 +1,8 @@
 <section class="bg-base-100 mx-48 min-h-screen">
   <header class="mb-10">
     <div class="flex-row items-center justify-between">
-      <h1 class="text-base-content text-2xl font-semibold">Nuevo Registro</h1>
-      <p class="text-base-content/70 mt-2 text-sm">Crea un nuevo registro en la Planta Solar</p>
+      <h1 class="text-base-content text-2xl font-semibold">Nuevo registro</h1>
+      <p class="text-base-content/70 mt-2 text-sm">Crea un nuevo registro en la planta solar</p>
     </div>
   </header>
 
@@ -29,7 +29,7 @@
   <form class="" (submit)="onSubmit($event)">
     <div class="grid grid-cols-2 gap-4">
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Producción</p>
+        <p class="text-base-content mb-2 text-lg font-semibold">Producción (kWh)</p>
         <input
           class="input w-full"
           type="number"
@@ -39,7 +39,7 @@
       </div>
 
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Consumo</p>
+        <p class="text-base-content mb-2 text-lg font-semibold">Consumo (kWh)</p>
         <input
           class="input w-full"
           type="number"
@@ -53,7 +53,7 @@
       <textarea
         class="textarea w-full"
         type="text"
-        placeholder="Mensaje de el registro"
+        placeholder="Mensaje del registro"
         [formField]="plantaLogsForm.message"
       ></textarea>
     </div>
@@ -66,7 +66,7 @@
       @if (loading()) {
         <span class="loading-spinner"></span>
       } @else {
-        Guardar
+        Guardar registro
       }
     </button>
   </form>

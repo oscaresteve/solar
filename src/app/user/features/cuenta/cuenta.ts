@@ -43,8 +43,8 @@ export class Cuenta implements OnInit, OnDestroy {
   });
 
   cuentaForm = form(this.cuentaFormModel, (schemaPath) => {
-    required(schemaPath.first_name, { message: 'first_name is required' });
-    required(schemaPath.last_name, { message: 'last_name is required' });
+    required(schemaPath.first_name, { message: 'El nombre es obligatorio.' });
+    required(schemaPath.last_name, { message: 'Los apellidos son obligatorios.' });
   });
 
   constructor() {

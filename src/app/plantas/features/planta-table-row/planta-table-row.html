@@ -3,7 +3,7 @@
   {{ planta().name }}
 </td>
 <td>{{ planta().latitude }}, {{ planta().longitude }}</td>
-<td>{{ planta().capacity }}</td>
+<td>{{ planta().capacity }} MW</td>
 <td>{{ planta().user_id }}</td>
 <td>{{ planta().created_at }}</td>
 <td>
@@ -13,7 +13,7 @@
 </td>
 <td>
   <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max shadow-md">
-    Ver Mas
+    Ver más
     <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
   </a>
 </td>

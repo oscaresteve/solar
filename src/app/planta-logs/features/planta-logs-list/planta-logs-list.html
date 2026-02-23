@@ -5,21 +5,21 @@
         <th>ID</th>
         <th>Fecha</th>
         <th>Planta</th>
-        <th>Produccion</th>
-        <th>Consumo</th>
-        <th>Balance</th>
+        <th>Producción (kWh)</th>
+        <th>Consumo (kWh)</th>
+        <th>Balance (kWh)</th>
         <th>Mensaje</th>
       </tr>
     </thead>
     <tbody>
       @if (loading()) {
         <tr>
-          <td colspan="7">Cargando las plantas...</td>
+          <td colspan="7">Cargando registros...</td>
         </tr>
       }
       @if (error()) {
         <tr>
-          <td colspan="7">Error al cargar las planas...</td>
+          <td colspan="7">Error al cargar los registros.</td>
         </tr>
       }
       @if (!loading() && !error()) {
@@ -30,8 +30,8 @@
               {{ plantaLog.created_at | date: 'short' }}
             </td>
             <td>{{ plantaLog.planta_id }}</td>
-            <td>{{ plantaLog.production | number }}</td>
-            <td>{{ plantaLog.consumption | number }}</td>
+            <td>{{ plantaLog.production | number }} kWh</td>
+            <td>{{ plantaLog.consumption | number }} kWh</td>
             <td>
               {{ plantaLog.production | energyBalance: plantaLog.consumption }}
             </td>
@@ -39,7 +39,7 @@
           </tr>
         } @empty {
           <tr>
-            <td colspan="7">No hay plantas que mostrar...</td>
+            <td colspan="7">No hay registros para mostrar.</td>
           </tr>
         }
       }

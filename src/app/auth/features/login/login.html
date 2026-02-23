@@ -4,9 +4,9 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit($event)"
   >
-    <h1 class="text-base-content mb-6 text-3xl">Log In</h1>
+    <h1 class="text-base-content mb-6 text-3xl">Iniciar sesión</h1>
 
-    <label for="email" class="fieldset-label">Email</label>
+    <label for="email" class="fieldset-label">Correo electrónico</label>
     <input
       type="email"
       name="email"
@@ -20,7 +20,7 @@
         form.controls.email.valid && (form.controls.email.dirty || form.controls.email.touched)
       "
       [class.border-gray-300]="!(form.controls.email.dirty || form.controls.email.touched)"
-      placeholder="name@company.com"
+      placeholder="nombre@empresa.com"
     />
 
     <label for="password" class="fieldset-label">Contraseña</label>
@@ -50,13 +50,13 @@
       @if (loading()) {
         <span class="loading loading-spinner"></span>
       }
-      Iniciar sesion
+      Iniciar sesión
     </button>
 
     <p class="text-base-content/70 text-sm">
-      No tienes tu cuenta todavia?
+      ¿Aún no tienes una cuenta?
       <a [routerLink]="['/auth/sign-up']" class="link link-hover text-base-content/70 font-semibold"
-        >Registrate</a
+        >Regístrate</a
       >
     </p>
   </form>

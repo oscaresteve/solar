@@ -65,9 +65,10 @@ export class Register {
         },
       });
       if (authResponse.error) throw authResponse.error;
-      alert('Porfavor revisa tu correo');
+      alert('Revisa tu correo para confirmar tu cuenta.');
     } catch (error) {
       console.error(error);
+      alert('No se pudo crear la cuenta. Inténtalo de nuevo.');
     }
   }
 }

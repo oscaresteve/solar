@@ -5,9 +5,9 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Ubicación</th>
-        <th>Capacidad</th>
+        <th>Capacidad (MW)</th>
         <th>Usuario</th>
-        <th>Fecha Creación</th>
+        <th>Fecha de creación</th>
         <th>Imagen</th>
         <th>Acciones</th>
       </tr>
@@ -20,7 +20,7 @@
       }
       @if (error()) {
         <tr>
-          <td colspan="8">Error al cargar las plantas...</td>
+          <td colspan="8">Error al cargar las plantas.</td>
         </tr>
       }
       @if (!loading() && !error()) {
@@ -28,7 +28,7 @@
           <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
         } @empty {
           <tr>
-            <td colspan="8">No hay plantas que mostrar...</td>
+            <td colspan="8">No hay plantas para mostrar.</td>
           </tr>
         }
       }

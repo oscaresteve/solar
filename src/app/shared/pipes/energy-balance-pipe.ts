@@ -10,11 +10,11 @@ export class EnergyBalancePipe implements PipeTransform {
     const safeConsumption = consumption ?? 0;
     const delta = safeProduction - safeConsumption;
 
-    if (delta === 0) return `0 ${unit} (Balanceado)`;
+    if (delta === 0) return `0 ${unit} (Equilibrado)`;
 
     const absolute = Math.abs(delta).toLocaleString('es-ES');
     const sign = delta > 0 ? '+' : '-';
-    const state = delta > 0 ? 'Superavit' : 'Deficit';
+    const state = delta > 0 ? 'Superávit' : 'Déficit';
 
     return `${sign}${absolute} ${unit} (${state})`;
   }

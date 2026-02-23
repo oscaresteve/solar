@@ -7,7 +7,7 @@ export class GeolocationService {
   getCurrentPosition(): Promise<GeolocationPosition> {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject('Geolocalización no soportada');
+        reject('Geolocalización no compatible con este dispositivo.');
         return;
       }
 
