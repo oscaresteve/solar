@@ -1,2 +1,9 @@
+@if (!isAuthRoute()) {
+  <app-navbar></app-navbar>
+}
+
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+
+@if (!isAuthRoute()) {
+  <app-footer></app-footer>
+}
