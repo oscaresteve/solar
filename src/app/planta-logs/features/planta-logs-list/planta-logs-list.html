@@ -1,52 +1,48 @@
-<table
-  class="table-auto border-separate border-spacing-0 overflow-hidden rounded-lg border border-gray-200 bg-white text-left"
->
-  <thead class="bg-gray-50">
-    <tr>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">ID</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Fecha</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Planta</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Produccion</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Consumo</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Balance</th>
-      <th class="px-6 py-3 text-sm font-semibold text-gray-700">Mensaje</th>
-    </tr>
-  </thead>
-  <tbody>
-    @if (loading()) {
+<div class="overflow-x-auto">
+  <table class="table">
+    <thead>
       <tr>
-        <td colspan="7" class="px-6 py-4 text-sm text-gray-500 italic">Cargando las plantas...</td>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Planta</th>
+        <th>Produccion</th>
+        <th>Consumo</th>
+        <th>Balance</th>
+        <th>Mensaje</th>
       </tr>
-    }
-    @if (error()) {
-      <tr>
-        <td colspan="7" class="px-6 py-4 text-sm text-red-500 italic">
-          Error al cargar las planas...
-        </td>
-      </tr>
-    }
-    @if (!loading() && !error()) {
-      @for (plantaLog of plantaLogs(); track plantaLog.id) {
-        <tr class="transition duration-200 hover:bg-gray-50">
-          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.id }}</td>
-          <td class="px-6 py-4 text-sm text-gray-700">
-            {{ plantaLog.created_at | date: 'short' }}
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.planta_id }}</td>
-          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.production | number }}</td>
-          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.consumption | number }}</td>
-          <td class="px-6 py-4 text-sm text-gray-700">
-            {{ plantaLog.production | energyBalance: plantaLog.consumption }}
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-700">{{ plantaLog.message }}</td>
-        </tr>
-      } @empty {
+    </thead>
+    <tbody>
+      @if (loading()) {
         <tr>
-          <td colspan="7" class="px-6 py-4 text-sm text-gray-500 italic">
-            No hay plantas que mostrar...
-          </td>
+          <td colspan="7">Cargando las plantas...</td>
         </tr>
       }
-    }
-  </tbody>
-</table>
+      @if (error()) {
+        <tr>
+          <td colspan="7">Error al cargar las planas...</td>
+        </tr>
+      }
+      @if (!loading() && !error()) {
+        @for (plantaLog of plantaLogs(); track plantaLog.id) {
+          <tr class="hover:bg-base-200">
+            <td>{{ plantaLog.id }}</td>
+            <td>
+              {{ plantaLog.created_at | date: 'short' }}
+            </td>
+            <td>{{ plantaLog.planta_id }}</td>
+            <td>{{ plantaLog.production | number }}</td>
+            <td>{{ plantaLog.consumption | number }}</td>
+            <td>
+              {{ plantaLog.production | energyBalance: plantaLog.consumption }}
+            </td>
+            <td>{{ plantaLog.message }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7">No hay plantas que mostrar...</td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

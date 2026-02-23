@@ -1,21 +1,16 @@
-<td class="px-6 py-4 text-sm text-gray-700">{{ planta().id }}</td>
-<td class="px-6 py-4 text-sm font-semibold text-gray-900">
+<td>{{ planta().id }}</td>
+<td>
   {{ planta().name }}
 </td>
-<td class="px-6 py-4 text-sm text-gray-700">
-  {{ planta().latitude }}, {{ planta().longitude }}
+<td>{{ planta().latitude }}, {{ planta().longitude }}</td>
+<td>{{ planta().capacity }}</td>
+<td>{{ planta().user_id }}</td>
+<td>{{ planta().created_at }}</td>
+<td>
+  <img [src]="planta().photo_url" />
 </td>
-<td class="px-6 py-4 text-sm text-gray-700">{{ planta().capacity }}</td>
-<td class="px-6 py-4 text-sm text-gray-700">{{ planta().user_id }}</td>
-<td class="px-6 py-4 text-sm text-gray-700">{{ planta().created_at }}</td>
-<td class="px-6 py-4">
-  <img class="h-12 rounded border border-gray-200 object-cover" [src]="planta().photo_url" />
-</td>
-<td class="px-6 py-4">
-  <a
-    [routerLink]="['/plantas', planta().id]"
-    class="flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-  >
+<td>
+  <a [routerLink]="['/plantas', planta().id]">
     Ver Mas
     <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
   </a>
