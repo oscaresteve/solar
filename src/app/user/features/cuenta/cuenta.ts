@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Navbar } from '../../../shared/features/navbar/navbar';
+
 import { UserService } from '../../data-access/user-service';
 import { AuthService } from '../../../auth/data-access/auth-service';
 import { form, FormField, required } from '@angular/forms/signals';
@@ -11,7 +11,7 @@ interface CuentaFormData {
 
 @Component({
   selector: 'app-cuenta',
-  imports: [Navbar, FormField],
+  imports: [FormField],
   templateUrl: './cuenta.html',
   styleUrl: './cuenta.scss',
 })

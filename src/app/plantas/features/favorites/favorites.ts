@@ -1,12 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Navbar } from '../../../shared/features/navbar/navbar';
 import { FavoritesService } from '../../data-access/favorites-service';
 import { Planta } from '../../interfaces/planta';
 import { PlantaItem } from '../planta-item/planta-item';
 
 @Component({
   selector: 'app-favoritos',
-  imports: [Navbar, PlantaItem],
+  imports: [PlantaItem],
   templateUrl: './favorites.html',
   styleUrl: './favorites.scss',
 })

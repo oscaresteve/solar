@@ -1,5 +1,4 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { Navbar } from '../../../shared/features/navbar/navbar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../../plantas/data-access/planta-service';
 import { form, required, FormField } from '@angular/forms/signals';
@@ -13,7 +12,7 @@ interface PlantaLogsFormData {
 
 @Component({
   selector: 'app-planta-logs-form',
-  imports: [Navbar, RouterLink, FormField],
+  imports: [RouterLink, FormField],
   templateUrl: './planta-logs-form.html',
   styleUrl: './planta-logs-form.scss',
 })
