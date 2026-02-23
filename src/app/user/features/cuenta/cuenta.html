@@ -30,6 +30,7 @@
           accept="image/*"
           class="file-input file-input-ghost file-input-primary w-full"
           (change)="onPhotoSelected($event)"
+          [disabled]="loading()"
         />
       </div>
 
@@ -56,7 +57,11 @@
           <p class="text-base-content/70">{{ uid() }}</p>
         </div>
 
-        <button class="btn btn-soft btn-block btn-success mt-4 min-w-max" type="submit">
+        <button
+          class="btn btn-soft btn-block btn-success mt-4 min-w-max"
+          type="submit"
+          [disabled]="loading()"
+        >
           @if (loading()) {
             <span class="loading loading-spinner"></span>
           } @else {

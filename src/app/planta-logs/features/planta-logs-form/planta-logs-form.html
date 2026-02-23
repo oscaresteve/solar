@@ -56,7 +56,11 @@
     </div>
 
     <button class="btn btn-success btn-soft btn-block mt-4" type="submit" [disabled]="loading()">
-      Guardar
+      @if (loading()) {
+        <span class="loading-spinner"></span>
+      } @else {
+        Guardar
+      }
     </button>
   </form>
 </section>

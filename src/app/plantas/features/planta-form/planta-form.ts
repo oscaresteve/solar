@@ -1,7 +1,6 @@
 import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
-import { Navbar } from '../../../shared/features/navbar/navbar';
 import { form, FormField, min, minLength, required, validate } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 import { DatePipe } from '@angular/common';
@@ -15,7 +14,7 @@ interface PlantaFormData {
 
 @Component({
   selector: 'app-planta-form',
-  imports: [Navbar, RouterLink, FormField, DatePipe],
+  imports: [RouterLink, FormField, DatePipe],
   templateUrl: './planta-form.html',
   styleUrl: './planta-form.scss',
 })
@@ -26,6 +25,8 @@ export class PlantaForm implements OnInit, OnDestroy {
   private _geolocationService = inject(GeolocationService);
 
   private plantas = this._plantaService.plantas;
+  loading = this._plantaService.loading;
+  error = this._plantaService.error;
 
   private id = signal<string | null>(null);
 

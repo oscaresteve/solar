@@ -54,8 +54,8 @@ export class AuthService {
 
       this._state.update((state) => ({
         ...state,
-        email: data.user.email ?? null,
-        uid: data.user.id ?? null,
+        email: data.user?.email ?? null,
+        uid: data.user?.id ?? null,
       }));
     } catch (error) {
       console.error(error);
@@ -65,20 +65,90 @@ export class AuthService {
     }
   }
 
-  session() {
-    return this._supabaseClient.auth.getSession();
+  async session() {
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const response = await this._supabaseClient.auth.getSession();
+      if (response.error) throw response.error;
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      this.setError(true);
+      return { data: { session: null }, error };
+    } finally {
+      this.setLoading(false);
+    }
   }
 
-  signUp(credentials: SignUpWithPasswordCredentials) {
-    return this._supabaseClient.auth.signUp(credentials);
+  async signUp(credentials: SignUpWithPasswordCredentials) {
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const response = await this._supabaseClient.auth.signUp(credentials);
+      if (response.error) throw response.error;
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      this.setError(true);
+      return { data: { user: null, session: null }, error };
+    } finally {
+      this.setLoading(false);
+    }
   }
 
-  logIn(credentials: SignInWithPasswordCredentials) {
-    return this._supabaseClient.auth.signInWithPassword(credentials);
+  async logIn(credentials: SignInWithPasswordCredentials) {
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const response = await this._supabaseClient.auth.signInWithPassword(credentials);
+      if (response.error) throw response.error;
+
+      if (response.data.user) {
+        this._state.update((state) => ({
+          ...state,
+          email: response.data.user.email ?? null,
+          uid: response.data.user.id ?? null,
+        }));
+      }
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      this.setError(true);
+      return { data: { user: null, session: null }, error };
+    } finally {
+      this.setLoading(false);
+    }
   }
 
-  signOut() {
-    return this._supabaseClient.auth.signOut();
+  async signOut() {
+    try {
+      this.setLoading(true);
+      this.setError(false);
+
+      const response = await this._supabaseClient.auth.signOut();
+      if (response.error) throw response.error;
+
+      this._state.update((state) => ({
+        ...state,
+        email: null,
+        uid: null,
+      }));
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      this.setError(true);
+      return { error };
+    } finally {
+      this.setLoading(false);
+    }
   }
 
   //Detectar cambios de session

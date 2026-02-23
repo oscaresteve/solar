@@ -25,6 +25,7 @@ export class PlantaLogsForm implements OnInit {
 
   private plantas = this._plantaService.plantas;
   loading = this._plantaLogsService.loading;
+  error = this._plantaLogsService.error;
 
   private id = signal<string | null>(null);
 

@@ -36,6 +36,7 @@ const passwordsMatchValidator = (control: AbstractControl): ValidationErrors | n
 export class Register {
   private _authService = inject(AuthService);
   private _formBuilder = inject(FormBuilder);
+  loading = this._authService.loading;
 
   form = this._formBuilder.group<SignUpForm>(
     {
@@ -50,7 +51,7 @@ export class Register {
 
   async onSubmit(event: Event) {
     event.preventDefault();
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.loading()) return;
 
     try {
       const authResponse = await this._authService.signUp({

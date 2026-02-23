@@ -18,6 +18,7 @@ export class Login {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   private _formBuilder = inject(FormBuilder);
+  loading = this._authService.loading;
 
   form = this._formBuilder.group<LogInForm>({
     email: this._formBuilder.control(null, [Validators.required, Validators.email]),
@@ -28,7 +29,7 @@ export class Login {
 
   async onSubmit(event: Event) {
     event.preventDefault();
-    if (this.form.invalid) return;
+    if (this.form.invalid || this.loading()) return;
 
     try {
       const { error } = await this._authService.logIn({

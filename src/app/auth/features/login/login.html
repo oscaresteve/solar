@@ -42,7 +42,12 @@
       [class.border-gray-300]="!(form.controls.password.dirty || form.controls.password.touched)"
     />
 
-    <button type="submit" class="btn btn-block btn-soft btn-primary my-4">Iniciar sesion</button>
+    <button type="submit" class="btn btn-block btn-soft btn-primary my-4" [disabled]="loading()">
+      @if (loading()) {
+        <span class="loading loading-spinner"></span>
+      }
+      Iniciar sesion
+    </button>
 
     <p class="text-base-content/70 text-sm">
       No tienes tu cuenta todavia?

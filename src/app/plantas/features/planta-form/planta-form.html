@@ -91,6 +91,7 @@
             class="btn btn-soft btn-primary min-w-max"
             type="button"
             (click)="setCurrentPosition()"
+            [disabled]="loading()"
           >
             Obtener ubicación actual
           </button>
@@ -103,11 +104,20 @@
             accept="image/*"
             class="file-input file-input-ghost file-input-primary w-full"
             (change)="onPhotoSelected($event)"
+            [disabled]="loading()"
           />
         </div>
 
-        <button class="btn btn-soft btn-block btn-success mt-4 min-w-max" type="submit">
-          {{ isEditing() ? 'Guardar cambios' : 'Crear planta' }}
+        <button
+          class="btn btn-soft btn-block btn-success mt-4 min-w-max"
+          type="submit"
+          [disabled]="loading()"
+        >
+          @if (loading()) {
+            <span class="loading loading-spinner"></span>
+          } @else {
+            {{ isEditing() ? 'Guardar cambios' : 'Crear planta' }}
+          }
         </button>
       </form>
     </div>
