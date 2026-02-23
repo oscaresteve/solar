@@ -1,21 +1,28 @@
-<div class="rounded-lg border border-gray-200 bg-white p-5">
-  <img class="rounded border border-gray-200" [src]="planta().photo_url" alt="" />
-  <div class="py-2">
-    <h5 class="text-lg font-semibold text-gray-900">
+<div class="card bg-base-200 shadow-sm">
+  <figure>
+    <img [src]="planta().photo_url" alt="Imagen" />
+  </figure>
+  <div class="card-body">
+    <h3 class="card-title">
       {{ planta().name }}
-    </h5>
+    </h3>
 
-    <p class="mt-2 text-sm text-gray-600">
-      Ubicacion: Latitud: {{ planta().latitude }}, Longitud:
-      {{ planta().longitude }}
-      Capacidad: {{ planta().capacity }} MW
-    </p>
+    <p>{{ planta().description }}</p>
 
-    <div class="mt-6 flex items-center justify-between">
-      <a
-        [routerLink]="['/plantas', planta().id]"
-        class="flex items-center rounded border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-      >
+    <ul>
+      <li>
+        <p>Latitud: {{ planta().latitude }}</p>
+      </li>
+      <li>
+        <p>Longitud: {{ planta().longitude }}</p>
+      </li>
+      <li>
+        <p>Capacidad: {{ planta().capacity }} MW</p>
+      </li>
+    </ul>
+
+    <div class="card-actions mt-4 justify-between">
+      <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary">
         Ver Mas
         <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
       </a>
@@ -26,12 +33,9 @@
         class="transform transition-transform duration-100 ease-out active:scale-110"
       >
         @if (isFavorite()) {
-          <app-icon
-            className="size-8 text-gray-500 hover:text-gray-600"
-            name="heart-solid"
-          ></app-icon>
+          <app-icon className="size-8 text-error" name="heart-solid"></app-icon>
         } @else {
-          <app-icon className="size-8 text-gray-500 hover:text-gray-600" name="heart"></app-icon>
+          <app-icon className="size-8 text-error" name="heart"></app-icon>
         }
       </button>
     </div>
