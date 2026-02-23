@@ -31,11 +31,21 @@
   </div>
 
   <div class="grid grid-cols-2 gap-4">
-    <div class="aspect-video overflow-hidden">
-      <img
-        [src]="previewURL()"
-        alt="Imagen de la planta"
-        class="rounded-box h-full w-full object-cover"
+    <div>
+      <div class="aspect-video overflow-hidden">
+        <img
+          [src]="previewURL()"
+          alt="Imagen de la planta"
+          class="rounded-box h-full w-full object-cover"
+        />
+      </div>
+
+      <input
+        type="file"
+        accept="image/*"
+        class="file-input file-input-ghost file-input-primary mt-4 w-full"
+        (change)="onPhotoSelected($event)"
+        [disabled]="loading()"
       />
     </div>
 
@@ -97,19 +107,8 @@
           </button>
         </div>
 
-        <div class="bg-base-200 rounded-box my-2 p-4">
-          <p class="text-base-content mb-2 text-lg font-semibold">Imagen</p>
-          <input
-            type="file"
-            accept="image/*"
-            class="file-input file-input-ghost file-input-primary w-full"
-            (change)="onPhotoSelected($event)"
-            [disabled]="loading()"
-          />
-        </div>
-
         <button
-          class="btn btn-soft btn-block btn-success mt-4 min-w-max"
+          class="btn btn-soft btn-block btn-success mt-2 min-w-max"
           type="submit"
           [disabled]="loading()"
         >
