@@ -1,22 +1,17 @@
 <app-navbar></app-navbar>
-<section class="min-h-screen bg-gray-100">
-  <header
-    class="flex flex-col gap-3 border-b border-gray-200 bg-white px-6 py-6 sm:flex-row sm:items-center sm:justify-between"
-  >
+<section class="bg-base-100 mx-48 min-h-screen">
+  <header class="mb-10 flex flex-row items-center justify-between gap-3">
     <div>
-      <h1 class="text-2xl font-semibold text-gray-900">Pagina detallada de plantas solares</h1>
-      <p class="mt-1 text-sm text-gray-500">Vista tipo tabla con detalles y comparación.</p>
+      <h1 class="text-base-content text-2xl font-semibold">Pagina detallada de plantas solares</h1>
+      <p class="text-base-content/70 mt-2 text-sm">Vista tipo tabla con detalles y comparación.</p>
     </div>
     <div class="flex items-center">
-      <button
-        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 sm:w-auto"
-        type="button"
-        [routerLink]="['/plantas/new-planta']"
-      >
+      <button class="btn btn-success btn-soft" type="button" [routerLink]="['/plantas/new-planta']">
         Crear Planta
       </button>
     </div>
   </header>
+
   <app-planta-table
     [plantas]="plantas()"
     [loading]="loading()"

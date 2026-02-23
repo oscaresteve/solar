@@ -1,28 +1,27 @@
 <app-navbar></app-navbar>
-<section class="bg-base-100 min-h-screen">
-  <header class="px-6 py-6">
+<section class="bg-base-100 mx-48 min-h-screen">
+  <header class="mb-10">
     <h1 class="text-base-content text-2xl font-semibold">Pagina favoritos</h1>
     <p class="text-base-content/70 mt-2 text-sm">Plantas favoritas del usuario</p>
   </header>
-  <div class="mx-48">
-    <div class="grid grid-cols-3 gap-6">
-      @if (loading()) {
-        <p class="text-xl text-gray-500 italic">Cargando las plantas...</p>
+
+  <div class="grid grid-cols-3 gap-6">
+    @if (loading()) {
+      <p class="text-xl text-gray-500 italic">Cargando las plantas...</p>
+    }
+    @if (error()) {
+      <p class="text-xl text-red-500 italic">Error al cargar las planas...</p>
+    }
+    @if (!loading() && !error()) {
+      @for (planta of plantasFavorites(); track planta.id) {
+        <app-planta-item
+          [planta]="planta"
+          [isFavorite]="isFavorite(planta.id)"
+          (favoriteToggled)="toggleFavorite(planta)"
+        ></app-planta-item>
+      } @empty {
+        <p class="text-xl text-gray-500 italic">No hay plantas que mostrar...</p>
       }
-      @if (error()) {
-        <p class="text-xl text-red-500 italic">Error al cargar las planas...</p>
-      }
-      @if (!loading() && !error()) {
-        @for (planta of plantasFavorites(); track planta.id) {
-          <app-planta-item
-            [planta]="planta"
-            [isFavorite]="isFavorite(planta.id)"
-            (favoriteToggled)="toggleFavorite(planta)"
-          ></app-planta-item>
-        } @empty {
-          <p class="text-xl text-gray-500 italic">No hay plantas que mostrar...</p>
-        }
-      }
-    </div>
+    }
   </div>
 </section>

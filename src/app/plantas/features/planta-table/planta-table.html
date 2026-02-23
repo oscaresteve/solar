@@ -25,7 +25,7 @@
       }
       @if (!loading() && !error()) {
         @for (planta of plantas(); track planta.id) {
-          <tr class="hover:bg-base-300" app-planta-table-row [plantaId]="planta"></tr>
+          <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
         } @empty {
           <tr>
             <td colspan="8">No hay plantas que mostrar...</td>

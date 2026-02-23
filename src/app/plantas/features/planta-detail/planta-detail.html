@@ -1,71 +1,71 @@
 <app-navbar></app-navbar>
-<section class="bg-base-100 min-h-screen">
-  <header class="px-6 py-6">
+<section class="bg-base-100 mx-48 min-h-screen">
+  <header class="mb-10">
     <h1 class="text-base-content text-2xl font-semibold">Detalle de la planta</h1>
     <p class="text-base-content/70 mt-2 text-sm">Información general y logs.</p>
   </header>
 
-  <div class="mx-48">
-    <div class="mb-4 flex flex-row items-center justify-between">
-      <div>
-        <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
-        <p class="text-base-content/70">Creado en {{ planta()?.created_at | date: 'longDate' }}</p>
+  <div class="mb-4 flex flex-row items-center justify-between">
+    <div>
+      <div class="mb-2 flex items-center gap-2">
+        <span class="badge badge-soft badge-success text-xs">Activa</span>
+        <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
       </div>
-      <div class="flex items-center gap-2 text-sm">
-        <span class="badge badge-soft badge-success">Activa</span>
-        <span class="badge badge-soft badge-info"> ID #{{ planta()?.id }} </span>
-        @if (isOwner()) {
-          <button
-            class="btn btn-soft btn-warning"
-            type="button"
-            [routerLink]="['/plantas', planta()?.id, 'edit']"
-          >
-            Editar
-          </button>
-        }
-        @if (isOwner()) {
-          <button class="btn btn-soft btn-error" type="button" (click)="onDelete()">
-            Eliminar
-          </button>
-        }
-      </div>
+      <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
+      <p class="text-base-content/70">Creado en {{ planta()?.created_at | date: 'longDate' }}</p>
     </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <img [src]="planta()?.photo_url" alt="Imagen de la planta" class="rounded-box" />
-
-      <div>
-        <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
-        <div class="bg-base-200 rounded-box my-2 p-4">
-          <p class="text-base-content mb-2 text-lg font-semibold">Capacidad</p>
-          <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
-        </div>
-        <div class="bg-base-200 rounded-box my-2 p-4">
-          <p class="text-base-content mb-2 text-lg font-semibold">Ubicacion</p>
-          <p class="text-base-content/70">
-            Lat {{ planta()?.latitude ?? 'N/A' }} · Lon
-            {{ planta()?.longitude ?? 'N/A' }}
-          </p>
-        </div>
-        <div class="bg-base-200 rounded-box my-2 p-4">
-          <p class="text-base-content mb-2 text-lg font-semibold">Responsable</p>
-          <p class="text-base-content/70">{{ planta()?.user_id }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-6 mb-4 flex flex-row items-center justify-between">
-      <h1 class="text-base-content mb-2 text-3xl font-semibold">Registros</h1>
+    <div class="flex items-center gap-2 text-sm">
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-success"
+          class="btn btn-soft btn-warning"
           type="button"
-          [routerLink]="['/plantas', planta()?.id, 'new-log']"
+          [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
-          Añadir Registro
+          Editar
         </button>
       }
+      @if (isOwner()) {
+        <button class="btn btn-soft btn-error" type="button" (click)="onDelete()">Eliminar</button>
+      }
     </div>
-    <app-planta-logs-list></app-planta-logs-list>
   </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <img [src]="planta()?.photo_url" alt="Imagen de la planta" class="rounded-box" />
+
+    <div>
+      <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
+      <div class="bg-base-200 rounded-box my-2 p-4">
+        <p class="text-base-content mb-2 text-lg font-semibold">Capacidad</p>
+        <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
+      </div>
+      <div class="bg-base-200 rounded-box my-2 p-4">
+        <p class="text-base-content mb-2 text-lg font-semibold">Ubicacion</p>
+        <p class="text-base-content/70">
+          Lat {{ planta()?.latitude ?? 'N/A' }} · Lon
+          {{ planta()?.longitude ?? 'N/A' }}
+        </p>
+      </div>
+      <div class="bg-base-200 rounded-box my-2 p-4">
+        <p class="text-base-content mb-2 text-lg font-semibold">Responsable</p>
+        <p class="text-base-content/70">{{ planta()?.user_id }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="mb-4 flex flex-row items-center justify-between">
+    <h1 class="text-base-content mb-2 text-3xl font-semibold">Registros</h1>
+    @if (isOwner()) {
+      <button
+        class="btn btn-soft btn-success"
+        type="button"
+        [routerLink]="['/plantas', planta()?.id, 'new-log']"
+      >
+        Añadir Registro
+      </button>
+    }
+  </div>
+  <app-planta-logs-list></app-planta-logs-list>
 </section>
