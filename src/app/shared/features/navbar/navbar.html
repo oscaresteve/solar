@@ -69,7 +69,15 @@
           >
         </li>
         <li><a>Settings</a></li>
-        <li><a (click)="logOut()" class="text-error">Log Out</a></li>
+        <li>
+          <button (click)="logOut()" class="text-error" [disabled]="loading()">
+            @if (loading()) {
+              <span class="loading loading-spinner"></span>
+            } @else {
+              Log Out
+            }
+          </button>
+        </li>
       </ul>
     </div>
   </div>

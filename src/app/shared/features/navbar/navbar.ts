@@ -17,6 +17,9 @@ export class Navbar implements OnInit {
   first_name = this._userService.first_name;
   photo_url = this._userService.photo_url;
 
+  loading = this._authService.loading;
+  error = this._authService.error;
+
   async logOut() {
     await this._authService.signOut();
     this._router.navigateByUrl('/auth/log-in');
