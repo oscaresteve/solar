@@ -7,8 +7,8 @@
   <div class="mb-4 flex flex-row items-center justify-between">
     <div>
       <div class="mb-2 flex items-center gap-2">
-        <span class="badge badge-soft badge-success text-xs">Activa</span>
-        <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
+        <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
+        <span class="badge badge-soft badge-info text-xs shadow-md"> ID #{{ planta()?.id }} </span>
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
       <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
@@ -16,7 +16,7 @@
     <div class="flex items-center gap-2 text-sm">
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-warning"
+          class="btn btn-soft btn-warning shadow-md"
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
@@ -24,34 +24,36 @@
         </button>
       }
       @if (isOwner()) {
-        <button class="btn btn-soft btn-error" type="button" (click)="onDelete()">Eliminar</button>
+        <button class="btn btn-soft btn-error shadow-md" type="button" (click)="onDelete()">
+          Eliminar
+        </button>
       }
     </div>
   </div>
 
   <div class="grid grid-cols-2 gap-4">
-    <div class="aspect-video overflow-hidden">
+    <div class="rounded-box aspect-video overflow-hidden shadow-xl">
       <img
         [src]="planta()?.photo_url"
         alt="Imagen de la planta"
-        class="rounded-box h-full w-full object-cover"
+        class="h-full w-full object-cover"
       />
     </div>
 
     <div>
       <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
-      <div class="bg-base-200 rounded-box my-2 p-4">
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Capacidad</p>
         <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
       </div>
-      <div class="bg-base-200 rounded-box my-2 p-4">
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Ubicacion</p>
         <p class="text-base-content/70">
           Lat {{ planta()?.latitude ?? 'N/A' }} · Lon
           {{ planta()?.longitude ?? 'N/A' }}
         </p>
       </div>
-      <div class="bg-base-200 rounded-box my-2 p-4">
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Responsable</p>
         <p class="text-base-content/70">{{ planta()?.user_id }}</p>
       </div>
@@ -64,7 +66,7 @@
     <h1 class="text-base-content mb-2 text-3xl font-semibold">Registros</h1>
     @if (isOwner()) {
       <button
-        class="btn btn-soft btn-success"
+        class="btn btn-soft btn-success shadow-md"
         type="button"
         [routerLink]="['/plantas', planta()?.id, 'new-log']"
       >

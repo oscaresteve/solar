@@ -1,6 +1,6 @@
 <section class="bg-base-100 flex min-h-screen items-center justify-center">
   <form
-    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-4"
+    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-4 shadow-xl"
     [formGroup]="form"
     (ngSubmit)="onSubmit($event)"
   >
@@ -102,7 +102,11 @@
       "
     />
 
-    <button type="submit" class="btn btn-block btn-soft btn-primary my-4" [disabled]="loading()">
+    <button
+      type="submit"
+      class="btn btn-block btn-soft btn-primary my-4 shadow-md"
+      [disabled]="loading()"
+    >
       @if (loading()) {
         <span class="loading loading-spinner"></span>
       }

@@ -1,4 +1,4 @@
-<div class="card bg-base-200 shadow-sm">
+<div class="card bg-base-200 shadow-xl">
   <figure class="aspect-video overflow-hidden">
     <img [src]="planta().photo_url" alt="Imagen" class="h-full w-full object-cover" />
   </figure>
@@ -22,7 +22,10 @@
     </ul>
 
     <div class="card-actions mt-4 justify-between">
-      <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max">
+      <a
+        [routerLink]="['/plantas', planta().id]"
+        class="btn btn-primary btn-soft min-w-max shadow-md"
+      >
         Ver Mas
         <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
       </a>

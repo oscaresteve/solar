@@ -16,8 +16,10 @@
     <div>
       @if (isEditing()) {
         <div class="mb-2 flex items-center gap-2">
-          <span class="badge badge-soft badge-success text-xs">Activa</span>
-          <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
+          <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
+          <span class="badge badge-soft badge-info text-xs shadow-md">
+            ID #{{ planta()?.id }}
+          </span>
         </div>
       }
       <h1 class="text-base-content mb-2 text-4xl font-semibold">
@@ -27,23 +29,21 @@
         <p class="text-base-content/70">Creado el {{ planta()?.created_at | date: 'long' }}</p>
       }
     </div>
-    <a class="btn btn-soft btn-warning min-w-max" [routerLink]="cancelLink()"> Cancelar </a>
+    <a class="btn btn-soft btn-warning min-w-max shadow-md" [routerLink]="cancelLink()">
+      Cancelar
+    </a>
   </div>
 
   <div class="grid grid-cols-2 gap-4">
     <div>
-      <div class="aspect-video overflow-hidden">
-        <img
-          [src]="previewURL()"
-          alt="Imagen de la planta"
-          class="rounded-box h-full w-full object-cover"
-        />
+      <div class="rounded-box aspect-video overflow-hidden shadow-xl">
+        <img [src]="previewURL()" alt="Imagen de la planta" class="h-full w-full object-cover" />
       </div>
 
       <input
         type="file"
         accept="image/*"
-        class="file-input file-input-ghost file-input-primary mt-4 w-full"
+        class="file-input mt-4 w-full shadow-md"
         (change)="onPhotoSelected($event)"
         [disabled]="loading()"
       />
@@ -53,7 +53,7 @@
       <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
 
       <form class="" (submit)="onSubmit($event)">
-        <div class="bg-base-200 rounded-box my-2 p-4">
+        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
           <input
             class="input w-full"
@@ -63,7 +63,7 @@
           />
         </div>
 
-        <div class="bg-base-200 rounded-box my-2 p-4">
+        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <p class="text-base-content mb-2 text-lg font-semibold">Capacidad (MW)</p>
           <input
             class="input w-full"
@@ -73,7 +73,7 @@
           />
         </div>
 
-        <div class="bg-base-200 rounded-box my-2 p-4">
+        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <div class="mb-4 grid grid-cols-2 gap-4">
             <div>
               <p class="text-base-content mb-2 text-lg font-semibold">Latitud</p>
@@ -98,7 +98,7 @@
           </div>
 
           <button
-            class="btn btn-soft btn-primary min-w-max"
+            class="btn btn-soft btn-primary min-w-max shadow-md"
             type="button"
             (click)="setCurrentPosition()"
             [disabled]="loading()"
@@ -108,7 +108,7 @@
         </div>
 
         <button
-          class="btn btn-soft btn-block btn-success mt-2 min-w-max"
+          class="btn btn-soft btn-block btn-success mt-2 min-w-max shadow-md"
           type="submit"
           [disabled]="loading()"
         >

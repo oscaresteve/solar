@@ -7,12 +7,12 @@
 <td>{{ planta().user_id }}</td>
 <td>{{ planta().created_at }}</td>
 <td>
-  <div class="aspect-video h-20 overflow-hidden">
-    <img [src]="planta().photo_url" class="rounded-box h-full w-full object-cover" />
+  <div class="rounded-box aspect-video h-20 overflow-hidden shadow-md">
+    <img [src]="planta().photo_url" class="h-full w-full object-cover" />
   </div>
 </td>
 <td>
-  <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max">
+  <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max shadow-md">
     Ver Mas
     <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
   </a>

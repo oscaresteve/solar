@@ -9,15 +9,18 @@
   <div class="mb-4 flex flex-row items-center justify-between">
     <div>
       <div class="mb-2 flex items-center gap-2">
-        <span class="badge badge-soft badge-success text-xs">Activa</span>
-        <span class="badge badge-soft badge-info text-xs"> ID #{{ planta()?.id }} </span>
+        <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
+        <span class="badge badge-soft badge-info text-xs shadow-md"> ID #{{ planta()?.id }} </span>
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">
         Nuevo registro en {{ planta()?.name }}
       </h1>
     </div>
     <div class="flex items-center gap-2 text-sm">
-      <a class="btn btn-soft btn-warning min-w-max" [routerLink]="['plantas/', planta()?.id]">
+      <a
+        class="btn btn-soft btn-warning min-w-max shadow-md"
+        [routerLink]="['plantas/', planta()?.id]"
+      >
         Cancelar
       </a>
     </div>
@@ -25,7 +28,7 @@
 
   <form class="" (submit)="onSubmit($event)">
     <div class="grid grid-cols-2 gap-4">
-      <div class="bg-base-200 rounded-box my-2 p-4">
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Producción</p>
         <input
           class="input w-full"
@@ -35,7 +38,7 @@
         />
       </div>
 
-      <div class="bg-base-200 rounded-box my-2 p-4">
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Consumo</p>
         <input
           class="input w-full"
@@ -45,7 +48,7 @@
         />
       </div>
     </div>
-    <div class="bg-base-200 rounded-box my-2 p-4">
+    <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
       <p class="text-base-content mb-2 text-lg font-semibold">Mensaje</p>
       <textarea
         class="textarea w-full"
@@ -55,7 +58,11 @@
       ></textarea>
     </div>
 
-    <button class="btn btn-success btn-soft btn-block mt-4" type="submit" [disabled]="loading()">
+    <button
+      class="btn btn-success btn-soft btn-block mt-4 shadow-md"
+      type="submit"
+      [disabled]="loading()"
+    >
       @if (loading()) {
         <span class="loading-spinner"></span>
       } @else {
