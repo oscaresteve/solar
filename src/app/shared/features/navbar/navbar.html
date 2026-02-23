@@ -45,10 +45,10 @@
   <div class="navbar-end">
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        @if (avatarUrl) {
+        @if (photo_url()) {
           <div class="avatar">
             <div class="w-10 rounded-full">
-              <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+              <img [src]="photo_url()" />
             </div>
           </div>
         } @else {

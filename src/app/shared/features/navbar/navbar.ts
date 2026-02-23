@@ -15,7 +15,7 @@ export class Navbar implements OnInit {
   _router = inject(Router);
 
   first_name = this._userService.first_name;
-  avatarUrl: string | boolean = false;
+  photo_url = this._userService.photo_url;
 
   logOut() {
     this._authService.signOut();

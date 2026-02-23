@@ -5,41 +5,66 @@
     <p class="text-base-content/70 mt-2 text-sm">Pagina para administrar la cuenta del usuario</p>
   </header>
 
-  <div class="flex justify-center">
-    @if (avatarUrl) {
-      <div class="avatar">
-        <div class="w-xs rounded-full">
-          <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
-        </div>
-      </div>
-    } @else {
-      <div class="avatar avatar-placeholder">
-        <div class="bg-neutral text-neutral-content w-xs rounded-full">
-          <span class="text-7xl">{{ first_name()?.charAt(0) }}</span>
-        </div>
-      </div>
-    }
-  </div>
+  <form (submit)="onSubmit($event)">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-base-200 rounded-box p-6">
+        <h1 class="text-base-content mb-4 text-3xl font-semibold">Foto de perfil</h1>
 
-  <div>
-    <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
-    <div class="bg-base-200 rounded-box my-2 p-4">
-      <p class="text-base-content mb-2 text-lg font-semibold">Nombre:</p>
-      <p class="text-base-content/70">{{ first_name() }}</p>
+        <div class="mb-4 flex justify-center">
+          @if (previewURL()) {
+            <div class="avatar">
+              <div class="w-72 rounded-full">
+                <img [src]="previewURL()" alt="Foto de perfil" />
+              </div>
+            </div>
+          } @else {
+            <div class="avatar avatar-placeholder">
+              <div class="bg-neutral text-neutral-content w-72 rounded-full">
+                <span class="text-7xl">{{ first_name()?.charAt(0) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          class="file-input file-input-ghost file-input-primary w-full"
+          (change)="onPhotoSelected($event)"
+        />
+      </div>
+
+      <div>
+        <h1 class="text-base-content mb-4 text-3xl font-semibold">Informacion</h1>
+
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
+          <input class="input w-full" type="text" [formField]="cuentaForm.first_name" />
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Apellidos</p>
+          <input class="input w-full" type="text" [formField]="cuentaForm.last_name" />
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">Email</p>
+          <p class="text-base-content/70">{{ email() }}</p>
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4">
+          <p class="text-base-content mb-2 text-lg font-semibold">UID</p>
+          <p class="text-base-content/70">{{ uid() }}</p>
+        </div>
+
+        <button class="btn btn-soft btn-block btn-success mt-4 min-w-max" type="submit">
+          @if (loading()) {
+            <span class="loading loading-spinner"></span>
+          } @else {
+            Guardar cambios
+          }
+        </button>
+      </div>
     </div>
-    <div class="bg-base-200 rounded-box my-2 p-4">
-      <p class="text-base-content mb-2 text-lg font-semibold">Apellidos:</p>
-      <p class="text-base-content/70">
-        {{ last_name() }}
-      </p>
-    </div>
-    <div class="bg-base-200 rounded-box my-2 p-4">
-      <p class="text-base-content mb-2 text-lg font-semibold">Email:</p>
-      <p class="text-base-content/70">{{ email() }}</p>
-    </div>
-    <div class="bg-base-200 rounded-box my-2 p-4">
-      <p class="text-base-content mb-2 text-lg font-semibold">UID:</p>
-      <p class="text-base-content/70">{{ uid() }}</p>
-    </div>
-  </div>
+  </form>
 </section>
