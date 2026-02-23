@@ -52,7 +52,7 @@ export class PlantaService {
 
     const { data } = this._supabaseClient.storage.from('plantas').getPublicUrl(photoPath);
 
-    return data.publicUrl;
+    return `${data.publicUrl}?v=${Date.now()}`;
   }
 
   async uploadPlantaPhoto(file: File, plantaId: string): Promise<Planta | null> {
