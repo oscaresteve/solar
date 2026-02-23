@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../auth/data-access/auth-service';
+import { UserService } from '../../../user/data-access/user-service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +9,19 @@ import { AuthService } from '../../../auth/data-access/auth-service';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar {
+export class Navbar implements OnInit {
   _authService = inject(AuthService);
+  _userService = inject(UserService);
   _router = inject(Router);
+
+  first_name = this._userService.first_name;
+  avatarUrl: string | boolean = false;
 
   logOut() {
     this._authService.signOut();
     this._router.navigateByUrl('/auth/log-in');
+  }
+  ngOnInit(): void {
+    this._userService.readProfile();
   }
 }

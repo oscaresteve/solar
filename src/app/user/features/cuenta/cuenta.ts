@@ -19,6 +19,7 @@ export class Cuenta implements OnInit {
   uid = this._authService.uid;
   loading = this._userService.loading;
   error = this._userService.error;
+  avatarUrl: string | boolean = false;
 
   ngOnInit(): void {
     this._userService.readProfile();

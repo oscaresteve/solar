@@ -1,5 +1,45 @@
 <app-navbar></app-navbar>
-<p>Nombre: {{ first_name() }}</p>
-<p>Apellidos: {{ last_name() }}</p>
-<p>Email: {{ email() }}</p>
-<p>UID: {{ uid() }}</p>
+<section class="bg-base-100 mx-48 min-h-screen">
+  <header class="mb-10">
+    <h1 class="text-base-content text-2xl font-semibold">Cuenta</h1>
+    <p class="text-base-content/70 mt-2 text-sm">Pagina para administrar la cuenta del usuario</p>
+  </header>
+
+  <div class="flex justify-center">
+    @if (avatarUrl) {
+      <div class="avatar">
+        <div class="w-xs rounded-full">
+          <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+        </div>
+      </div>
+    } @else {
+      <div class="avatar avatar-placeholder">
+        <div class="bg-neutral text-neutral-content w-xs rounded-full">
+          <span class="text-7xl">{{ first_name()?.charAt(0) }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div>
+    <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
+    <div class="bg-base-200 rounded-box my-2 p-4">
+      <p class="text-base-content mb-2 text-lg font-semibold">Nombre:</p>
+      <p class="text-base-content/70">{{ first_name() }}</p>
+    </div>
+    <div class="bg-base-200 rounded-box my-2 p-4">
+      <p class="text-base-content mb-2 text-lg font-semibold">Apellidos:</p>
+      <p class="text-base-content/70">
+        {{ last_name() }}
+      </p>
+    </div>
+    <div class="bg-base-200 rounded-box my-2 p-4">
+      <p class="text-base-content mb-2 text-lg font-semibold">Email:</p>
+      <p class="text-base-content/70">{{ email() }}</p>
+    </div>
+    <div class="bg-base-200 rounded-box my-2 p-4">
+      <p class="text-base-content mb-2 text-lg font-semibold">UID:</p>
+      <p class="text-base-content/70">{{ uid() }}</p>
+    </div>
+  </div>
+</section>

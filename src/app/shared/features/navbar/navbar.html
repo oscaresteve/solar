@@ -44,13 +44,20 @@
 
   <div class="navbar-end">
     <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-          />
-        </div>
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        @if (avatarUrl) {
+          <div class="avatar">
+            <div class="w-10 rounded-full">
+              <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+            </div>
+          </div>
+        } @else {
+          <div class="avatar avatar-placeholder">
+            <div class="bg-neutral text-neutral-content w-10 rounded-full">
+              <span class="text-xs">{{ first_name()?.charAt(0) }}</span>
+            </div>
+          </div>
+        }
       </div>
       <ul
         tabindex="-1"
