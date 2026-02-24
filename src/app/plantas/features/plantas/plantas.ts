@@ -15,8 +15,19 @@ export class Plantas implements OnInit {
   plantas = this._plantaService.plantas;
   loading = this._plantaService.loading;
   error = this._plantaService.error;
+  currentPage = this._plantaService.currentPage;
+  hasPreviousPage = this._plantaService.hasPreviousPage;
+  hasNextPage = this._plantaService.hasNextPage;
+
+  onNextPage() {
+    this._plantaService.nextPage();
+  }
+
+  onPreviousPage() {
+    this._plantaService.previousPage();
+  }
 
   ngOnInit(): void {
-    this._plantaService.ensurePlantasLoaded();
+    this._plantaService.ensurePlantasLoaded(5);
   }
 }

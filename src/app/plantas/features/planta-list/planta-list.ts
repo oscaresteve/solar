@@ -17,6 +17,17 @@ export class PlantaList implements OnInit {
   plantas = this._plantaService.plantas;
   loading = this._plantaService.loading;
   error = this._plantaService.error;
+  currentPage = this._plantaService.currentPage;
+  hasPreviousPage = this._plantaService.hasPreviousPage;
+  hasNextPage = this._plantaService.hasNextPage;
+
+  onNextPage() {
+    this._plantaService.nextPage();
+  }
+
+  onPreviousPage() {
+    this._plantaService.previousPage();
+  }
 
   isFavorite(plantaId: string) {
     return this._favoritesService.isFavorite(plantaId);
@@ -27,7 +38,7 @@ export class PlantaList implements OnInit {
   }
 
   ngOnInit(): void {
-    this._plantaService.ensurePlantasLoaded();
+    this._plantaService.ensurePlantasLoaded(3);
     this._favoritesService.ensureFavoritesLoaded();
   }
 }

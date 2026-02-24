@@ -16,4 +16,17 @@
       <p class="text-xl text-gray-500 italic">No hay plantas para mostrar.</p>
     }
   }
+  <div class="join">
+    <button
+      class="join-item btn btn-ghost"
+      [disabled]="!hasPreviousPage()"
+      (click)="onPreviousPage()"
+    >
+      «
+    </button>
+    <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
+    <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
+      »
+    </button>
+  </div>
 </div>
