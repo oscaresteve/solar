@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-  <table class="table">
+  <table class="table-md table">
     <thead>
       <tr>
         <th>ID</th>
@@ -20,7 +20,17 @@
       }
       @if (error()) {
         <tr>
-          <td colspan="8">Error al cargar las plantas.</td>
+          <td colspan="8" class="p-6">
+            <section class="rounded-box border border-error/30 bg-error/5 p-10 text-center shadow-sm">
+              <h2 class="text-error text-2xl font-semibold">No pudimos cargar las plantas</h2>
+              <p class="text-base-content/70 mt-3">
+                Verifica tu conexión o vuelve a intentarlo en unos segundos.
+              </p>
+              <button type="button" class="btn btn-error btn-soft mt-6" (click)="retryLoad()">
+                Reintentar
+              </button>
+            </section>
+          </td>
         </tr>
       }
       @if (!loading() && !error()) {
@@ -28,7 +38,16 @@
           <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
         } @empty {
           <tr>
-            <td colspan="8">No hay plantas para mostrar.</td>
+            <td colspan="8" class="p-6">
+              <section
+                class="rounded-box border border-base-300 bg-base-200/70 p-10 text-center shadow-sm"
+              >
+                <h2 class="text-base-content text-2xl font-semibold">Aún no hay plantas</h2>
+                <p class="text-base-content/70 mt-3">
+                  Cuando registres la primera planta, aparecerá aquí con su información.
+                </p>
+              </section>
+            </td>
           </tr>
         }
       }

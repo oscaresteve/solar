@@ -27,6 +27,10 @@ export class Plantas implements OnInit {
     this._plantaService.previousPage();
   }
 
+  onRetryLoad() {
+    this._plantaService.reloadCurrentPage();
+  }
+
   ngOnInit(): void {
     this._plantaService.ensurePlantasLoaded(5);
   }

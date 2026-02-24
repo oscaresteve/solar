@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Planta } from '../../interfaces/planta';
 import { CommonModule } from '@angular/common';
 import { PlantaTableRow } from '../planta-table-row/planta-table-row';
@@ -14,4 +14,9 @@ export class PlantaTable {
   plantas = input.required<Planta[]>();
   loading = input(false);
   error = input(false);
+  retryRequested = output<void>();
+
+  retryLoad() {
+    this.retryRequested.emit();
+  }
 }

@@ -19,19 +19,22 @@
     [plantas]="plantas()"
     [loading]="loading()"
     [error]="error()"
+    (retryRequested)="onRetryLoad()"
   ></app-planta-table>
 
-  <div class="join">
-    <button
-      class="join-item btn btn-ghost"
-      [disabled]="!hasPreviousPage()"
-      (click)="onPreviousPage()"
-    >
-      «
-    </button>
-    <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
-    <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
-      »
-    </button>
-  </div>
+  @if (!loading() && !error() && plantas().length > 0) {
+    <div class="join">
+      <button
+        class="join-item btn btn-ghost"
+        [disabled]="!hasPreviousPage()"
+        (click)="onPreviousPage()"
+      >
+        «
+      </button>
+      <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
+      <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
+        »
+      </button>
+    </div>
+  }
 </section>
