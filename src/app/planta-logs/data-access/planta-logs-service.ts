@@ -14,15 +14,23 @@ interface PlantaLogsState {
 export class PlantaLogsService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
-  private _state = signal<PlantaLogsState>({
+  private readonly _initialState: PlantaLogsState = {
     plantaLogs: [],
     loading: false,
     error: false,
+  };
+
+  private _state = signal<PlantaLogsState>({
+    ...this._initialState,
   });
 
   plantaLogs = computed(() => this._state().plantaLogs);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
+
+  resetState() {
+    this._state.set({ ...this._initialState });
+  }
 
   private setLoading(loading: boolean) {
     this._state.update((state) => ({

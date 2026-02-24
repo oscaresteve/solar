@@ -15,12 +15,16 @@ interface UserState {
 export class UserService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
-  private _state = signal<UserState>({
+  private readonly _initialState: UserState = {
     first_name: null,
     last_name: null,
     photo_path: null,
     loading: false,
     error: false,
+  };
+
+  private _state = signal<UserState>({
+    ...this._initialState,
   });
 
   first_name = computed(() => this._state().first_name);
@@ -28,6 +32,10 @@ export class UserService {
   photo_url = computed(() => this.getProfilePhotoUrl(this._state().photo_path));
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
+
+  resetState() {
+    this._state.set({ ...this._initialState });
+  }
 
   private setLoading(loading: boolean) {
     this._state.update((state) => ({

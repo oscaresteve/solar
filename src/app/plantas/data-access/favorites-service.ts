@@ -15,16 +15,24 @@ interface FavoritesState {
 export class FavoritesService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
-  private _state = signal<FavoritesState>({
+  private readonly _initialState: FavoritesState = {
     plantasFavorites: [],
     loading: false,
     error: false,
     loaded: false,
+  };
+
+  private _state = signal<FavoritesState>({
+    ...this._initialState,
   });
 
   plantasFavorites = computed(() => this._state().plantasFavorites);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
+
+  resetState() {
+    this._state.set({ ...this._initialState });
+  }
 
   private setLoading(loading: boolean) {
     this._state.update((state) => ({ ...state, loading }));

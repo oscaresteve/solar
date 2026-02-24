@@ -1,5 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {
+  AuthChangeEvent,
+  Session,
   SignInWithPasswordCredentials,
   SignUpWithPasswordCredentials,
 } from '@supabase/supabase-js';
@@ -17,17 +19,25 @@ interface AuthState {
 })
 export class AuthService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
-  private _state = signal<AuthState>({
+  private readonly _initialState: AuthState = {
     email: null,
     uid: null,
     loading: false,
     error: false,
+  };
+
+  private _state = signal<AuthState>({
+    ...this._initialState,
   });
 
   email = computed(() => this._state().email);
   uid = computed(() => this._state().uid);
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
+
+  resetState() {
+    this._state.set({ ...this._initialState });
+  }
 
   private setLoading(loading: boolean) {
     this._state.update((state) => ({
@@ -151,11 +161,9 @@ export class AuthService {
     }
   }
 
-  //Detectar cambios de session
-
-  /* onAuthStateChange(callback: (event: string, session: any) => void) {
-    return this._supabaseClient.auth.onAuthStateChange(
-      (event, session) => callback(event, session)
+  onAuthStateChange(callback: (event: AuthChangeEvent, session: Session | null) => void) {
+    return this._supabaseClient.auth.onAuthStateChange((event, session) =>
+      callback(event, session),
     );
-  } */
+  }
 }

@@ -18,7 +18,7 @@ interface PlantaState {
 export class PlantaService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
 
-  private _state = signal<PlantaState>({
+  private readonly _initialState: PlantaState = {
     plantas: [],
     loading: false,
     error: false,
@@ -26,6 +26,10 @@ export class PlantaService {
     currentPage: 0,
     totalCount: 0,
     pageSize: 3,
+  };
+
+  private _state = signal<PlantaState>({
+    ...this._initialState,
   });
 
   plantas = computed(() => this._state().plantas);
@@ -35,6 +39,10 @@ export class PlantaService {
   totalPages = computed(() => Math.ceil(this._state().totalCount / this._state().pageSize));
   hasPreviousPage = computed(() => this._state().currentPage > 0);
   hasNextPage = computed(() => this._state().currentPage < this.totalPages() - 1);
+
+  resetState() {
+    this._state.set({ ...this._initialState });
+  }
 
   private setLoading(loading: boolean) {
     this._state.update((state) => ({
