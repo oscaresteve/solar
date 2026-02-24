@@ -1,6 +1,8 @@
 <div class="grid grid-cols-3 gap-6">
   @if (loading()) {
-    <p class="text-xl text-gray-500 italic">Cargando las plantas...</p>
+    <app-card-skeleton />
+    <app-card-skeleton />
+    <app-card-skeleton />
   }
   @if (error()) {
     <p class="text-xl text-red-500 italic">Error al cargar las plantas.</p>
@@ -16,6 +18,9 @@
       <p class="text-xl text-gray-500 italic">No hay plantas para mostrar.</p>
     }
   }
+</div>
+
+<div class="mt-10 flex justify-center">
   <div class="join">
     <button
       class="join-item btn btn-ghost"

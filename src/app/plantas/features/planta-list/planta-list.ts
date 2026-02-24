@@ -3,10 +3,11 @@ import { PlantaItem } from '../planta-item/planta-item';
 import { Planta } from '../../interfaces/planta';
 import { PlantaService } from '../../data-access/planta-service';
 import { FavoritesService } from '../../data-access/favorites-service';
+import { CardSkeleton } from '../../../shared/ui/card-skeleton/card-skeleton';
 
 @Component({
   selector: 'app-planta-list',
-  imports: [PlantaItem],
+  imports: [PlantaItem, CardSkeleton],
   templateUrl: './planta-list.html',
   styleUrl: './planta-list.scss',
 })
