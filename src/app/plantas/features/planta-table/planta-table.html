@@ -21,12 +21,15 @@
       @if (error()) {
         <tr>
           <td colspan="8" class="p-6">
-            <section class="rounded-box border border-error/30 bg-error/5 p-10 text-center shadow-sm">
-              <h2 class="text-error text-2xl font-semibold">No pudimos cargar las plantas</h2>
-              <p class="text-base-content/70 mt-3">
+            <section
+              class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+              aria-live="assertive"
+            >
+              <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
+              <p class="text-error-content mt-3">
                 Verifica tu conexión o vuelve a intentarlo en unos segundos.
               </p>
-              <button type="button" class="btn btn-error btn-soft mt-6" (click)="retryLoad()">
+              <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
                 Reintentar
               </button>
             </section>
@@ -40,12 +43,20 @@
           <tr>
             <td colspan="8" class="p-6">
               <section
-                class="rounded-box border border-base-300 bg-base-200/70 p-10 text-center shadow-sm"
+                class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
+                aria-live="assertive"
               >
-                <h2 class="text-base-content text-2xl font-semibold">Aún no hay plantas</h2>
-                <p class="text-base-content/70 mt-3">
+                <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
+                <p class="text-base-content mt-3">
                   Cuando registres la primera planta, aparecerá aquí con su información.
                 </p>
+                <a
+                  type="button"
+                  class="btn btn-success btn-soft mt-6"
+                  [routerLink]="['/plantas/new-planta']"
+                >
+                  Nueva planta
+                </a>
               </section>
             </td>
           </tr>

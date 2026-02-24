@@ -3,10 +3,11 @@ import { Planta } from '../../interfaces/planta';
 import { CommonModule } from '@angular/common';
 import { PlantaTableRow } from '../planta-table-row/planta-table-row';
 import { TableRowSkeleton } from '../../../shared/ui/table-row-skeleton/table-row-skeleton';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-planta-table',
-  imports: [CommonModule, PlantaTableRow, TableRowSkeleton],
+  imports: [CommonModule, PlantaTableRow, TableRowSkeleton, RouterLink],
   templateUrl: './planta-table.html',
   styleUrl: './planta-table.scss',
 })
@@ -16,7 +17,7 @@ export class PlantaTable {
   error = input(false);
   retryRequested = output<void>();
 
-  retryLoad() {
+  onRetryLoad() {
     this.retryRequested.emit();
   }
 }
