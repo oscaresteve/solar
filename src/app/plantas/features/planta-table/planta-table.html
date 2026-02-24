@@ -14,9 +14,9 @@
     </thead>
     <tbody>
       @if (loading()) {
-        <tr>
-          <td colspan="8">Cargando las plantas...</td>
-        </tr>
+        @for (row of [1, 2, 3, 4, 5]; track row) {
+          <tr app-table-row-skeleton></tr>
+        }
       }
       @if (error()) {
         <tr>
