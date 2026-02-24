@@ -183,6 +183,11 @@ export class PlantaService {
     }
   }
 
+  reloadCurrentPage() {
+    const { currentPage, pageSize } = this._state();
+    return this.readPlantasWithPagination(currentPage, pageSize);
+  }
+
   async ensurePlantasLoaded(pageSize: number) {
     const state = this._state();
 

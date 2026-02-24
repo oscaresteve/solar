@@ -5,7 +5,18 @@
     <app-card-skeleton />
   }
   @if (error()) {
-    <p class="text-xl text-red-500 italic">Error al cargar las plantas.</p>
+    <section
+      class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+      aria-live="assertive"
+    >
+      <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
+      <p class="text-error-content mt-3">
+        Verifica tu conexión o vuelve a intentarlo en unos segundos.
+      </p>
+      <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+        Reintentar
+      </button>
+    </section>
   }
   @if (!loading() && !error()) {
     @for (planta of plantas(); track planta.id) {
@@ -15,7 +26,22 @@
         (favoriteToggled)="toggleFavorite(planta)"
       ></app-planta-item>
     } @empty {
-      <p class="text-xl text-gray-500 italic">No hay plantas para mostrar.</p>
+      <section
+        class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
+        aria-live="assertive"
+      >
+        <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
+        <p class="text-base-content mt-3">
+          Cuando registres la primera planta, aparecerá aquí con su información.
+        </p>
+        <a
+          type="button"
+          class="btn btn-success btn-soft mt-6"
+          [routerLink]="['/plantas/new-planta']"
+        >
+          Nueva planta
+        </a>
+      </section>
     }
   }
 </div>
