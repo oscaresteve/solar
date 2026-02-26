@@ -46,8 +46,8 @@
   }
 </div>
 
-<div class="mt-10 flex justify-center">
-  <div class="join">
+@if (!error() && plantas().length > 0) {
+  <div class="join mt-10 flex justify-center">
     <button
       class="join-item btn btn-ghost"
       [disabled]="!hasPreviousPage()"
@@ -60,4 +60,4 @@
       »
     </button>
   </div>
-</div>
+}
