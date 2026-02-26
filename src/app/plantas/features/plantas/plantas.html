@@ -15,13 +15,53 @@
     </div>
   </header>
 
+  <div class="flex justify-between">
+    <div class="flex items-center gap-4">
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Estado</legend>
+        <select
+          class="select select-sm w-28"
+          [value]="activeFilter()"
+          (change)="activeFilter.set($any($event.target).value)"
+        >
+          <option value="all">Todas</option>
+          <option value="active">Activas</option>
+          <option value="inactive">Inactivas</option>
+        </select>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Ordenar por</legend>
+        <select
+          class="select select-sm w-44"
+          [value]="sortField()"
+          (change)="sortField.set($any($event.target).value)"
+        >
+          <option value="created_at">Fecha de creación</option>
+          <option value="name">Nombre</option>
+          <option value="capacity">Capacidad</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Dirección</legend>
+      <select
+        class="select select-sm w-36"
+        [value]="sortDirection()"
+        (change)="sortDirection.set($any($event.target).value)"
+      >
+        <option value="desc">Descendente</option>
+        <option value="asc">Ascendente</option>
+      </select>
+    </fieldset>
+  </div>
+
   <app-planta-table
     [plantas]="filteredAndSortedPlantas()"
     [loading]="loading()"
     [error]="error()"
     (retryRequested)="onRetryLoad()"
-    (activeFilterChanged)="onActiveFilterChanged($event)"
-    (sortChanged)="onSortChanged($event)"
   ></app-planta-table>
 
   @if (!error() && plantas().length > 0) {

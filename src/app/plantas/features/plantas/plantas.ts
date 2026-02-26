@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { Planta } from '../../interfaces/planta';
 
 type SortField = 'created_at' | 'name' | 'capacity';
+type ActiveFilter = 'all' | 'active' | 'inactive';
+type SortDirection = 'asc' | 'desc';
 
 @Component({
   selector: 'app-plantas',
@@ -18,20 +20,23 @@ export class Plantas implements OnInit {
   plantas = this._plantaService.plantas;
   loading = this._plantaService.loading;
   error = this._plantaService.error;
+
   currentPage = this._plantaService.currentPage;
   hasPreviousPage = this._plantaService.hasPreviousPage;
   hasNextPage = this._plantaService.hasNextPage;
-  activeFilter = signal<boolean | null>(null);
+
+  activeFilter = signal<ActiveFilter>('all');
   sortField = signal<SortField>('created_at');
-  sortAscending = signal(false);
+  sortDirection = signal<SortDirection>('desc');
+
   filteredAndSortedPlantas = computed(() => {
     const plantas = [...this.plantas()];
     const activeFilter = this.activeFilter();
 
     const filteredPlantas =
-      activeFilter === null
+      activeFilter === 'all'
         ? plantas
-        : plantas.filter((planta) => planta.active === activeFilter);
+        : plantas.filter((planta) => planta.active === (activeFilter === 'active'));
 
     return filteredPlantas.sort((a, b) => this.comparePlantas(a, b));
   });
@@ -48,24 +53,13 @@ export class Plantas implements OnInit {
     this._plantaService.reloadCurrentPage();
   }
 
-  onActiveFilterChanged(active: boolean | null) {
-    this.activeFilter.set(active);
-  }
-
-  onSortChanged(sort: {
-    field: 'created_at' | 'name' | 'capacity';
-    ascending: boolean;
-  }) {
-    this.sortField.set(sort.field);
-    this.sortAscending.set(sort.ascending);
-  }
-
   ngOnInit(): void {
     this._plantaService.ensurePlantasLoaded(5);
   }
 
   private comparePlantas(a: Planta, b: Planta) {
     const sortField = this.sortField();
+    const sortDirection = this.sortDirection();
     let compareResult = 0;
 
     if (sortField === 'name') {
@@ -76,6 +70,6 @@ export class Plantas implements OnInit {
       compareResult = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
     }
 
-    return this.sortAscending() ? compareResult : compareResult * -1;
+    return sortDirection === 'asc' ? compareResult : compareResult * -1;
   }
 }

@@ -1,108 +1,64 @@
-<div class="flex justify-between">
-  <div class="flex items-center gap-4">
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">Estado</legend>
-      <select
-        class="select select-sm w-28"
-        [value]="activeFilter()"
-        (change)="onActiveFilterChange($any($event.target).value)"
-      >
-        <option value="all">Todas</option>
-        <option value="active">Activas</option>
-        <option value="inactive">Inactivas</option>
-      </select>
-    </fieldset>
-
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">Ordenar por</legend>
-      <select
-        class="select select-sm w-44"
-        [value]="sortField()"
-        (change)="onSortFieldChange($any($event.target).value)"
-      >
-        <option value="created_at">Fecha de creación</option>
-        <option value="name">Nombre</option>
-        <option value="capacity">Capacidad</option>
-      </select>
-    </fieldset>
-  </div>
-
-  <fieldset class="fieldset">
-    <legend class="fieldset-legend">Dirección</legend>
-    <select
-      class="select select-sm w-36"
-      [value]="sortDirection()"
-      (change)="onSortDirectionChange($any($event.target).value)"
-    >
-      <option value="desc">Descendente</option>
-      <option value="asc">Ascendente</option>
-    </select>
-  </fieldset>
-</div>
-
-<div class="overflow-x-auto">
-  <table class="table-sm table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Ubicación (Lat, Long)</th>
-        <th>Capacidad (MW)</th>
-        <th>Estado</th>
-        <th>Responsable</th>
-        <th>Fecha de creación</th>
-      </tr>
-    </thead>
-    <tbody>
-      @if (loading()) {
-        @for (row of [1, 2, 3, 4, 5]; track row) {
-          <tr app-table-row-skeleton></tr>
-        }
+<table class="table-sm table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Ubicación (Lat, Long)</th>
+      <th>Capacidad (MW)</th>
+      <th>Estado</th>
+      <th>Responsable</th>
+      <th>Fecha de creación</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (loading()) {
+      @for (row of [1, 2, 3, 4, 5]; track row) {
+        <tr app-table-row-skeleton></tr>
       }
-      @if (error()) {
+    }
+    @if (error()) {
+      <tr>
+        <td colspan="9" class="p-6">
+          <section
+            class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+            aria-live="assertive"
+          >
+            <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
+            <p class="text-error-content mt-3">
+              Verifica tu conexión o vuelve a intentarlo en unos segundos.
+            </p>
+            <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+              Reintentar
+            </button>
+          </section>
+        </td>
+      </tr>
+    }
+    @if (!loading() && !error()) {
+      @for (planta of plantas(); track planta.id) {
+        <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
+      } @empty {
         <tr>
           <td colspan="9" class="p-6">
             <section
-              class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+              class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
               aria-live="assertive"
             >
-              <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
-              <p class="text-error-content mt-3">
-                Verifica tu conexión o vuelve a intentarlo en unos segundos.
+              <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
+              <p class="text-base-content mt-3">
+                Cuando registres la primera planta, aparecerá aquí con su información.
               </p>
-              <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
-                Reintentar
-              </button>
+              <a
+                type="button"
+                class="btn btn-success btn-soft mt-6"
+                [routerLink]="['/plantas/new-planta']"
+              >
+                Nueva planta
+              </a>
             </section>
           </td>
         </tr>
       }
-      @if (!loading() && !error()) {
-        @for (planta of plantas(); track planta.id) {
-          <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
-        } @empty {
-          <tr>
-            <td colspan="9" class="p-6">
-              <section
-                class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
-                aria-live="assertive"
-              >
-                <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
-                <p class="text-base-content mt-3">
-                  Cuando registres la primera planta, aparecerá aquí con su información.
-                </p>
-                <a
-                  type="button"
-                  class="btn btn-success btn-soft mt-6"
-                  [routerLink]="['/plantas/new-planta']"
-                >
-                  Nueva planta
-                </a>
-              </section>
-            </td>
-          </tr>
-        }
-      }
-    </tbody>
-  </table>
-</div>
+    }
+  </tbody>
+</table>
