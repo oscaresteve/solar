@@ -1,3 +1,7 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="flex min-h-dvh flex-col">
+  <app-navbar class="shrink-0"></app-navbar>
+  <main class="flex-1">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer class="shrink-0"></app-footer>
+</div>

@@ -1,4 +1,4 @@
-<section class="bg-base-100 mx-48 min-h-screen">
+<section class="bg-base-100 mx-48">
   <header class="mb-10">
     <h1 class="text-base-content text-2xl font-semibold">
       {{ isEditing() ? 'Editar planta' : 'Crear planta' }}
@@ -56,7 +56,7 @@
     <div>
       <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
 
-      <form class="" (submit)="onSubmit($event)">
+      <form (submit)="onSubmit($event)">
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
           <input
