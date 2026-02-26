@@ -16,10 +16,12 @@
     <div>
       @if (isEditing()) {
         <div class="mb-2 flex items-center gap-2">
-          <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
-          <span class="badge badge-soft badge-info text-xs shadow-md">
-            ID #{{ planta()?.id }}
-          </span>
+          @if (planta()?.active) {
+            <span class="badge badge-soft badge-success shadow-md">Activa</span>
+          } @else {
+            <span class="badge badge-soft badge-error shadow-md">Inactiva</span>
+          }
+          <span class="badge badge-soft badge-info shadow-md"> ID #{{ planta()?.id }} </span>
         </div>
       }
       <h1 class="text-base-content mb-2 text-4xl font-semibold">
@@ -63,6 +65,16 @@
             placeholder="Parque Solar Andino"
             [formField]="plantaForm.name"
           />
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
+          <p class="text-base-content mb-2 text-lg font-semibold">Estado</p>
+          <label class="label cursor-pointer justify-start gap-3">
+            <input type="checkbox" class="toggle" [formField]="plantaForm.active" />
+            <span class="text-base-content/70">
+              {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
+            </span>
+          </label>
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">

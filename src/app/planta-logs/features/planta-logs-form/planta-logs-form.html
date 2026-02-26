@@ -9,8 +9,12 @@
   <div class="mb-4 flex flex-row items-center justify-between">
     <div>
       <div class="mb-2 flex items-center gap-2">
-        <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
-        <span class="badge badge-soft badge-info text-xs shadow-md"> ID #{{ planta()?.id }} </span>
+        @if (planta()?.active) {
+          <span class="badge badge-soft badge-success shadow-md">Activa</span>
+        } @else {
+          <span class="badge badge-soft badge-error shadow-md">Inactiva</span>
+        }
+        <span class="badge badge-soft badge-info shadow-md"> ID #{{ planta()?.id }} </span>
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">
         Nuevo registro en {{ planta()?.name }}

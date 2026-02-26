@@ -3,6 +3,14 @@
     <img [src]="planta().photo_url" alt="Imagen" class="h-full w-full object-cover" />
   </figure>
   <div class="card-body">
+    <div class="flex gap-2">
+      @if (planta().active) {
+        <span class="badge badge-xs badge-soft badge-success shadow-md">Activa</span>
+      } @else {
+        <span class="badge badge-xs badge-soft badge-error shadow-md">Inactiva</span>
+      }
+      <span class="badge badge-xs badge-soft badge-info shadow-md"> ID #{{ planta().id }} </span>
+    </div>
     <h3 class="card-title">
       {{ planta().name }}
     </h3>
@@ -21,7 +29,7 @@
       </li>
     </ul>
 
-    <div class="card-actions justify-between">
+    <div class="card-actions mt-4 justify-between">
       <a
         [routerLink]="['/plantas', planta().id]"
         class="btn btn-primary btn-soft min-w-max shadow-md"

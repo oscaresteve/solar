@@ -2,6 +2,7 @@ export interface Planta {
   id: string;
   created_at: string;
   name: string;
+  active: boolean;
   latitude: number;
   longitude: number;
   capacity: number;

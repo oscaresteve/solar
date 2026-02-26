@@ -6,6 +6,7 @@
         <th>Nombre</th>
         <th>Ubicación</th>
         <th>Capacidad (MW)</th>
+        <th>Estado</th>
         <th>Usuario</th>
         <th>Fecha de creación</th>
         <th>Imagen</th>
@@ -20,7 +21,7 @@
       }
       @if (error()) {
         <tr>
-          <td colspan="8" class="p-6">
+          <td colspan="9" class="p-6">
             <section
               class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
               aria-live="assertive"
@@ -41,7 +42,7 @@
           <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
         } @empty {
           <tr>
-            <td colspan="8" class="p-6">
+            <td colspan="9" class="p-6">
               <section
                 class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
                 aria-live="assertive"

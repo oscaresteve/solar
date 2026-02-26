@@ -1,11 +1,34 @@
-<td>{{ planta().id }}</td>
 <td>
-  {{ planta().name }}
+  <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{ planta().id }}</span>
 </td>
-<td>{{ planta().latitude }}, {{ planta().longitude }}</td>
-<td>{{ planta().capacity }} MW</td>
-<td>{{ planta().user_id }}</td>
-<td>{{ planta().created_at }}</td>
+<td>
+  <p class="text-base-content flex justify-center font-semibold">
+    {{ planta().name }}
+  </p>
+</td>
+<td>
+  <p class="text-base-content flex justify-center">
+    {{ planta().latitude }}, {{ planta().longitude }}
+  </p>
+</td>
+<td>
+  <p class="text-base-content flex justify-center">{{ planta().capacity }}</p>
+</td>
+<td>
+  @if (planta().active) {
+    <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
+  } @else {
+    <span class="badge badge-soft badge-error text-xs shadow-md">Inactiva</span>
+  }
+</td>
+<td>
+  <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">
+    {{ planta().user_id }}
+  </span>
+</td>
+<td>
+  <p class="text-base-content flex justify-center">{{ planta().created_at | date: 'short' }}</p>
+</td>
 <td>
   <div class="rounded-box aspect-video h-20 overflow-hidden shadow-md">
     <img [src]="planta().photo_url" class="h-full w-full object-cover" />

@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 
 interface PlantaFormData {
   name: string;
+  active: boolean;
   capacity: number;
   latitude: number;
   longitude: number;
@@ -36,6 +37,7 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   private plantaFormModel = signal<PlantaFormData>({
     name: '',
+    active: true,
     capacity: 0,
     latitude: 0,
     longitude: 0,
@@ -95,6 +97,7 @@ export class PlantaForm implements OnInit, OnDestroy {
       if (!planta) return;
 
       this.plantaForm.name().value.set(planta.name);
+      this.plantaForm.active().value.set(planta.active);
       this.plantaForm.capacity().value.set(planta.capacity);
       this.plantaForm.latitude().value.set(planta.latitude);
       this.plantaForm.longitude().value.set(planta.longitude);
