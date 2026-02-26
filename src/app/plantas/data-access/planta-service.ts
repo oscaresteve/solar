@@ -2,6 +2,8 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Planta } from '../interfaces/planta';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
 
+type PlantaSortField = 'created_at' | 'name' | 'capacity';
+
 interface PlantaState {
   plantas: Planta[];
   loading: boolean;
@@ -10,6 +12,9 @@ interface PlantaState {
   currentPage: number;
   totalCount: number;
   pageSize: number;
+  activeFilter: boolean | null;
+  sortField: PlantaSortField;
+  sortAscending: boolean;
 }
 
 @Injectable({
@@ -26,6 +31,9 @@ export class PlantaService {
     currentPage: 0,
     totalCount: 0,
     pageSize: 3,
+    activeFilter: null,
+    sortField: 'created_at',
+    sortAscending: false,
   };
 
   private _state = signal<PlantaState>({
@@ -39,6 +47,36 @@ export class PlantaService {
   totalPages = computed(() => Math.ceil(this._state().totalCount / this._state().pageSize));
   hasPreviousPage = computed(() => this._state().currentPage > 0);
   hasNextPage = computed(() => this._state().currentPage < this.totalPages() - 1);
+  activeFilter = computed(() => this._state().activeFilter);
+  sortField = computed(() => this._state().sortField);
+  sortAscending = computed(() => this._state().sortAscending);
+
+  setActiveFilter(active: boolean | null) {
+    const state = this._state();
+    if (state.activeFilter === active) return;
+
+    this._state.update((currentState) => ({
+      ...currentState,
+      activeFilter: active,
+      currentPage: 0,
+    }));
+
+    this.readPlantasWithPagination(0, state.pageSize);
+  }
+
+  setSort(field: PlantaSortField, ascending: boolean) {
+    const state = this._state();
+    if (state.sortField === field && state.sortAscending === ascending) return;
+
+    this._state.update((currentState) => ({
+      ...currentState,
+      sortField: field,
+      sortAscending: ascending,
+      currentPage: 0,
+    }));
+
+    this.readPlantasWithPagination(0, state.pageSize);
+  }
 
   resetState() {
     this._state.set({ ...this._initialState });
@@ -149,11 +187,18 @@ export class PlantaService {
 
       const from = page * pageSize;
       const to = from + pageSize - 1;
+      const { activeFilter, sortField, sortAscending } = this._state();
 
-      const { data, error, count } = await this._supabaseClient
+      let query = this._supabaseClient
         .from('plantas')
         .select('*', { count: 'exact' })
-        .range(from, to);
+        .order(sortField, { ascending: sortAscending });
+
+      if (activeFilter !== null) {
+        query = query.eq('active', activeFilter);
+      }
+
+      const { data, error, count } = await query.range(from, to);
 
       if (error) throw error;
 

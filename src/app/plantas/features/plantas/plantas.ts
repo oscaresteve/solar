@@ -31,6 +31,17 @@ export class Plantas implements OnInit {
     this._plantaService.reloadCurrentPage();
   }
 
+  onActiveFilterChanged(active: boolean | null) {
+    this._plantaService.setActiveFilter(active);
+  }
+
+  onSortChanged(sort: {
+    field: 'created_at' | 'name' | 'capacity';
+    ascending: boolean;
+  }) {
+    this._plantaService.setSort(sort.field, sort.ascending);
+  }
+
   ngOnInit(): void {
     this._plantaService.ensurePlantasLoaded(5);
   }

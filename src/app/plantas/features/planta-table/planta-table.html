@@ -1,3 +1,45 @@
+<div class="flex justify-between">
+  <div class="flex items-center gap-4">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Estado</legend>
+      <select
+        class="select w-28"
+        [value]="activeFilter()"
+        (change)="onActiveFilterChange($any($event.target).value)"
+      >
+        <option value="all">Todas</option>
+        <option value="active">Activas</option>
+        <option value="inactive">Inactivas</option>
+      </select>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">Ordenar por</legend>
+      <select
+        class="select w-44"
+        [value]="sortField()"
+        (change)="onSortFieldChange($any($event.target).value)"
+      >
+        <option value="created_at">Fecha de creación</option>
+        <option value="name">Nombre</option>
+        <option value="capacity">Capacidad</option>
+      </select>
+    </fieldset>
+  </div>
+
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend">Dirección</legend>
+    <select
+      class="select w-36"
+      [value]="sortDirection()"
+      (change)="onSortDirectionChange($any($event.target).value)"
+    >
+      <option value="desc">Descendente</option>
+      <option value="asc">Ascendente</option>
+    </select>
+  </fieldset>
+</div>
+
 <div class="overflow-x-auto">
   <table class="table-md table">
     <thead>

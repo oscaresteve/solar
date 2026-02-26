@@ -20,6 +20,8 @@
     [loading]="loading()"
     [error]="error()"
     (retryRequested)="onRetryLoad()"
+    (activeFilterChanged)="onActiveFilterChanged($event)"
+    (sortChanged)="onSortChanged($event)"
   ></app-planta-table>
 
   @if (!error() && plantas().length > 0) {
