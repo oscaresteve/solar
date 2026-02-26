@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { PlantaItem } from '../planta-item/planta-item';
 import { Planta } from '../../interfaces/planta';
 import { PlantaService } from '../../data-access/planta-service';
@@ -19,20 +19,14 @@ export class PlantaList implements OnInit {
   plantas = this._plantaService.plantas;
   loading = this._plantaService.loading;
   error = this._plantaService.error;
-  currentPage = this._plantaService.currentPage;
-  hasPreviousPage = this._plantaService.hasPreviousPage;
-  hasNextPage = this._plantaService.hasNextPage;
-
-  onNextPage() {
-    this._plantaService.nextPage();
-  }
-
-  onPreviousPage() {
-    this._plantaService.previousPage();
-  }
+  sortedPlantas = computed(() =>
+    [...this.plantas()].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    ),
+  );
 
   onRetryLoad() {
-    this._plantaService.reloadCurrentPage();
+    this._plantaService.readPlantas();
   }
 
   isFavorite(plantaId: string) {
@@ -44,7 +38,7 @@ export class PlantaList implements OnInit {
   }
 
   ngOnInit(): void {
-    this._plantaService.ensurePlantasLoaded(3);
+    this._plantaService.readPlantas();
     this._favoritesService.ensureFavoritesLoaded();
   }
 }

@@ -16,7 +16,7 @@
   </header>
 
   <app-planta-table
-    [plantas]="plantas()"
+    [plantas]="filteredAndSortedPlantas()"
     [loading]="loading()"
     [error]="error()"
     (retryRequested)="onRetryLoad()"

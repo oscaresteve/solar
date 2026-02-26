@@ -1,7 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { PlantaTable } from '../planta-table/planta-table';
 import { PlantaService } from '../../data-access/planta-service';
 import { RouterLink } from '@angular/router';
+import { Planta } from '../../interfaces/planta';
+
+type SortField = 'created_at' | 'name' | 'capacity';
 
 @Component({
   selector: 'app-plantas',
@@ -18,6 +21,20 @@ export class Plantas implements OnInit {
   currentPage = this._plantaService.currentPage;
   hasPreviousPage = this._plantaService.hasPreviousPage;
   hasNextPage = this._plantaService.hasNextPage;
+  activeFilter = signal<boolean | null>(null);
+  sortField = signal<SortField>('created_at');
+  sortAscending = signal(false);
+  filteredAndSortedPlantas = computed(() => {
+    const plantas = [...this.plantas()];
+    const activeFilter = this.activeFilter();
+
+    const filteredPlantas =
+      activeFilter === null
+        ? plantas
+        : plantas.filter((planta) => planta.active === activeFilter);
+
+    return filteredPlantas.sort((a, b) => this.comparePlantas(a, b));
+  });
 
   onNextPage() {
     this._plantaService.nextPage();
@@ -32,17 +49,33 @@ export class Plantas implements OnInit {
   }
 
   onActiveFilterChanged(active: boolean | null) {
-    this._plantaService.setActiveFilter(active);
+    this.activeFilter.set(active);
   }
 
   onSortChanged(sort: {
     field: 'created_at' | 'name' | 'capacity';
     ascending: boolean;
   }) {
-    this._plantaService.setSort(sort.field, sort.ascending);
+    this.sortField.set(sort.field);
+    this.sortAscending.set(sort.ascending);
   }
 
   ngOnInit(): void {
     this._plantaService.ensurePlantasLoaded(5);
+  }
+
+  private comparePlantas(a: Planta, b: Planta) {
+    const sortField = this.sortField();
+    let compareResult = 0;
+
+    if (sortField === 'name') {
+      compareResult = a.name.localeCompare(b.name);
+    } else if (sortField === 'capacity') {
+      compareResult = a.capacity - b.capacity;
+    } else {
+      compareResult = new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+    }
+
+    return this.sortAscending() ? compareResult : compareResult * -1;
   }
 }

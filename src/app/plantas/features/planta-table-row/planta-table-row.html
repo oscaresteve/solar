@@ -2,17 +2,15 @@
   <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{ planta().id }}</span>
 </td>
 <td>
-  <p class="text-base-content flex justify-center font-semibold">
+  <p class="text-base-content font-semibold">
     {{ planta().name }}
   </p>
 </td>
 <td>
-  <p class="text-base-content flex justify-center">
-    {{ planta().latitude }}, {{ planta().longitude }}
-  </p>
+  <p class="text-base-content">{{ planta().latitude }}, {{ planta().longitude }}</p>
 </td>
 <td>
-  <p class="text-base-content flex justify-center">{{ planta().capacity }}</p>
+  <p class="text-base-content">{{ planta().capacity }}</p>
 </td>
 <td>
   @if (planta().active) {
@@ -27,7 +25,7 @@
   </span>
 </td>
 <td>
-  <p class="text-base-content flex justify-center">{{ planta().created_at | date: 'short' }}</p>
+  <p class="text-base-content">{{ planta().created_at | date: 'short' }}</p>
 </td>
 <td>
   <div class="rounded-box aspect-video h-20 overflow-hidden shadow-md">
@@ -36,7 +34,7 @@
 </td>
 <td>
   <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-soft min-w-max shadow-md">
-    Ver más
+    Detalle
     <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
   </a>
 </td>

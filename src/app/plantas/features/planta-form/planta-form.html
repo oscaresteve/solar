@@ -68,16 +68,6 @@
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Estado</p>
-          <label class="label cursor-pointer justify-start gap-3">
-            <input type="checkbox" class="toggle" [formField]="plantaForm.active" />
-            <span class="text-base-content/70">
-              {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
-            </span>
-          </label>
-        </div>
-
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <p class="text-base-content mb-2 text-lg font-semibold">Capacidad (MW)</p>
           <input
             class="input w-full"
@@ -119,6 +109,14 @@
           >
             Obtener ubicación actual
           </button>
+        </div>
+
+        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
+          <p class="text-base-content mb-2 text-lg font-semibold">Estado</p>
+          <label class="label">
+            <input type="checkbox" class="toggle" [formField]="plantaForm.active" />
+            {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
+          </label>
         </div>
 
         <button

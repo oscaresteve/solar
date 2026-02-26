@@ -3,6 +3,9 @@
     <app-card-skeleton />
     <app-card-skeleton />
     <app-card-skeleton />
+    <app-card-skeleton />
+    <app-card-skeleton />
+    <app-card-skeleton />
   }
   @if (error()) {
     <section
@@ -19,7 +22,7 @@
     </section>
   }
   @if (!loading() && !error()) {
-    @for (planta of plantas(); track planta.id) {
+    @for (planta of sortedPlantas(); track planta.id) {
       <app-planta-item
         [planta]="planta"
         [isFavorite]="isFavorite(planta.id)"
@@ -45,19 +48,3 @@
     }
   }
 </div>
-
-@if (!error() && plantas().length > 0) {
-  <div class="join mt-10 flex justify-center">
-    <button
-      class="join-item btn btn-ghost"
-      [disabled]="!hasPreviousPage()"
-      (click)="onPreviousPage()"
-    >
-      «
-    </button>
-    <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
-    <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
-      »
-    </button>
-  </div>
-}

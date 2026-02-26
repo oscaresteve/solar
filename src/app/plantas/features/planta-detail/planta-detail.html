@@ -16,7 +16,7 @@
       </div>
       <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
       <p class="text-base-content/70">
-        Fecha de creación: {{ planta()?.created_at | date: 'long' }}
+        Fecha de creación: {{ planta()?.created_at | date: 'medium' }}
       </p>
     </div>
     <div class="flex items-center gap-2 text-sm">
@@ -53,9 +53,9 @@
         <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
       </div>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Ubicación</p>
+        <p class="text-base-content mb-2 text-lg font-semibold">Ubicación (Lat, Long)</p>
         <p class="text-base-content/70">
-          Lat {{ planta()?.latitude ?? 'N/A' }} · Lon {{ planta()?.longitude ?? 'N/A' }}
+          {{ planta()?.latitude ?? 'N/A' }}, {{ planta()?.longitude ?? 'N/A' }}
         </p>
       </div>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
