@@ -3,7 +3,7 @@
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Estado</legend>
       <select
-        class="select w-28"
+        class="select select-sm w-28"
         [value]="activeFilter()"
         (change)="onActiveFilterChange($any($event.target).value)"
       >
@@ -16,7 +16,7 @@
     <fieldset class="fieldset">
       <legend class="fieldset-legend">Ordenar por</legend>
       <select
-        class="select w-44"
+        class="select select-sm w-44"
         [value]="sortField()"
         (change)="onSortFieldChange($any($event.target).value)"
       >
@@ -30,7 +30,7 @@
   <fieldset class="fieldset">
     <legend class="fieldset-legend">Dirección</legend>
     <select
-      class="select w-36"
+      class="select select-sm w-36"
       [value]="sortDirection()"
       (change)="onSortDirectionChange($any($event.target).value)"
     >
