@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Fecha</th>
-        <th>Planta</th>
+        <th>Fecha de creación</th>
+        <th>ID de Planta</th>
         <th>Producción (kWh)</th>
         <th>Consumo (kWh)</th>
         <th>Balance (kWh)</th>
@@ -25,11 +25,19 @@
       @if (!loading() && !error()) {
         @for (plantaLog of plantaLogs(); track plantaLog.id) {
           <tr class="hover:bg-base-200">
-            <td>{{ plantaLog.id }}</td>
+            <td>
+              <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">{{
+                plantaLog.id
+              }}</span>
+            </td>
             <td>
               {{ plantaLog.created_at | date: 'short' }}
             </td>
-            <td>{{ plantaLog.planta_id }}</td>
+            <td>
+              <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{
+                plantaLog.planta_id
+              }}</span>
+            </td>
             <td>{{ plantaLog.production | number }} kWh</td>
             <td>{{ plantaLog.consumption | number }} kWh</td>
             <td>
