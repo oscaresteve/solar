@@ -115,7 +115,8 @@
     (retryLoad)="onRetryLoad()"
     [loading]="plantaLogsLoaing()"
     [error]="plantaLogsError()"
-  ></app-planta-logs-list>
+  >
+  </app-planta-logs-list>
   @if (!plantaLogsError() && plantas().length > 0) {
     <div class="join mt-10 flex justify-center">
       <button
@@ -131,4 +132,5 @@
       </button>
     </div>
   }
+  <app-line-chart />
 </section>

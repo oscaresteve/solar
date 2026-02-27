@@ -6,13 +6,14 @@ import { PlantaLogsList } from '../../../planta-logs/features/planta-logs-list/p
 import { PlantaLogsService } from '../../../planta-logs/data-access/planta-logs-service';
 import { AuthService } from '../../../auth/data-access/auth-service';
 import { PlantaLog } from '../../interfaces/planta-log';
+import { LineChart } from '../../../shared/ui/line-chart/line-chart';
 
 type SortField = 'created_at' | 'production' | 'consumption' | 'balance';
 type SortDirection = 'asc' | 'desc';
 
 @Component({
   selector: 'app-planta-detail',
-  imports: [PlantaLogsList, RouterLink, DatePipe, DecimalPipe],
+  imports: [PlantaLogsList, RouterLink, DatePipe, DecimalPipe, LineChart],
   templateUrl: './planta-detail.html',
   styleUrl: './planta-detail.scss',
 })
