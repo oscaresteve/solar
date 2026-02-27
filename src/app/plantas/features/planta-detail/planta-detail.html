@@ -108,9 +108,27 @@
       </select>
     </fieldset>
   </div>
+  <button class="btn" (click)="onRetryLoad()">Refrescar</button>
   <app-planta-logs-list
     [plantaLogs]="sortedPlantaLogs()"
+    [id]="id()"
+    (retryLoad)="onRetryLoad()"
     [loading]="plantaLogsLoaing()"
     [error]="plantaLogsError()"
   ></app-planta-logs-list>
+  @if (!plantaLogsError() && plantas().length > 0) {
+    <div class="join mt-10 flex justify-center">
+      <button
+        class="join-item btn btn-ghost"
+        [disabled]="!hasPreviousPage()"
+        (click)="onPreviousPage()"
+      >
+        «
+      </button>
+      <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
+      <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
+        »
+      </button>
+    </div>
+  }
 </section>

@@ -56,7 +56,7 @@
       </select>
     </fieldset>
   </div>
-
+  <button class="btn" (click)="onRetryLoad()">Refrescar</button>
   <app-planta-table
     [plantas]="filteredAndSortedPlantas()"
     [loading]="loading()"

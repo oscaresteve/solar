@@ -31,6 +31,10 @@ export class PlantaDetail implements OnInit {
   plantaLogsLoaing = this._plantaLogsService.loading;
   plantaLogsError = this._plantaLogsService.error;
 
+  hasPreviousPage = this._plantaLogsService.hasPreviousPage;
+  hasNextPage = this._plantaLogsService.hasNextPage;
+  currentPage = this._plantaLogsService.currentPage;
+
   sortField = signal<SortField>('created_at');
   sortDirection = signal<SortDirection>('desc');
 
@@ -50,6 +54,18 @@ export class PlantaDetail implements OnInit {
     if (deleted) {
       this._router.navigateByUrl('plantas');
     }
+  }
+
+  onNextPage() {
+    this._plantaLogsService.nextPage(this.id());
+  }
+
+  onPreviousPage() {
+    this._plantaLogsService.previousPage(this.id());
+  }
+
+  onRetryLoad() {
+    this._plantaLogsService.reloadCurrentPage(this.id());
   }
 
   ngOnInit(): void {

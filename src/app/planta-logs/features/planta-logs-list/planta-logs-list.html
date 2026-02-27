@@ -1,58 +1,86 @@
-<div class="overflow-x-auto">
-  <table class="table">
-    <thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha de creación</th>
+      <th>ID de Planta</th>
+      <th>Producción (kWh)</th>
+      <th>Consumo (kWh)</th>
+      <th>Balance (kWh)</th>
+      <th>Mensaje</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (loading()) {
+      @for (row of [1, 2, 3, 4, 5]; track row) {
+        <tr app-table-row-skeleton></tr>
+      }
+    }
+    @if (error()) {
       <tr>
-        <th>ID</th>
-        <th>Fecha de creación</th>
-        <th>ID de Planta</th>
-        <th>Producción (kWh)</th>
-        <th>Consumo (kWh)</th>
-        <th>Balance (kWh)</th>
-        <th>Mensaje</th>
+        <td colspan="7" class="p-6">
+          <section
+            class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+            aria-live="assertive"
+          >
+            <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
+            <p class="text-error-content mt-3">
+              Verifica tu conexión o vuelve a intentarlo en unos segundos.
+            </p>
+            <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+              Reintentar
+            </button>
+          </section>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      @if (loading()) {
+    }
+    @if (!loading() && !error()) {
+      @for (plantaLog of plantaLogs(); track plantaLog.id) {
+        <tr class="hover:bg-base-200">
+          <td>
+            <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">{{
+              plantaLog.id
+            }}</span>
+          </td>
+          <td>
+            {{ plantaLog.created_at | date: 'short' }}
+          </td>
+          <td>
+            <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{
+              plantaLog.planta_id
+            }}</span>
+          </td>
+          <td>{{ plantaLog.production | number }} kWh</td>
+          <td>{{ plantaLog.consumption | number }} kWh</td>
+          <td>
+            {{ plantaLog.production | energyBalance: plantaLog.consumption | number }} ({{
+              plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus
+            }})
+          </td>
+          <td>{{ plantaLog.message }}</td>
+        </tr>
+      } @empty {
         <tr>
-          <td colspan="7">Cargando registros...</td>
+          <td colspan="7" class="p-6">
+            <section
+              class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
+              aria-live="assertive"
+            >
+              <h2 class="text-2xl font-semibold">Aún no hay registros</h2>
+              <p class="text-base-content mt-3">
+                Cuando crees el primer registro, aparecerá aquí con su información.
+              </p>
+              <a
+                type="button"
+                class="btn btn-success btn-soft mt-6"
+                [routerLink]="['/plantas', id(), 'new-log']"
+              >
+                Nuevo registro
+              </a>
+            </section>
+          </td>
         </tr>
       }
-      @if (error()) {
-        <tr>
-          <td colspan="7">Error al cargar los registros.</td>
-        </tr>
-      }
-      @if (!loading() && !error()) {
-        @for (plantaLog of plantaLogs(); track plantaLog.id) {
-          <tr class="hover:bg-base-200">
-            <td>
-              <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">{{
-                plantaLog.id
-              }}</span>
-            </td>
-            <td>
-              {{ plantaLog.created_at | date: 'short' }}
-            </td>
-            <td>
-              <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{
-                plantaLog.planta_id
-              }}</span>
-            </td>
-            <td>{{ plantaLog.production | number }} kWh</td>
-            <td>{{ plantaLog.consumption | number }} kWh</td>
-            <td>
-              {{ plantaLog.production | energyBalance: plantaLog.consumption | number }} ({{
-                plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus
-              }})
-            </td>
-            <td>{{ plantaLog.message }}</td>
-          </tr>
-        } @empty {
-          <tr>
-            <td colspan="7">No hay registros para mostrar.</td>
-          </tr>
-        }
-      }
-    </tbody>
-  </table>
-</div>
+    }
+  </tbody>
+</table>
