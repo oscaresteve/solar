@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table-sm table">
   <thead>
     <tr>
       <th>ID</th>
@@ -13,7 +13,15 @@
   <tbody>
     @if (loading()) {
       @for (row of [1, 2, 3, 4, 5]; track row) {
-        <tr app-table-row-skeleton></tr>
+        <tr>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+          <td><div class="skeleton h-6 w-full"></div></td>
+        </tr>
       }
     }
     @if (error()) {
