@@ -25,7 +25,7 @@ export class PlantaService {
     loaded: false,
     currentPage: 0,
     totalCount: 0,
-    pageSize: 3,
+    pageSize: 5,
   };
 
   private _state = signal<PlantaState>({
@@ -149,6 +149,7 @@ export class PlantaService {
 
       const from = page * pageSize;
       const to = from + pageSize - 1;
+
       const { data, error, count } = await this._supabaseClient
         .from('plantas')
         .select('*', { count: 'exact' })

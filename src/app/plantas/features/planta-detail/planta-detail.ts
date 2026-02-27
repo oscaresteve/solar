@@ -55,7 +55,7 @@ export class PlantaDetail implements OnInit {
   ngOnInit(): void {
     this._authService.readUser();
     this._plantaService.readPlantaById(this.id());
-    this._plantaLogsService.readPlantaLogs(this.id());
+    this._plantaLogsService.ensurePlantaLogsLoaded(this.id(), 5);
   }
 
   private comparePlantaLogs(a: PlantaLog, b: PlantaLog) {
