@@ -41,7 +41,9 @@
             <td>{{ plantaLog.production | number }} kWh</td>
             <td>{{ plantaLog.consumption | number }} kWh</td>
             <td>
-              {{ plantaLog.production | energyBalance: plantaLog.consumption }}
+              {{ plantaLog.production | energyBalance: plantaLog.consumption | number }} ({{
+                plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus
+              }})
             </td>
             <td>{{ plantaLog.message }}</td>
           </tr>

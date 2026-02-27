@@ -89,8 +89,9 @@
           (change)="sortField.set($any($event.target).value)"
         >
           <option value="created_at">Fecha de creación</option>
-          <option value="name">Nombre</option>
-          <option value="capacity">Capacidad</option>
+          <option value="production">Producción (kWh)</option>
+          <option value="consumption">Consumo (kWh)</option>
+          <option value="balance">Balance (kWh)</option>
         </select>
       </fieldset>
     </div>
@@ -107,5 +108,9 @@
       </select>
     </fieldset>
   </div>
-  <app-planta-logs-list></app-planta-logs-list>
+  <app-planta-logs-list
+    [plantaLogs]="sortedPlantaLogs()"
+    [loading]="plantaLogsLoaing()"
+    [error]="plantaLogsError()"
+  ></app-planta-logs-list>
 </section>
