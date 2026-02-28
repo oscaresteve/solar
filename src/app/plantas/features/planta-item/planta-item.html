@@ -41,12 +41,15 @@
       <button
         type="button"
         (click)="toggleFavorite()"
-        class="transform transition-transform duration-100 ease-out active:scale-110"
+        class="transform cursor-pointer transition-transform duration-100 ease-out hover:scale-105 active:scale-115"
       >
         @if (isFavorite()) {
-          <app-icon className="size-8 text-error" name="heart-solid"></app-icon>
+          <app-icon
+            className="size-8 text-error/80  hover:text-error"
+            name="heart-solid"
+          ></app-icon>
         } @else {
-          <app-icon className="size-8 text-error" name="heart"></app-icon>
+          <app-icon className="size-8 text-error/80 hover:text-error" name="heart"></app-icon>
         }
       </button>
     </div>
