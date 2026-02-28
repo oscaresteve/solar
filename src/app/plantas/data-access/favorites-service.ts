@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from '../../shared/data-access/supabase-service';
 import { Planta } from '../interfaces/planta';
+import { AuthService } from '../../auth/data-access/auth-service';
 
 interface FavoritesState {
   plantasFavorites: Planta[];
@@ -14,6 +15,7 @@ interface FavoritesState {
 })
 export class FavoritesService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
+  private _authService = inject(AuthService);
 
   private readonly _initialState: FavoritesState = {
     plantasFavorites: [],
@@ -46,18 +48,12 @@ export class FavoritesService {
     return this.plantasFavorites().some((planta) => planta.id === plantaId);
   }
 
-  private async getCurrentUserId(): Promise<string | null> {
-    const { data, error } = await this._supabaseClient.auth.getUser();
-    if (error) throw error;
-    return data.user?.id ?? null;
-  }
-
   async readFavorites(): Promise<Planta[] | null> {
     try {
       this.setLoading(true);
       this.setError(false);
 
-      const userId = await this.getCurrentUserId();
+      const userId = await this._authService.getCurrentUserId();
       if (!userId) {
         this._state.update((state) => ({ ...state, plantasFavorites: [], loaded: true }));
         return [];
@@ -102,7 +98,7 @@ export class FavoritesService {
 
   async toggleFavorite(plantaId: string): Promise<void> {
     try {
-      const userId = await this.getCurrentUserId();
+      const userId = await this._authService.getCurrentUserId();
       if (!userId) return;
 
       const existing = this.isFavorite(plantaId);

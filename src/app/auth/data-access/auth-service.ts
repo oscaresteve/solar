@@ -166,4 +166,10 @@ export class AuthService {
       callback(event, session),
     );
   }
+
+  async getCurrentUserId(): Promise<string | null> {
+    const { data, error } = await this._supabaseClient.auth.getUser();
+    if (error) throw error;
+    return data.user?.id ?? null;
+  }
 }
