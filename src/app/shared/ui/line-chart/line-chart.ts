@@ -34,6 +34,9 @@ export class LineChart implements AfterViewInit, OnDestroy {
 
   private chart: Chart<'line', TimePoint[]> | null = null;
   private chartReady = false;
+  private themeObserver: MutationObserver | null = null;
+  private themeMediaQuery: MediaQueryList | null = null;
+  private themeMediaHandler: (() => void) | null = null;
 
   constructor() {
     effect(() => {
@@ -48,12 +51,54 @@ export class LineChart implements AfterViewInit, OnDestroy {
     this.createChart();
     this.chartReady = true;
     this.updateChart(this.logs());
+    this.listenThemeChanges();
   }
 
   ngOnDestroy(): void {
     this.chart?.destroy();
     this.chart = null;
+
+    this.themeObserver?.disconnect();
+    this.themeObserver = null;
+
+    if (this.themeMediaQuery && this.themeMediaHandler) {
+      this.themeMediaQuery.removeEventListener('change', this.themeMediaHandler);
+    }
+
+    document.removeEventListener('change', this.onThemeControllerChange);
   }
+
+  private listenThemeChanges(): void {
+    // 1. Cambios en data-theme="..." del <html> o <body>
+    this.themeObserver = new MutationObserver(() => {
+      this.chart?.update();
+    });
+
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    this.themeObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    // 2. Cambios en prefers-color-scheme (cuando DaisyUI usa :root sin data-theme)
+    this.themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.themeMediaHandler = () => this.chart?.update();
+    this.themeMediaQuery.addEventListener('change', this.themeMediaHandler);
+
+    // 3. theme-controller: inputs con esa clase (checkboxes/radios de DaisyUI)
+    document.addEventListener('change', this.onThemeControllerChange);
+  }
+
+  private onThemeControllerChange = (event: Event): void => {
+    const target = event.target as HTMLInputElement;
+    if (target.matches('input.theme-controller')) {
+      this.chart?.update();
+    }
+  };
 
   private cssVar(name: string): string {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -71,13 +116,18 @@ export class LineChart implements AfterViewInit, OnDestroy {
     return [r, g, b];
   }
 
+  private cssVarToRGBA(varName: string, alpha: number): string {
+    const [r, g, b] = this.cssColorToRGB(this.cssVar(varName));
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
   private createGradient(chart: Chart, color: string): CanvasGradient | string {
     const { ctx, chartArea } = chart;
     if (!chartArea) return color;
 
     const [r, g, b] = this.cssColorToRGB(color);
     const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
-    gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.18)`);
+    gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.25)`);
     gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
     return gradient;
   }
@@ -136,13 +186,28 @@ export class LineChart implements AfterViewInit, OnDestroy {
           legend: { display: false },
           tooltip: {
             bodyColor: () => this.cssVar('--color-base-content'),
-            titleColor: () => this.cssVar('--color-base-content'),
+            titleColor: () => this.cssVarToRGBA('--color-base-content', 0.6),
             backgroundColor: () => this.cssVar('--color-base-100'),
-            borderColor: () => this.cssVar('--color-base-200'),
+            borderColor: () => this.cssVar('--color-base-300'),
             borderWidth: 1,
             padding: 10,
             cornerRadius: 8,
-            displayColors: false,
+            displayColors: true,
+            boxPadding: 6,
+            callbacks: {
+              labelColor: (tooltipItem) => {
+                const color =
+                  tooltipItem.datasetIndex === 0
+                    ? this.cssVar('--color-success')
+                    : this.cssVar('--color-error');
+                return {
+                  borderColor: color,
+                  backgroundColor: color,
+                  borderWidth: 2,
+                  borderRadius: 2,
+                };
+              },
+            },
           },
         },
         scales: {
@@ -159,17 +224,17 @@ export class LineChart implements AfterViewInit, OnDestroy {
             grid: { display: false },
             border: { display: false },
             ticks: {
-              color: () => this.cssVar('--color-base-content'),
+              color: () => this.cssVarToRGBA('--color-base-content', 0.6),
               maxRotation: 0,
             },
           },
           y: {
             grid: {
-              color: () => this.cssVar('--color-base-300'),
+              color: () => this.cssVarToRGBA('--color-base-content', 0.1),
             },
             border: { display: false },
             ticks: {
-              color: () => this.cssVar('--color-base-content'),
+              color: () => this.cssVarToRGBA('--color-base-content', 0.6),
             },
           },
         },

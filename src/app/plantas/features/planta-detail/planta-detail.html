@@ -79,6 +79,9 @@
       </button>
     }
   </div>
+
+  <app-line-chart [logs]="plantaLogs()" />
+
   <div class="flex justify-between">
     <div class="flex items-center gap-4">
       <fieldset class="fieldset">
@@ -109,6 +112,7 @@
     </fieldset>
   </div>
   <button class="btn" (click)="onRetryLoad()">Refrescar</button>
+
   <app-planta-logs-list
     [plantaLogs]="sortedPlantaLogs()"
     [id]="id()"
@@ -132,5 +136,4 @@
       </button>
     </div>
   }
-  <app-line-chart [logs]="plantaLogs()" />
 </section>
