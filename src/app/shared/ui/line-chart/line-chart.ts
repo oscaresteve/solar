@@ -2,107 +2,144 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   ViewChild,
   effect,
   input,
-  OnDestroy,
 } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
-import { PlantaLog } from '../../../plantas/interfaces/planta-log';
+import { Chart, ChartDataset, registerables, ScriptableContext } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import { es } from 'date-fns/locale';
+import { PlantaLog } from '../../../plantas/interfaces/planta-log';
 
 Chart.register(...registerables);
 
+interface TimePoint {
+  x: number;
+  y: number | null;
+}
+
 @Component({
   selector: 'app-line-chart',
+  standalone: true,
   imports: [],
   templateUrl: './line-chart.html',
   styleUrl: './line-chart.scss',
 })
 export class LineChart implements AfterViewInit, OnDestroy {
   @ViewChild('chartCanvas')
-  canvas!: ElementRef<HTMLCanvasElement>;
+  readonly canvas!: ElementRef<HTMLCanvasElement>;
 
-  logs = input.required<PlantaLog[]>();
+  readonly logs = input.required<PlantaLog[]>();
 
-  private chart!: Chart;
+  private chart: Chart<'line', TimePoint[]> | null = null;
+  private chartReady = false;
 
   constructor() {
     effect(() => {
       const logs = this.logs();
-      if (this.chart) this.updateChart(logs);
+      if (this.chartReady) {
+        this.updateChart(logs);
+      }
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.createChart();
+    this.chartReady = true;
+    this.updateChart(this.logs());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.chart?.destroy();
+    this.chart = null;
   }
 
-  private toChartData(logs: PlantaLog[], key: 'production' | 'consumption') {
-    return logs.map((log) => ({
-      x: new Date(log.created_at).getTime(),
-      y: log[key],
-    }));
+  private cssVar(name: string): string {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
 
-  private createGradient(ctx: CanvasRenderingContext2D, color: string): CanvasGradient {
-    const match = color.match(/[\d.]+/g);
-    const [r, g, b] = match ? match.map(Number) : [99, 102, 241];
+  private cssColorToRGB(color: string): [number, number, number] {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return [99, 102, 241];
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-    gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.15)`);
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 1, 1);
+    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+    return [r, g, b];
+  }
+
+  private createGradient(chart: Chart, color: string): CanvasGradient | string {
+    const { ctx, chartArea } = chart;
+    if (!chartArea) return color;
+
+    const [r, g, b] = this.cssColorToRGB(color);
+    const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+    gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.18)`);
     gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-
     return gradient;
   }
 
-  private createChart() {
-    const ctx = this.canvas.nativeElement.getContext('2d')!;
+  private toChartData(logs: PlantaLog[], key: 'production' | 'consumption'): TimePoint[] {
+    return logs.map((log) => ({
+      x: new Date(log.created_at).getTime(),
+      y: log[key] ?? null,
+    }));
+  }
 
-    const productionColor = 'rgb(30, 200, 10)';
-    const consumptionColor = 'rgb(99, 102, 241)';
+  private buildDatasets(): ChartDataset<'line', TimePoint[]>[] {
+    const productionDataset: ChartDataset<'line', TimePoint[]> = {
+      label: 'Producción (kWh)',
+      data: [],
+      borderColor: () => this.cssVar('--color-success'),
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 0,
+      pointHoverRadius: 6,
+      fill: true,
+      backgroundColor: (ctx: ScriptableContext<'line'>) =>
+        this.createGradient(ctx.chart, this.cssVar('--color-success')),
+    };
 
-    this.chart = new Chart(ctx, {
+    const consumptionDataset: ChartDataset<'line', TimePoint[]> = {
+      label: 'Consumo (kWh)',
+      data: [],
+      borderColor: () => this.cssVar('--color-error'),
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 0,
+      pointHoverRadius: 6,
+      fill: true,
+      backgroundColor: (ctx: ScriptableContext<'line'>) =>
+        this.createGradient(ctx.chart, this.cssVar('--color-error')),
+    };
+
+    return [productionDataset, consumptionDataset];
+  }
+
+  private createChart(): void {
+    const ctx = this.canvas.nativeElement.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
+    this.chart = new Chart<'line', TimePoint[]>(ctx, {
       type: 'line',
-      data: {
-        datasets: [
-          {
-            label: 'Producción',
-            data: this.toChartData(this.logs(), 'production'),
-            borderColor: productionColor,
-            borderWidth: 2,
-            tension: 0.2,
-            pointRadius: 0,
-            pointHoverRadius: 6,
-            fill: true,
-            backgroundColor: this.createGradient(ctx, productionColor),
-          },
-          {
-            label: 'Consumo',
-            data: this.toChartData(this.logs(), 'consumption'),
-            borderColor: consumptionColor,
-            borderWidth: 2,
-            tension: 0.2,
-            pointRadius: 0,
-            pointHoverRadius: 6,
-            fill: true,
-            backgroundColor: this.createGradient(ctx, consumptionColor),
-          },
-        ],
-      },
+      data: { datasets: this.buildDatasets() },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
+        interaction: { mode: 'nearest', intersect: false },
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: 'rgb(15, 23, 42)',
+            bodyColor: () => this.cssVar('--color-base-content'),
+            titleColor: () => this.cssVar('--color-base-content'),
+            backgroundColor: () => this.cssVar('--color-base-100'),
+            borderColor: () => this.cssVar('--color-base-200'),
+            borderWidth: 1,
             padding: 10,
             cornerRadius: 8,
             displayColors: false,
@@ -112,22 +149,37 @@ export class LineChart implements AfterViewInit, OnDestroy {
           x: {
             type: 'time',
             time: {
-              displayFormats: { hour: 'HH:mm', day: 'dd MMM', month: 'MMM yyyy' },
+              displayFormats: {
+                hour: 'HH:mm',
+                day: 'dd MMM',
+                month: 'MMM yyyy',
+              },
             },
             adapters: { date: { locale: es } },
             grid: { display: false },
             border: { display: false },
+            ticks: {
+              color: () => this.cssVar('--color-base-content'),
+              maxRotation: 0,
+            },
           },
           y: {
-            grid: { color: 'rgba(0, 0, 0, 0.08)' },
+            grid: {
+              color: () => this.cssVar('--color-base-300'),
+            },
             border: { display: false },
+            ticks: {
+              color: () => this.cssVar('--color-base-content'),
+            },
           },
         },
       },
     });
   }
 
-  private updateChart(logs: PlantaLog[]) {
+  private updateChart(logs: PlantaLog[]): void {
+    if (!this.chart) return;
+
     this.chart.data.datasets[0].data = this.toChartData(logs, 'production');
     this.chart.data.datasets[1].data = this.toChartData(logs, 'consumption');
     this.chart.update();
