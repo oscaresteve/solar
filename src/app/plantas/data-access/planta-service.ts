@@ -9,7 +9,7 @@ interface PlantaState {
   loaded: boolean;
   currentPage: number;
   totalCount: number;
-  pageSize: number;
+  pageSize: number | null;
 }
 
 @Injectable({
@@ -36,7 +36,14 @@ export class PlantaService {
   loading = computed(() => this._state().loading);
   error = computed(() => this._state().error);
   currentPage = computed(() => this._state().currentPage);
-  totalPages = computed(() => Math.ceil(this._state().totalCount / this._state().pageSize));
+  totalPages = computed(() => {
+    const pageSize = this._state().pageSize;
+    if (pageSize) {
+      return Math.ceil(this._state().totalCount / pageSize);
+    }
+    return 1;
+  });
+
   hasPreviousPage = computed(() => this._state().currentPage > 0);
   hasNextPage = computed(() => this._state().currentPage < this.totalPages() - 1);
 
@@ -116,7 +123,7 @@ export class PlantaService {
     }
   }
 
-  async readPlantas() {
+  async readAllPlantas() {
     try {
       this.setLoading(true);
       this.setError(false);
@@ -130,6 +137,9 @@ export class PlantaService {
 
         this._state.update((state) => ({
           ...state,
+          pageSize: null,
+          currentPage: 0,
+          totalCount: 0,
           plantas: plantasConFoto,
           loaded: true,
         }));
@@ -180,29 +190,37 @@ export class PlantaService {
 
   nextPage() {
     const { currentPage, pageSize } = this._state();
-    if (this.hasNextPage()) {
+    if (this.hasNextPage() && pageSize) {
       this.readPlantasWithPagination(currentPage + 1, pageSize);
     }
   }
 
   previousPage() {
     const { currentPage, pageSize } = this._state();
-    if (this.hasPreviousPage()) {
+    if (this.hasPreviousPage() && pageSize) {
       this.readPlantasWithPagination(currentPage - 1, pageSize);
     }
   }
 
   reloadCurrentPage() {
     const { currentPage, pageSize } = this._state();
-    return this.readPlantasWithPagination(currentPage, pageSize);
+    if (pageSize) {
+      return this.readPlantasWithPagination(currentPage, pageSize);
+    }
+    return;
   }
 
-  async ensurePlantasLoaded(pageSize: number) {
+  async ensurePlantasLoaded(pageSize: number | null) {
     const state = this._state();
 
     if (state.loaded && state.pageSize === pageSize) return;
 
-    await this.readPlantasWithPagination(0, pageSize);
+    if (pageSize) {
+      await this.readPlantasWithPagination(0, pageSize);
+      return;
+    }
+
+    await this.readAllPlantas();
   }
 
   async readPlantaById(id: string): Promise<Planta | null> {
