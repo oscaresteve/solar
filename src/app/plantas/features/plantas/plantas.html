@@ -1,10 +1,8 @@
 <section class="mx-48">
-  <header class="mb-10 flex flex-row items-center justify-between gap-3">
+  <header class="mt-12 mb-12 flex flex-row items-center justify-between gap-3">
+    <h1 class="text-base-content text-5xl font-bold">Plantas</h1>
+
     <div>
-      <h1 class="text-base-content text-2xl font-semibold">Vista detallada de plantas solares</h1>
-      <p class="text-base-content/70 mt-2 text-sm">Vista de tabla con detalles y comparación.</p>
-    </div>
-    <div class="flex items-center">
       <button
         class="btn btn-success btn-soft shadow-md"
         type="button"
@@ -12,10 +10,13 @@
       >
         Crear planta
       </button>
+      <button class="btn btn-ghost" (click)="onRetryLoad()">
+        <app-icon className="size-6 text-base-content" name="arrow-path"></app-icon>
+      </button>
     </div>
   </header>
 
-  <div class="flex justify-between">
+  <div class="mb-4 flex justify-between">
     <div class="flex items-center gap-4">
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Estado</legend>
@@ -56,7 +57,7 @@
       </select>
     </fieldset>
   </div>
-  <button class="btn" (click)="onRetryLoad()">Refrescar</button>
+
   <app-planta-table
     [plantas]="filteredAndSortedPlantas()"
     [loading]="loading()"

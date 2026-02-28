@@ -3,6 +3,7 @@ import { PlantaTable } from '../planta-table/planta-table';
 import { PlantaService } from '../../data-access/planta-service';
 import { RouterLink } from '@angular/router';
 import { Planta } from '../../interfaces/planta';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 type SortField = 'created_at' | 'name' | 'capacity';
 type ActiveFilter = 'all' | 'active' | 'inactive';
@@ -10,7 +11,7 @@ type SortDirection = 'asc' | 'desc';
 
 @Component({
   selector: 'app-plantas',
-  imports: [PlantaTable, RouterLink],
+  imports: [PlantaTable, RouterLink, Icon],
   templateUrl: './plantas.html',
   styleUrl: './plantas.scss',
 })

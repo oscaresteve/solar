@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../../plantas/data-access/planta-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { PlantaLogsService } from '../../data-access/planta-logs-service';
+import { DatePipe } from '@angular/common';
 
 interface PlantaLogsFormData {
   production: number;
@@ -12,7 +13,7 @@ interface PlantaLogsFormData {
 
 @Component({
   selector: 'app-planta-logs-form',
-  imports: [RouterLink, FormField],
+  imports: [RouterLink, FormField, DatePipe],
   templateUrl: './planta-logs-form.html',
   styleUrl: './planta-logs-form.scss',
 })
@@ -27,6 +28,8 @@ export class PlantaLogsForm implements OnInit {
   error = this._plantaLogsService.error;
 
   private id = signal<string | null>(null);
+
+  today = new Date();
 
   planta = computed(() => {
     const id = this.id();

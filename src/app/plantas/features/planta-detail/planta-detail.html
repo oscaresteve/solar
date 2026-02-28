@@ -1,28 +1,23 @@
 <section class="mx-48">
-  <header class="mb-10">
-    <h1 class="text-base-content text-2xl font-semibold">Detalle de la planta</h1>
-    <p class="text-base-content/70 mt-2 text-sm">Información general y registros.</p>
-  </header>
-
-  <div class="mb-4 flex flex-row items-center justify-between">
+  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
     <div>
       <div class="mb-2 flex items-center gap-2">
         @if (planta()?.active) {
-          <span class="badge badge-soft badge-success shadow-md">Activa</span>
+          <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
         } @else {
-          <span class="badge badge-soft badge-error shadow-md">Inactiva</span>
+          <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
         }
-        <span class="badge badge-soft badge-info text-xs shadow-md">{{ planta()?.id }} </span>
+        <span class="badge badge-soft badge-info font-semibold shadow-md">{{ planta()?.id }} </span>
       </div>
-      <h1 class="text-base-content mb-2 text-4xl font-semibold">{{ planta()?.name }}</h1>
+      <h1 class="text-base-content mb-2 text-5xl font-bold">{{ planta()?.name }}</h1>
       <p class="text-base-content/70">
         Fecha de creación: {{ planta()?.created_at | date: 'medium' }}
       </p>
     </div>
-    <div class="flex items-center gap-2 text-sm">
+    <div class="flex items-center gap-2">
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-warning shadow-md"
+          class="btn btn-soft btn-warning font-bold shadow-md"
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
@@ -30,12 +25,16 @@
         </button>
       }
       @if (isOwner()) {
-        <button class="btn btn-soft btn-error shadow-md" type="button" (click)="onDelete()">
+        <button
+          class="btn btn-soft btn-error font-bold shadow-md"
+          type="button"
+          (click)="onDelete()"
+        >
           Eliminar
         </button>
       }
     </div>
-  </div>
+  </header>
 
   <div class="grid grid-cols-2 gap-4">
     <div class="rounded-box aspect-video overflow-hidden shadow-xl">
@@ -47,7 +46,7 @@
     </div>
 
     <div>
-      <h1 class="text-base-content mb-4 text-3xl font-semibold">Información</h1>
+      <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
         <p class="text-base-content mb-2 text-lg font-semibold">Capacidad instalada (MW)</p>
         <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
@@ -67,22 +66,29 @@
 
   <div class="divider"></div>
 
-  <div class="mb-4 flex flex-row items-center justify-between">
-    <h1 class="text-base-content mb-2 text-3xl font-semibold">Registros</h1>
-    @if (isOwner()) {
-      <button
-        class="btn btn-soft btn-success shadow-md"
-        type="button"
-        [routerLink]="['/plantas', planta()?.id, 'new-log']"
-      >
-        Añadir registro
+  <div class="flex flex-row items-center justify-between">
+    <h1 class="text-base-content text-4xl font-bold">Registros</h1>
+    <div class="flex items-center gap-2">
+      @if (isOwner()) {
+        <button
+          class="btn btn-soft btn-success font-bold shadow-md"
+          type="button"
+          [routerLink]="['/plantas', planta()?.id, 'new-log']"
+        >
+          Añadir registro
+        </button>
+      }
+      <button class="btn btn-ghost" (click)="onRetryLoad()">
+        <app-icon className="size-6 text-base-content" name="arrow-path"></app-icon>
       </button>
-    }
+    </div>
   </div>
 
-  <app-line-chart [logs]="plantaLogs()" />
+  <div class="my-10">
+    <app-line-chart [logs]="plantaLogs()" />
+  </div>
 
-  <div class="flex justify-between">
+  <div class="mb-4 flex justify-between">
     <div class="flex items-center gap-4">
       <fieldset class="fieldset">
         <legend class="fieldset-legend">Ordenar por</legend>
@@ -111,7 +117,6 @@
       </select>
     </fieldset>
   </div>
-  <button class="btn" (click)="onRetryLoad()">Refrescar</button>
 
   <app-planta-logs-list
     [plantaLogs]="sortedPlantaLogs()"
@@ -121,6 +126,7 @@
     [error]="plantaLogsError()"
   >
   </app-planta-logs-list>
+
   @if (!plantaLogsError() && plantas().length > 0) {
     <div class="join mt-10 flex justify-center">
       <button

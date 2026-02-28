@@ -1,34 +1,28 @@
 <section class="mx-48">
-  <header class="mb-10">
+  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
     <div class="flex-row items-center justify-between">
-      <h1 class="text-base-content text-2xl font-semibold">Nuevo registro</h1>
-      <p class="text-base-content/70 mt-2 text-sm">Crea un nuevo registro en la planta solar</p>
-    </div>
-  </header>
-
-  <div class="mb-4 flex flex-row items-center justify-between">
-    <div>
       <div class="mb-2 flex items-center gap-2">
         @if (planta()?.active) {
-          <span class="badge badge-soft badge-success shadow-md">Activa</span>
+          <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
         } @else {
-          <span class="badge badge-soft badge-error shadow-md">Inactiva</span>
+          <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
         }
-        <span class="badge badge-soft badge-info shadow-md">{{ planta()?.id }} </span>
+        <span class="badge badge-soft badge-info font-semibold shadow-md">{{ planta()?.id }} </span>
       </div>
-      <h1 class="text-base-content mb-2 text-4xl font-semibold">
+      <h1 class="text-base-content mb-2 text-4xl font-bold">
         Nuevo registro en {{ planta()?.name }}
       </h1>
+      <p class="text-base-content/70">Fecha de creación: {{ today | date: 'medium' }}</p>
     </div>
-    <div class="flex items-center gap-2 text-sm">
+    <div class="flex items-center gap-2 text-sm font-bold">
       <a
-        class="btn btn-soft btn-warning min-w-max shadow-md"
-        [routerLink]="['plantas/', planta()?.id]"
+        class="btn btn-soft btn-warning min-w-max font-bold shadow-md"
+        [routerLink]="['/plantas', planta()?.id]"
       >
         Cancelar
       </a>
     </div>
-  </div>
+  </header>
 
   <form (submit)="onSubmit($event)">
     <div class="grid grid-cols-2 gap-4">
@@ -63,14 +57,14 @@
     </div>
 
     <button
-      class="btn btn-success btn-soft btn-block mt-4 shadow-md"
+      class="btn btn-success btn-soft btn-block mt-4 font-bold shadow-md"
       type="submit"
       [disabled]="loading()"
     >
       @if (loading()) {
         <span class="loading-spinner"></span>
       } @else {
-        Guardar registro
+        Crear registro
       }
     </button>
   </form>

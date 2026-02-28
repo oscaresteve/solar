@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 shadow-sm">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost">
@@ -19,25 +19,23 @@
       </div>
       <ul
         tabindex="-1"
-        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-sm p-2 shadow-xl"
+        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
-          <a [routerLink]="['/dashboard']" routerLinkActive="font-semibold text-primary">Inicio</a>
+          <a [routerLink]="['/dashboard']" routerLinkActive="font-bold text-primary">Dashboard</a>
         </li>
         <li>
-          <a [routerLink]="['/plantas']" routerLinkActive="font-semibold text-primary">Plantas</a>
+          <a [routerLink]="['/plantas']" routerLinkActive="font-bold text-primary">Plantas</a>
         </li>
         <li>
-          <a [routerLink]="['/favorites']" routerLinkActive="font-semibold text-primary"
-            >Favoritos</a
-          >
+          <a [routerLink]="['/favorites']" routerLinkActive="font-bold text-primary">Favoritos</a>
         </li>
       </ul>
     </div>
   </div>
 
   <div class="navbar-center">
-    <a class="btn btn-ghost text-2xl" [routerLink]="['/dashboard']">Solar</a>
+    <a class="btn btn-ghost text-3xl font-bold" [routerLink]="['/dashboard']">Solar</a>
   </div>
 
   <div class="navbar-end">
@@ -83,12 +81,10 @@
       </div>
       <ul
         tabindex="-1"
-        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-sm p-2 shadow-xl"
+        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
-          <a [routerLink]="['/user/cuenta']" routerLinkActive="font-semibold text-primary"
-            >Cuenta</a
-          >
+          <a [routerLink]="['/user/cuenta']" routerLinkActive="font-bold text-primary">Cuenta</a>
         </li>
         <li><a>Configuración</a></li>
         <li>

@@ -35,7 +35,9 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   private previewObjectUrl = signal<string | null>(null);
 
-  private plantaFormModel = signal<PlantaFormData>({
+  today = new Date();
+
+  plantaFormModel = signal<PlantaFormData>({
     name: '',
     active: true,
     capacity: 0,
@@ -109,8 +111,6 @@ export class PlantaForm implements OnInit, OnDestroy {
 
     const id = this.id();
     if (!id) return;
-
-    await this._plantaService.readPlantaById(id);
   }
 
   async onSubmit(event: Event) {

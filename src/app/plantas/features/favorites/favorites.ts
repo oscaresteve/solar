@@ -4,10 +4,11 @@ import { Planta } from '../../interfaces/planta';
 import { PlantaItem } from '../planta-item/planta-item';
 import { CardSkeleton } from '../../../shared/ui/card-skeleton/card-skeleton';
 import { RouterLink } from '@angular/router';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 @Component({
   selector: 'app-favoritos',
-  imports: [PlantaItem, CardSkeleton, RouterLink],
+  imports: [PlantaItem, CardSkeleton, RouterLink, Icon],
   templateUrl: './favorites.html',
   styleUrl: './favorites.scss',
 })

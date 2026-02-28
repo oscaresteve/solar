@@ -26,7 +26,7 @@ export class PlantaList implements OnInit {
   );
 
   onRetryLoad() {
-    this._plantaService.readPlantas();
+    this._plantaService.readAllPlantas();
   }
 
   isFavorite(plantaId: string) {
@@ -38,7 +38,7 @@ export class PlantaList implements OnInit {
   }
 
   ngOnInit(): void {
-    this._plantaService.readPlantas();
+    this._plantaService.ensurePlantasLoaded(null);
     this._favoritesService.ensureFavoritesLoaded();
   }
 }

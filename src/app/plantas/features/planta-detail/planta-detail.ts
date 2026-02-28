@@ -7,13 +7,14 @@ import { PlantaLogsService } from '../../../planta-logs/data-access/planta-logs-
 import { AuthService } from '../../../auth/data-access/auth-service';
 import { PlantaLog } from '../../interfaces/planta-log';
 import { LineChart } from '../../../shared/ui/line-chart/line-chart';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 type SortField = 'created_at' | 'production' | 'consumption' | 'balance';
 type SortDirection = 'asc' | 'desc';
 
 @Component({
   selector: 'app-planta-detail',
-  imports: [PlantaLogsList, RouterLink, DatePipe, DecimalPipe, LineChart],
+  imports: [PlantaLogsList, RouterLink, DatePipe, DecimalPipe, LineChart, Icon],
   templateUrl: './planta-detail.html',
   styleUrl: './planta-detail.scss',
 })
