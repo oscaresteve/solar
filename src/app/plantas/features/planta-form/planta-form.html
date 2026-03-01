@@ -61,9 +61,9 @@
 
       <form (submit)="onSubmit($event)">
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
+          <p class="text-base-content/50 text-sm font-semibold">Nombre</p>
           <input
-            class="input w-full"
+            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
             type="text"
             placeholder="Parque Solar Andino"
             [formField]="plantaForm.name"
@@ -71,9 +71,9 @@
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Capacidad (MW)</p>
+          <p class="text-base-content/50 text-sm font-semibold">Capacidad (MW)</p>
           <input
-            class="input w-full"
+            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
             type="number"
             placeholder="120"
             [formField]="plantaForm.capacity"
@@ -83,9 +83,9 @@
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
           <div class="mb-4 grid grid-cols-2 gap-4">
             <div>
-              <p class="text-base-content mb-2 text-lg font-semibold">Latitud</p>
+              <p class="text-base-content/50 text-sm font-semibold">Latitud</p>
               <input
-                class="input w-full"
+                class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
                 type="number"
                 step="any"
                 placeholder="-33.456"
@@ -93,9 +93,9 @@
               />
             </div>
             <div>
-              <p class="text-base-content mb-2 text-lg font-semibold">Longitud</p>
+              <p class="text-base-content/50 text-sm font-semibold">Longitud</p>
               <input
-                class="input w-full"
+                class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
                 type="number"
                 step="any"
                 placeholder="-70.648"
@@ -105,7 +105,7 @@
           </div>
 
           <button
-            class="btn btn-soft btn-primary min-w-max font-bold shadow-md"
+            class="btn btn-soft btn-primary btn-block font-bold shadow-md"
             type="button"
             (click)="setCurrentPosition()"
             [disabled]="loading()"
@@ -115,8 +115,8 @@
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Estado</p>
-          <label class="label">
+          <p class="text-base-content/50 text-sm font-semibold">Estado</p>
+          <label class="label mt-2">
             <input type="checkbox" class="toggle" [formField]="plantaForm.active" />
             {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
           </label>

@@ -15,27 +15,15 @@
       {{ planta().name }}
     </h3>
 
-    <p>{{ planta().description }}</p>
+    <p class="text-base-content/90">{{ planta().description }}</p>
 
-    <ul>
-      <li>
-        <p>Latitud: {{ planta().latitude }}</p>
-      </li>
-      <li>
-        <p>Longitud: {{ planta().longitude }}</p>
-      </li>
-      <li>
-        <p>Capacidad instalada: {{ planta().capacity }} MW</p>
-      </li>
-    </ul>
-
-    <div class="card-actions mt-4 justify-between">
+    <div class="card-actions justify-between">
       <a
         [routerLink]="['/plantas', planta().id]"
-        class="btn btn-primary btn-soft min-w-max shadow-md"
+        class="btn btn-primary btn-soft min-w-max font-bold shadow-md"
       >
         Ver más
-        <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="chevron-right" />
+        <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="arrow-right" />
       </a>
 
       <button

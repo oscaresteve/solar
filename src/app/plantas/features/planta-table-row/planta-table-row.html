@@ -1,8 +1,10 @@
 <td>
-  <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{ planta().id }}</span>
+  <span class="badge badge-sm badge-soft badge-info font-semibold text-nowrap shadow-md">{{
+    planta().id
+  }}</span>
 </td>
 <td>
-  <p class="text-base-content font-semibold">
+  <p class="text-base-content text-sm font-bold">
     {{ planta().name }}
   </p>
 </td>
@@ -14,13 +16,13 @@
 </td>
 <td>
   @if (planta().active) {
-    <span class="badge badge-soft badge-success text-xs shadow-md">Activa</span>
+    <span class="badge badge-sm badge-soft badge-success font-semibold shadow-md">Activa</span>
   } @else {
-    <span class="badge badge-soft badge-error text-xs shadow-md">Inactiva</span>
+    <span class="badge badge-sm badge-soft badge-error font-semibold shadow-md">Inactiva</span>
   }
 </td>
 <td>
-  <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">
+  <span class="badge badge-sm badge-soft badge-gray font-semibold text-nowrap shadow-md">
     {{ planta().user_id }}
   </span>
 </td>

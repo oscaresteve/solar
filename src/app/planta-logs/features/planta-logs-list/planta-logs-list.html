@@ -56,7 +56,7 @@
       @for (plantaLog of plantaLogs(); track plantaLog.id) {
         <tr class="hover:bg-base-200">
           <td>
-            <span class="badge badge-soft badge-gray text-xs text-nowrap shadow-md">{{
+            <span class="badge badge-soft badge-gray font-semibold text-nowrap shadow-md">{{
               plantaLog.id
             }}</span>
           </td>
@@ -64,12 +64,12 @@
             {{ plantaLog.created_at | date: 'short' }}
           </td>
           <td>
-            <span class="badge badge-soft badge-info text-xs text-nowrap shadow-md">{{
+            <span class="badge badge-soft badge-info font-semibold text-nowrap shadow-md">{{
               plantaLog.planta_id
             }}</span>
           </td>
-          <td>{{ plantaLog.production | number }} kWh</td>
-          <td>{{ plantaLog.consumption | number }} kWh</td>
+          <td>{{ plantaLog.production | number }}</td>
+          <td>{{ plantaLog.consumption | number }}</td>
           <td>
             {{ plantaLog.production | energyBalance: plantaLog.consumption | number }} ({{
               plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus

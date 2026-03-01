@@ -18,7 +18,7 @@
           } @else {
             <div class="avatar avatar-placeholder">
               <div class="bg-neutral text-neutral-content w-72 rounded-full shadow-xl">
-                <span class="text-7xl">{{ first_name()?.charAt(0) }}</span>
+                <span class="text-9xl font-bold">{{ first_name()?.charAt(0) }}</span>
               </div>
             </div>
           }
@@ -37,23 +37,31 @@
         <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Nombre</p>
-          <input class="input w-full" type="text" [formField]="cuentaForm.first_name" />
+          <p class="text-base-content/50 text-sm font-semibold">Nombre</p>
+          <input
+            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
+            type="text"
+            [formField]="cuentaForm.first_name"
+          />
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Apellidos</p>
-          <input class="input w-full" type="text" [formField]="cuentaForm.last_name" />
+          <p class="text-base-content/50 text-sm font-semibold">Apellidos</p>
+          <input
+            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
+            type="text"
+            [formField]="cuentaForm.last_name"
+          />
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">Correo electrónico</p>
-          <p class="text-base-content/70">{{ email() }}</p>
+          <p class="text-base-content/50 text-sm font-semibold">Correo electrónico</p>
+          <p class="text-base-content/90 text-lg font-semibold">{{ email() }}</p>
         </div>
 
         <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content mb-2 text-lg font-semibold">UID</p>
-          <p class="text-base-content/70">{{ uid() }}</p>
+          <p class="text-base-content/50 text-sm font-semibold">UID</p>
+          <p class="text-base-content/90 text-lg font-semibold">{{ uid() }}</p>
         </div>
 
         <button

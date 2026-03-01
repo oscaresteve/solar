@@ -47,19 +47,28 @@
 
     <div>
       <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
+
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Capacidad instalada (MW)</p>
-        <p class="text-base-content/70">{{ planta()?.capacity | number: '1.0-0' }} MW</p>
+        <p class="text-base-content/50 text-sm font-semibold">Descripción</p>
+        <p class="text-base-content/90 text-lg font-semibold">{{ planta()?.description }}</p>
       </div>
+
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Ubicación (Lat, Long)</p>
-        <p class="text-base-content/70">
+        <p class="text-base-content/50 text-sm font-semibold">Capacidad instalada (MW)</p>
+        <p class="text-base-content/90 text-lg font-semibold">
+          {{ planta()?.capacity | number: '1.0-0' }} MW
+        </p>
+      </div>
+
+      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
+        <p class="text-base-content/50 text-sm font-semibold">Ubicación (Lat, Long)</p>
+        <p class="text-base-content/90 text-lg font-semibold">
           {{ planta()?.latitude ?? 'N/A' }}, {{ planta()?.longitude ?? 'N/A' }}
         </p>
       </div>
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Responsable</p>
-        <p class="text-base-content/70">{{ planta()?.user_id }}</p>
+        <p class="text-base-content/50 text-sm font-semibold">Responsable</p>
+        <p class="text-base-content/90 text-lg font-semibold">{{ planta()?.user_id }}</p>
       </div>
     </div>
   </div>
