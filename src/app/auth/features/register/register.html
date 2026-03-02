@@ -8,7 +8,7 @@
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="user-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon name="identification" className="size-6 text-base-content/50" strokeWidth="2.0" />
         <input
           type="text"
           name="firstName"
@@ -19,12 +19,12 @@
           placeholder="Tu nombre"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">El nombre es requerido.</p>
+      <p class="validator-hint hidden text-sm font-semibold">El nombre es requerido.</p>
     </div>
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="user-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon name="identification" className="size-6 text-base-content/50" strokeWidth="2.0" />
         <input
           type="text"
           name="lastName"
@@ -35,12 +35,16 @@
           placeholder="Tu apellidos"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">Los apellidos son requeridos.</p>
+      <p class="validator-hint hidden text-sm font-semibold">Los apellidos son requeridos.</p>
     </div>
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="mail-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon
+          name="envelope-outline"
+          className="size-6 text-base-content/50"
+          strokeWidth="2.0"
+        />
         <input
           type="email"
           name="email"
@@ -51,14 +55,18 @@
           placeholder="Tu correo electrónico"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">
+      <p class="validator-hint hidden text-sm font-semibold">
         Introduce un correo electrónico válido.
       </p>
     </div>
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon
+          name="lock-closed-outline"
+          className="size-6 text-base-content/50"
+          strokeWidth="2.0"
+        />
         <input
           type="password"
           name="password"
@@ -69,12 +77,16 @@
           placeholder="Tu contraseña"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">Introduce una contraseña válida.</p>
+      <p class="validator-hint hidden text-sm font-semibold">Introduce una contraseña válida.</p>
     </div>
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon
+          name="lock-closed-outline"
+          className="size-6 text-base-content/50"
+          strokeWidth="2.0"
+        />
         <input
           type="password"
           name="confirmPassword"
@@ -88,12 +100,12 @@
           placeholder="Confirma tu contraseña"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">Las contraseñas deben coincidir.</p>
+      <p class="validator-hint hidden text-sm font-semibold">Las contraseñas deben coincidir.</p>
     </div>
 
     <button
       type="submit"
-      class="btn btn-block btn-soft btn-primary my-4 shadow-md"
+      class="btn btn-block btn-lg btn-soft btn-primary my-4 shadow-md"
       [disabled]="loading() || form.invalid"
     >
       @if (loading()) {

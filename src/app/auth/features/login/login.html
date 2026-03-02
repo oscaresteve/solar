@@ -8,7 +8,11 @@
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="mail-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon
+          name="envelope-outline"
+          className="size-6 text-base-content/50"
+          strokeWidth="2.0"
+        />
         <input
           type="email"
           name="email"
@@ -19,14 +23,18 @@
           placeholder="Correo electrónico"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">
+      <p class="validator-hint hidden text-sm font-semibold">
         Introduzca una dirección de correo electrónico válido.
       </p>
     </div>
 
     <div class="mt-4">
       <label class="input validator w-full">
-        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <app-icon
+          name="lock-closed-outline"
+          className="size-6 text-base-content/50"
+          strokeWidth="2.0"
+        />
         <input
           type="password"
           [aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
@@ -37,12 +45,12 @@
           class="text-base-content/90 validator text-lg font-semibold"
         />
       </label>
-      <p class="validator-hint hidden text-xs font-semibold">Introduzca una contraseña válida.</p>
+      <p class="validator-hint hidden text-sm font-semibold">Introduzca una contraseña válida.</p>
     </div>
 
     <button
       type="submit"
-      class="btn btn-block btn-soft btn-primary my-4 shadow-md"
+      class="btn btn-block btn-lg btn-soft btn-primary my-4 shadow-md"
       [disabled]="form.invalid || loading()"
     >
       @if (loading()) {

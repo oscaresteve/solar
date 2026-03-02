@@ -1,26 +1,26 @@
 import { Component, input } from '@angular/core';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 export type IconName =
-  | 'arrow-right'
-  | 'chevron-right'
-  | 'heart'
+  | 'arrow-right-outline'
+  | 'chevron-right-outline'
+  | 'heart-outline'
   | 'heart-solid'
-  | 'arrow-path'
-  | 'mail-icon'
-  | 'lock-closed-icon'
-  | 'user-icon';
+  | 'arrow-path-rounded-square-outline'
+  | 'envelope-outline'
+  | 'lock-closed-outline'
+  | 'identification';
+
+export type StrokeWidth = '1.5' | '2.0' | '2.5';
 
 @Component({
   selector: 'app-icon',
-  imports: [NgClass, NgStyle],
+  imports: [NgClass],
   templateUrl: './icon.html',
   styleUrl: './icon.scss',
 })
 export class Icon {
   name = input.required<IconName>();
   className = input<string>('size-6');
-  color = input<string | null>(null);
-  size = input<string | null>(null);
-  ariaHidden = input<boolean>(true);
+  strokeWidth = input<StrokeWidth>('1.5');
 }

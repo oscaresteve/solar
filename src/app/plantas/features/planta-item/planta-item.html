@@ -20,10 +20,10 @@
     <div class="card-actions justify-between">
       <a
         [routerLink]="['/plantas', planta().id]"
-        class="btn btn-primary btn-soft min-w-max font-bold shadow-md"
+        class="btn btn-primary btn-soft min-w-max text-lg font-bold shadow-md"
       >
         Ver más
-        <app-icon className="ms-1.5 -me-0.5 size-4 rtl:rotate-180" name="arrow-right" />
+        <app-icon className="size-6 ms-2" strokeWidth="2.5" name="chevron-right-outline" />
       </a>
 
       <button
@@ -33,11 +33,15 @@
       >
         @if (isFavorite()) {
           <app-icon
-            className="size-8 text-error/80  hover:text-error"
+            className="size-10 text-error/90  hover:text-error"
             name="heart-solid"
           ></app-icon>
         } @else {
-          <app-icon className="size-8 text-error/80 hover:text-error" name="heart"></app-icon>
+          <app-icon
+            className="size-10 text-error/90 hover:text-error"
+            strokeWidth="1.5"
+            name="heart-outline"
+          ></app-icon>
         }
       </button>
     </div>
