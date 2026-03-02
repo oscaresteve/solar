@@ -8,7 +8,8 @@ export type IconName =
   | 'heart-solid'
   | 'arrow-path'
   | 'mail-icon'
-  | 'lock-closed-icon';
+  | 'lock-closed-icon'
+  | 'user-icon';
 
 @Component({
   selector: 'app-icon',

@@ -1,111 +1,100 @@
 <section class="mx-48">
   <form
-    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-4 shadow-xl"
+    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-6 shadow-xl"
     [formGroup]="form"
     (ngSubmit)="onSubmit($event)"
   >
-    <h1 class="text-base-content mb-6 text-3xl">Crear cuenta</h1>
+    <h1 class="text-base-content text-3xl font-bold">Crear cuenta</h1>
 
-    <label for="firstName" class="fieldset-label">Nombre</label>
-    <input
-      type="text"
-      name="firstName"
-      id="firstName"
-      formControlName="firstName"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.firstName.invalid &&
-        (form.controls.firstName.dirty || form.controls.firstName.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.firstName.valid &&
-        (form.controls.firstName.dirty || form.controls.firstName.touched)
-      "
-      [class.border-gray-300]="!(form.controls.firstName.dirty || form.controls.firstName.touched)"
-      placeholder="Tu nombre"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="user-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          formControlName="firstName"
+          [aria-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Tu nombre"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">El nombre es requerido.</p>
+    </div>
 
-    <label for="lastName" class="fieldset-label">Apellidos</label>
-    <input
-      type="text"
-      name="lastName"
-      id="lastName"
-      formControlName="lastName"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.lastName.invalid &&
-        (form.controls.lastName.dirty || form.controls.lastName.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.lastName.valid &&
-        (form.controls.lastName.dirty || form.controls.lastName.touched)
-      "
-      [class.border-gray-300]="!(form.controls.lastName.dirty || form.controls.lastName.touched)"
-      placeholder="Tus apellidos"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="user-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          formControlName="lastName"
+          [aria-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Tu apellidos"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">Los apellidos son requeridos.</p>
+    </div>
 
-    <label for="email" class="fieldset-label">Correo electrónico</label>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      formControlName="email"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.email.invalid && (form.controls.email.dirty || form.controls.email.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.email.valid && (form.controls.email.dirty || form.controls.email.touched)
-      "
-      [class.border-gray-300]="!(form.controls.email.dirty || form.controls.email.touched)"
-      placeholder="nombre@empresa.com"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="mail-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          formControlName="email"
+          [aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Tu correo electrónico"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">
+        Introduce un correo electrónico válido.
+      </p>
+    </div>
 
-    <label for="password" class="fieldset-label">Contraseña</label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      formControlName="password"
-      placeholder="••••••••"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.password.invalid &&
-        (form.controls.password.dirty || form.controls.password.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.password.valid &&
-        (form.controls.password.dirty || form.controls.password.touched)
-      "
-      [class.border-gray-300]="!(form.controls.password.dirty || form.controls.password.touched)"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          formControlName="password"
+          [aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Tu contraseña"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">Introduce una contraseña válida.</p>
+    </div>
 
-    <label for="confirmPassword" class="fieldset-label">Confirma tu contraseña</label>
-    <input
-      type="password"
-      name="confirmPassword"
-      id="confirmPassword"
-      formControlName="confirmPassword"
-      placeholder="••••••••"
-      class="input w-full"
-      [class.border-red-500]="
-        (form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched) &&
-        (form.controls.confirmPassword.invalid || form.hasError('passwordMismatch'))
-      "
-      [class.border-blue-500]="
-        (form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched) &&
-        form.controls.confirmPassword.valid &&
-        !form.hasError('passwordMismatch')
-      "
-      [class.border-gray-300]="
-        !(form.controls.confirmPassword.dirty || form.controls.confirmPassword.touched)
-      "
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          [aria-invalid]="
+            form.controls.confirmPassword.touched &&
+            (form.hasError('passwordMismatch') || form.controls.confirmPassword.invalid)
+          "
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Confirma tu contraseña"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">Las contraseñas deben coincidir.</p>
+    </div>
 
     <button
       type="submit"
       class="btn btn-block btn-soft btn-primary my-4 shadow-md"
-      [disabled]="loading()"
+      [disabled]="loading() || form.invalid"
     >
       @if (loading()) {
         <span class="loading loading-spinner"></span>

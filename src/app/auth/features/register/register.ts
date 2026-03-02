@@ -9,6 +9,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface SignUpForm {
   firstName: FormControl<null | string>;
@@ -29,7 +30,7 @@ const passwordsMatchValidator = (control: AbstractControl): ValidationErrors | n
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, Icon],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
