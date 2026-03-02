@@ -1,7 +1,14 @@
 import { Component, input } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 
-export type IconName = 'arrow-right' | 'chevron-right' | 'heart' | 'heart-solid' | 'arrow-path';
+export type IconName =
+  | 'arrow-right'
+  | 'chevron-right'
+  | 'heart'
+  | 'heart-solid'
+  | 'arrow-path'
+  | 'mail-icon'
+  | 'lock-closed-icon';
 
 @Component({
   selector: 'app-icon',

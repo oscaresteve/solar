@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../data-access/auth-service';
 import { Router, RouterLink } from '@angular/router';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface LogInForm {
   email: FormControl<null | string>;
@@ -11,7 +12,7 @@ interface LogInForm {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Icon],
   templateUrl: './login.html',
 })
 export class Login {

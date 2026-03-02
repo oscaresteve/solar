@@ -1,51 +1,49 @@
 <section class="mx-48">
   <form
-    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-4 shadow-xl"
+    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-6 shadow-xl"
     [formGroup]="form"
     (ngSubmit)="onSubmit($event)"
   >
-    <h1 class="text-base-content mb-6 text-3xl">Iniciar sesión</h1>
+    <h1 class="text-base-content text-3xl font-bold">Iniciar sesión</h1>
 
-    <label for="email" class="fieldset-label">Correo electrónico</label>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      formControlName="email"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.email.invalid && (form.controls.email.dirty || form.controls.email.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.email.valid && (form.controls.email.dirty || form.controls.email.touched)
-      "
-      [class.border-gray-300]="!(form.controls.email.dirty || form.controls.email.touched)"
-      placeholder="nombre@empresa.com"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="mail-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="email"
+          name="email"
+          [aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+          id="email"
+          formControlName="email"
+          class="text-base-content/90 validator text-lg font-semibold"
+          placeholder="Correo electrónico"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">
+        Introduzca una dirección de correo electrónico valida.
+      </p>
+    </div>
 
-    <label for="password" class="fieldset-label">Contraseña</label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      formControlName="password"
-      placeholder="••••••••"
-      class="input w-full"
-      [class.border-red-500]="
-        form.controls.password.invalid &&
-        (form.controls.password.dirty || form.controls.password.touched)
-      "
-      [class.border-blue-500]="
-        form.controls.password.valid &&
-        (form.controls.password.dirty || form.controls.password.touched)
-      "
-      [class.border-gray-300]="!(form.controls.password.dirty || form.controls.password.touched)"
-    />
+    <div class="mt-4">
+      <label class="input validator w-full">
+        <app-icon name="lock-closed-icon" className="size-6 text-base-content/50 mr-2" />
+        <input
+          type="password"
+          [aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
+          name="password"
+          id="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          class="text-base-content/90 validator text-lg font-semibold"
+        />
+      </label>
+      <p class="validator-hint hidden text-xs font-semibold">Introduzca una contraseña valida.</p>
+    </div>
 
     <button
       type="submit"
       class="btn btn-block btn-soft btn-primary my-4 shadow-md"
-      [disabled]="loading()"
+      [disabled]="form.invalid || loading()"
     >
       @if (loading()) {
         <span class="loading loading-spinner"></span>
