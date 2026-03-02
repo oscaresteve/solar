@@ -6,10 +6,14 @@ export type IconName =
   | 'chevron-right-outline'
   | 'heart-outline'
   | 'heart-solid'
-  | 'arrow-path-rounded-square-outline'
+  | 'arrow-path'
   | 'envelope-outline'
   | 'lock-closed-outline'
-  | 'identification';
+  | 'identification'
+  | 'home-outline'
+  | 'home-solid'
+  | 'bolt-outline'
+  | 'bolt-solid';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

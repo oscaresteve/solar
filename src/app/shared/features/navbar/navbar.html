@@ -22,13 +22,43 @@
         class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
-          <a [routerLink]="['/dashboard']" routerLinkActive="font-bold text-primary">Dashboard</a>
+          <a
+            [routerLink]="['/dashboard']"
+            routerLinkActive="font-bold text-primary"
+            #dashboardLink="routerLinkActive"
+          >
+            <app-icon
+              [name]="dashboardLink.isActive ? 'home-solid' : 'home-outline'"
+              strokeWidth="2.0"
+            ></app-icon>
+            Dashboard
+          </a>
         </li>
         <li>
-          <a [routerLink]="['/plantas']" routerLinkActive="font-bold text-primary">Plantas</a>
+          <a
+            [routerLink]="['/plantas']"
+            routerLinkActive="font-bold text-primary"
+            #plantasLink="routerLinkActive"
+          >
+            <app-icon
+              [name]="plantasLink.isActive ? 'bolt-solid' : 'bolt-outline'"
+              strokeWidth="2.0"
+            ></app-icon>
+            Plantas</a
+          >
         </li>
         <li>
-          <a [routerLink]="['/favorites']" routerLinkActive="font-bold text-primary">Favoritos</a>
+          <a
+            [routerLink]="['/favorites']"
+            routerLinkActive="font-bold text-primary"
+            #favoritesLink="routerLinkActive"
+          >
+            <app-icon
+              [name]="favoritesLink.isActive ? 'heart-solid' : 'heart-outline'"
+              strokeWidth="2.0"
+            ></app-icon>
+            Favoritos</a
+          >
         </li>
       </ul>
     </div>
