@@ -13,7 +13,9 @@ export type IconName =
   | 'home-outline'
   | 'home-solid'
   | 'bolt-outline'
-  | 'bolt-solid';
+  | 'bolt-solid'
+  | 'user-outline'
+  | 'user-solid';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 
