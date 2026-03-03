@@ -17,7 +17,9 @@ export type IconName =
   | 'user-outline'
   | 'user-solid'
   | 'cog-outline'
-  | 'cog-solid';
+  | 'cog-solid'
+  | 'arrow-right-on-rectangle-outline'
+  | 'arrow-right-on-rectangle-solid';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 
