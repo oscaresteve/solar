@@ -15,7 +15,9 @@ export type IconName =
   | 'bolt-outline'
   | 'bolt-solid'
   | 'user-outline'
-  | 'user-solid';
+  | 'user-solid'
+  | 'cog-outline'
+  | 'cog-solid';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 
