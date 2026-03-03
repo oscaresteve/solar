@@ -17,19 +17,21 @@
     <div class="flex items-center gap-2">
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-warning font-bold shadow-md"
+          class="btn btn-soft btn-lg btn-warning font-bold shadow-md"
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
+          <app-icon name="pencil-square-outline" className="size-5" />
           Editar
         </button>
       }
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-error font-bold shadow-md"
+          class="btn btn-soft btn-lg btn-error font-bold shadow-md"
           type="button"
           (click)="onDelete()"
         >
+          <app-icon name="trash-outline" className="size-5" />
           Eliminar
         </button>
       }
@@ -80,11 +82,12 @@
     <div class="flex items-center gap-2">
       @if (isOwner()) {
         <button
-          class="btn btn-soft btn-success font-bold shadow-md"
+          class="btn btn-lg btn-soft btn-success font-bold shadow-md"
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'new-log']"
         >
-          Añadir registro
+          <app-icon name="plus-circle-outline" className="size-5" />
+          Nuevo
         </button>
       }
       <button class="btn btn-ghost" (click)="onRetryLoad()">
