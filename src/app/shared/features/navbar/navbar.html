@@ -30,6 +30,7 @@
             <app-icon
               [name]="dashboardLink.isActive ? 'home-solid' : 'home-outline'"
               strokeWidth="2.0"
+              className="size-5"
             ></app-icon>
             Dashboard
           </a>
@@ -43,6 +44,7 @@
             <app-icon
               [name]="plantasLink.isActive ? 'bolt-solid' : 'bolt-outline'"
               strokeWidth="2.0"
+              className="size-5"
             ></app-icon>
             Plantas</a
           >
@@ -56,6 +58,7 @@
             <app-icon
               [name]="favoritesLink.isActive ? 'heart-solid' : 'heart-outline'"
               strokeWidth="2.0"
+              className="size-5"
             ></app-icon>
             Favoritos</a
           >
@@ -114,15 +117,40 @@
         class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
-          <a [routerLink]="['/user/cuenta']" routerLinkActive="font-bold text-primary">Cuenta</a>
+          <a
+            [routerLink]="['/user/cuenta']"
+            routerLinkActive="font-bold text-primary"
+            #cuentaLink="routerLinkActive"
+          >
+            <app-icon
+              [name]="cuentaLink.isActive ? 'user-solid' : 'user-outline'"
+              strokeWidth="2.0"
+              className="size-5"
+            ></app-icon>
+            Cuenta</a
+          >
         </li>
-        <li><a>Configuración</a></li>
+        <li>
+          <a routerLinkActive="font-bold text-primary" #configuracionLink="routerLinkActive">
+            <app-icon
+              [name]="configuracionLink.isActive ? 'cog-solid' : 'cog-outline'"
+              strokeWidth="2.0"
+              className="size-5"
+            ></app-icon
+            >Configuración</a
+          >
+        </li>
         <li>
           <button (click)="logOut()" class="text-error" [disabled]="loading()">
             @if (loading()) {
               <span class="loading loading-spinner"></span>
             } @else {
-              Cerrar sesión
+              <app-icon
+                name="arrow-right-on-rectangle-outline"
+                strokeWidth="2.0"
+                className="size-5"
+              ></app-icon
+              >Cerrar sesión
             }
           </button>
         </li>

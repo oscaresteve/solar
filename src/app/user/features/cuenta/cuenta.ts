@@ -3,6 +3,7 @@ import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '
 import { UserService } from '../../data-access/user-service';
 import { AuthService } from '../../../auth/data-access/auth-service';
 import { form, FormField, required } from '@angular/forms/signals';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface CuentaFormData {
   first_name: string;
@@ -11,7 +12,7 @@ interface CuentaFormData {
 
 @Component({
   selector: 'app-cuenta',
-  imports: [FormField],
+  imports: [FormField, Icon],
   templateUrl: './cuenta.html',
   styleUrl: './cuenta.scss',
 })
