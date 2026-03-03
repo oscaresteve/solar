@@ -16,9 +16,10 @@
     </div>
     <div class="flex items-center gap-2 text-sm font-bold">
       <a
-        class="btn btn-soft btn-warning min-w-max font-bold shadow-md"
+        class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
         [routerLink]="['/plantas', planta()?.id]"
       >
+        <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
         Cancelar
       </a>
     </div>
@@ -27,9 +28,9 @@
   <form (submit)="onSubmit($event)">
     <div class="grid grid-cols-2 gap-4">
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Producción (kWh)</p>
+        <p class="text-base-content/50 text-sm font-semibold">Producción (kWh)</p>
         <input
-          class="input w-full"
+          class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
           type="number"
           placeholder="46000"
           [formField]="plantaLogsForm.production"
@@ -37,9 +38,9 @@
       </div>
 
       <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content mb-2 text-lg font-semibold">Consumo (kWh)</p>
+        <p class="text-base-content/50 text-sm font-semibold">Consumo (kWh)</p>
         <input
-          class="input w-full"
+          class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
           type="number"
           placeholder="25000"
           [formField]="plantaLogsForm.consumption"
@@ -47,9 +48,9 @@
       </div>
     </div>
     <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-      <p class="text-base-content mb-2 text-lg font-semibold">Mensaje</p>
+      <p class="text-base-content/50 text-sm font-semibold">Mensaje</p>
       <textarea
-        class="textarea w-full"
+        class="textarea text-base-content/90 mt-2 w-full text-lg font-semibold"
         type="text"
         placeholder="Mensaje del registro"
         [formField]="plantaLogsForm.message"
@@ -57,14 +58,15 @@
     </div>
 
     <button
-      class="btn btn-success btn-soft btn-block mt-4 font-bold shadow-md"
+      class="btn btn-lg btn-success btn-soft btn-block mt-4 font-bold shadow-md"
       type="submit"
       [disabled]="loading()"
     >
       @if (loading()) {
         <span class="loading-spinner"></span>
       } @else {
-        Crear registro
+        <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
+        Crear Registro
       }
     </button>
   </form>

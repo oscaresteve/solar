@@ -25,7 +25,13 @@ export type IconName =
   | 'trash-outline'
   | 'trash-solid'
   | 'plus-circle-outline'
-  | 'plus-circle-solid';
+  | 'plus-circle-solid'
+  | 'arrow-uturn-left-outline'
+  | 'arrow-uturn-left-solid'
+  | 'arrow-down-tray-outline'
+  | 'arrow-down-tray-solid'
+  | 'globe-alt-outline'
+  | 'globe-alt-solid';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

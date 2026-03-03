@@ -8,10 +8,11 @@
 
     <div>
       <button
-        class="btn btn-success btn-soft shadow-md"
+        class="btn btn-lg btn-success btn-soft font-bold shadow-md"
         type="button"
         [routerLink]="['/plantas/new-planta']"
       >
+        <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
         Crear planta
       </button>
       <button class="btn btn-ghost" (click)="onRetryLoad()">

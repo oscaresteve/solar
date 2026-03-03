@@ -4,6 +4,7 @@ import { PlantaService } from '../../../plantas/data-access/planta-service';
 import { form, required, FormField } from '@angular/forms/signals';
 import { PlantaLogsService } from '../../data-access/planta-logs-service';
 import { DatePipe } from '@angular/common';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface PlantaLogsFormData {
   production: number;
@@ -13,7 +14,7 @@ interface PlantaLogsFormData {
 
 @Component({
   selector: 'app-planta-logs-form',
-  imports: [RouterLink, FormField, DatePipe],
+  imports: [RouterLink, FormField, DatePipe, Icon],
   templateUrl: './planta-logs-form.html',
   styleUrl: './planta-logs-form.scss',
 })

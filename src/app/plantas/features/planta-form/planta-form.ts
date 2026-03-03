@@ -4,6 +4,7 @@ import { PlantaService } from '../../data-access/planta-service';
 import { form, FormField, min, minLength, required, validate } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 import { DatePipe } from '@angular/common';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface PlantaFormData {
   name: string;
@@ -15,7 +16,7 @@ interface PlantaFormData {
 
 @Component({
   selector: 'app-planta-form',
-  imports: [RouterLink, FormField, DatePipe],
+  imports: [RouterLink, FormField, DatePipe, Icon],
   templateUrl: './planta-form.html',
   styleUrl: './planta-form.scss',
 })

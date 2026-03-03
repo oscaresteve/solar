@@ -36,7 +36,11 @@
         <p class="text-base-content/70">Fecha de creación: {{ today | date: 'medium' }}</p>
       }
     </div>
-    <a class="btn btn-soft btn-warning min-w-max font-bold shadow-md" [routerLink]="cancelLink()">
+    <a
+      class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
+      [routerLink]="cancelLink()"
+    >
+      <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
       Cancelar
     </a>
   </header>
@@ -105,11 +109,12 @@
           </div>
 
           <button
-            class="btn btn-soft btn-primary btn-block font-bold shadow-md"
+            class="btn btn-md btn-soft btn-primary btn-block font-bold shadow-md"
             type="button"
             (click)="setCurrentPosition()"
             [disabled]="loading()"
           >
+            <app-icon name="globe-alt-outline" className="size-4" strokeWidth="2.5" />
             Obtener ubicación actual
           </button>
         </div>
@@ -123,14 +128,20 @@
         </div>
 
         <button
-          class="btn btn-soft btn-block btn-success mt-2 min-w-max font-bold shadow-md"
+          class="btn btn-lg btn-soft btn-block btn-success mt-2 min-w-max font-bold shadow-md"
           type="submit"
           [disabled]="loading()"
         >
           @if (loading()) {
             <span class="loading loading-spinner"></span>
           } @else {
-            {{ isEditing() ? 'Guardar cambios' : 'Crear planta' }}
+            @if (isEditing()) {
+              <app-icon name="pencil-square-outline" className="size-5" strokeWidth="2.5" />
+              Guardar Cambios
+            } @else {
+              <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
+              Crear Planta
+            }
           }
         </button>
       </form>
