@@ -31,7 +31,9 @@ export type IconName =
   | 'arrow-down-tray-outline'
   | 'arrow-down-tray-solid'
   | 'globe-alt-outline'
-  | 'globe-alt-solid';
+  | 'globe-alt-solid'
+  | 'arrow-trending-up-outline'
+  | 'arrow-trending-down-outline';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

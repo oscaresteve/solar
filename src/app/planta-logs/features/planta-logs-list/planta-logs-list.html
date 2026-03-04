@@ -71,9 +71,21 @@
           <td>{{ plantaLog.production | number }}</td>
           <td>{{ plantaLog.consumption | number }}</td>
           <td>
-            {{ plantaLog.production | energyBalance: plantaLog.consumption | number }} ({{
-              plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus
-            }})
+            <div
+              class="inline-flex items-center gap-1"
+              [ngClass]="{
+                'text-success': (plantaLog.production | energyBalance: plantaLog.consumption) > 0,
+                'text-error': (plantaLog.production | energyBalance: plantaLog.consumption) <= 0,
+              }"
+            >
+              <app-icon
+                [name]="plantaLog.production | energyBalance: plantaLog.consumption | balanceStatus"
+                className="size-3"
+              />
+              <span>{{
+                plantaLog.production | energyBalance: plantaLog.consumption | number
+              }}</span>
+            </div>
           </td>
           <td>{{ plantaLog.message }}</td>
         </tr>
