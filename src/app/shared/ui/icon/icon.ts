@@ -4,6 +4,7 @@ import { NgClass } from '@angular/common';
 export type IconName =
   | 'arrow-right-outline'
   | 'chevron-right-outline'
+  | 'chevron-left-outline'
   | 'heart-outline'
   | 'heart-solid'
   | 'arrow-path'

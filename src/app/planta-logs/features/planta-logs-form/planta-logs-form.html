@@ -15,13 +15,35 @@
       <p class="text-base-content/70">Fecha de creación: {{ today | date: 'medium' }}</p>
     </div>
     <div class="flex items-center gap-2 text-sm font-bold">
-      <a
+      <button
         class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
-        [routerLink]="['/plantas', planta()?.id]"
+        onclick="modalEliminar.showModal()"
       >
         <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
         Cancelar
-      </a>
+      </button>
+
+      <dialog id="modalEliminar" class="modal">
+        <div class="modal-box">
+          <h3 class="text-xl font-bold">¿Estas seguro?</h3>
+          <p class="py-4 font-semibold">Los cambios serán premanentes</p>
+          <form method="dialog">
+            <div class="modal-action flex items-center gap-4">
+              <button class="btn btn-lg btn-soft btn-primary min-w-max font-bold shadow-md">
+                <app-icon name="chevron-left-outline" className="size-5" strokeWidth="2.5" />
+                Volver
+              </button>
+              <a
+                class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
+                [routerLink]="['/plantas', planta()?.id]"
+              >
+                <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
+                Cancelar
+              </a>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   </header>
 
