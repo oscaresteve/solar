@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from '../dashboard/dashboard';
+import { Home } from '../home/home';
 import { PlantaDetail } from '../planta-detail/planta-detail';
 import { PlantaForm } from '../planta-form/planta-form';
 import { Plantas } from '../plantas/plantas';
@@ -9,7 +9,7 @@ import { Favorites } from '../favorites/favorites';
 import { Mapa } from '../mapa/mapa';
 
 export default [
-  { path: 'dashboard', component: Dashboard },
+  { path: 'home', component: Home },
   { path: 'plantas', component: Plantas },
   { path: 'mapa', component: Mapa },
   { path: 'favorites', component: Favorites },
@@ -17,5 +17,5 @@ export default [
   { path: 'plantas/:id/edit', component: PlantaForm, canActivate: [plantaOwnerGuard] },
   { path: 'plantas/:id/new-log', component: PlantaLogsForm, canActivate: [plantaOwnerGuard] },
   { path: 'plantas/:id', component: PlantaDetail },
-  { path: '**', redirectTo: 'dashboard' },
+  { path: '**', redirectTo: 'home' },
 ] as Routes;

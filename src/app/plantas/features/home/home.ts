@@ -3,9 +3,9 @@ import { PlantaList } from '../planta-list/planta-list';
 import { Icon } from '../../../shared/ui/icon/icon';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-home',
   imports: [PlantaList, Icon],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
+  templateUrl: './home.html',
+  styleUrl: './home.scss',
 })
-export class Dashboard {}
+export class Home {}

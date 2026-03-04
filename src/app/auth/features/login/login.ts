@@ -39,11 +39,14 @@ export class Login {
       });
       if (error) throw error;
 
-      this._router.navigateByUrl('/dashboard');
+      this._router.navigateByUrl('/home');
       this._toastService.show('Sesion iniciada correctamente.', 'success');
     } catch (error) {
       console.error(error);
-      this._toastService.show('No se pudo iniciar sesion. Verifica tu correo y contrasena.', 'error');
+      this._toastService.show(
+        'No se pudo iniciar sesion. Verifica tu correo y contrasena.',
+        'error',
+      );
     }
   }
 }
