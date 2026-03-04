@@ -87,10 +87,17 @@
 
   <div class="navbar-end">
     <label class="swap swap-rotate mr-4">
-      <input type="checkbox" class="theme-controller" value="dark" />
+      <input
+        type="checkbox"
+        class="theme-controller"
+        value="dark"
+        [checked]="isDark"
+        (change)="onThemeChange($event)"
+      />
 
+      <!-- Icono sol (tema claro activo) -->
       <svg
-        class="swap-off size-7 fill-current"
+        class="swap-off size-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -99,8 +106,9 @@
         />
       </svg>
 
+      <!-- Icono luna (tema oscuro activo) -->
       <svg
-        class="swap-on size-7 fill-current"
+        class="swap-on size-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
