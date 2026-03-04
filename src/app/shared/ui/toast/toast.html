@@ -1,7 +1,7 @@
-<div class="toast">
+<div class="toast toast-center">
   @for (toast of toasts(); track toast) {
     <div
-      class="alert"
+      class="alert alert-soft font-semibold shadow-xl"
       [class.alert-success]="toast.type === 'success'"
       [class.alert-error]="toast.type === 'error'"
       [class.alert-warning]="toast.type === 'warning'"
@@ -9,16 +9,16 @@
     >
       @switch (toast.type) {
         @case ('success') {
-          <app-icon name="check-circle-outline" className="size-5" />
+          <app-icon name="check-circle-outline" strokeWidth="2.0" />
         }
         @case ('error') {
-          <app-icon name="exclamation-circle-outline" className="size-5" />
+          <app-icon name="exclamation-circle-outline" strokeWidth="2.0" />
         }
         @case ('warning') {
-          <app-icon name="exclamation-triangle-outline" className="size-5" />
+          <app-icon name="exclamation-triangle-outline" strokeWidth="2.0" />
         }
         @case ('info') {
-          <app-icon name="info-circle-outline" className="size-5" />
+          <app-icon name="info-circle-outline" strokeWidth="2.0" />
         }
       }
 
