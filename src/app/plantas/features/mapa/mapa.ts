@@ -128,12 +128,23 @@ export class Mapa implements OnInit, AfterViewInit, OnDestroy {
 
       marker
         .bindPopup(
-          `<div class="bg-base-100 text-base-content rounded-box border-base-300 min-w-44 space-y-1 border p-3 shadow-lg z-600">
-            <p class="text-base font-semibold">${this.escapeHtml(planta.name)}</p>
-            <p class="text-sm">Capacidad: ${planta.capacity} MW</p>
-            <p class="text-sm ${planta.active ? 'text-success' : 'text-warning'}">${planta.active ? 'Activa' : 'Inactiva'}</p>
-          </div>`,
+          `
+          <div>
+            <div class="flex gap-2">
+            <span class="badge badge-xs badge-soft ${planta.active ? 'badge-success' : 'badge-error'} font-semibold shadow-xs">${planta.active ? 'Activa' : 'Inactiva'}</span>
+            <span class="badge badge-xs badge-soft badge-info shadow-md">${planta.id} </span>
+            </div>
+            <h1 class="mt-2 text-lg font-semibold">${this.escapeHtml(planta.name)}</h1>
+            <p class="text-base-content/70">Capacidad: ${planta.description}</p>
+          </div>
+          `,
         )
+        .on('mouseover', function () {
+          marker.openPopup();
+        })
+        .on('mouseout', function () {
+          marker.closePopup();
+        })
         .on('click', () => {
           this._ngZone.run(() => this._router.navigate(['/plantas', planta.id]));
         })
