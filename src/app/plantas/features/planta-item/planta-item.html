@@ -1,44 +1,45 @@
-<div class="card bg-base-200 h-130 shadow-xl">
-  <figure class="aspect-video overflow-hidden">
+<div
+  class="bg-base-100 border-base-300 hover:border-base-content/20 flex flex-col overflow-hidden rounded-lg border transition-colors"
+>
+  <div class="bg-base-200 aspect-video overflow-hidden">
     <img [src]="planta().photo_url" alt="Imagen" class="h-full w-full object-cover" />
-  </figure>
-  <div class="card-body">
-    <div class="flex gap-2">
+  </div>
+
+  <div class="flex flex-1 flex-col gap-3 p-4">
+    <div class="flex gap-1.5">
       @if (planta().active) {
-        <span class="badge badge-xs badge-soft badge-success shadow-md">Activa</span>
+        <span class="badge badge-xs badge-success badge-soft">Activa</span>
       } @else {
-        <span class="badge badge-xs badge-soft badge-error shadow-md">Inactiva</span>
+        <span class="badge badge-xs badge-error badge-soft">Inactiva</span>
       }
-      <span class="badge badge-xs badge-soft badge-info shadow-md">{{ planta().id }} </span>
+      <span class="badge badge-xs badge-ghost text-base-content/40">{{ planta().id }}</span>
     </div>
-    <h3 class="card-title">
-      {{ planta().name }}
-    </h3>
 
-    <p class="text-base-content/90">{{ planta().description }}</p>
+    <div class="flex flex-col gap-1">
+      <h3 class="text-base-content text-sm leading-snug font-semibold">
+        {{ planta().name }}
+      </h3>
+      <p class="text-base-content/50 line-clamp-2 text-xs leading-relaxed">
+        {{ planta().description }}
+      </p>
+    </div>
 
-    <div class="card-actions justify-between">
-      <a
-        [routerLink]="['/plantas', planta().id]"
-        class="btn btn-primary btn-lg btn-soft min-w-max font-bold shadow-md"
-      >
+    <div class="border-base-300 mt-auto flex items-center justify-between border-t pt-3">
+      <a [routerLink]="['/plantas', planta().id]" class="btn btn-primary btn-sm">
         Ver más
-        <app-icon className="size-5" strokeWidth="2.5" name="chevron-right-outline" />
+        <app-icon className="size-3.5" strokeWidth="2.5" name="chevron-right-outline" />
       </a>
 
       <button
         type="button"
         (click)="toggleFavorite()"
-        class="transform cursor-pointer transition-transform duration-100 ease-out hover:scale-105 active:scale-115"
+        class="cursor-pointer transition-transform duration-100 hover:scale-110 active:scale-95"
       >
         @if (isFavorite()) {
-          <app-icon
-            className="size-10 text-error/90  hover:text-error"
-            name="heart-solid"
-          ></app-icon>
+          <app-icon className="size-5 text-error" name="heart-solid"></app-icon>
         } @else {
           <app-icon
-            className="size-10 text-error/90 hover:text-error"
+            className="size-5 text-base-content/30 hover:text-error/60"
             strokeWidth="1.5"
             name="heart-outline"
           ></app-icon>

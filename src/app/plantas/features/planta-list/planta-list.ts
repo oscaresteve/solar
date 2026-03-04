@@ -5,10 +5,11 @@ import { PlantaService } from '../../data-access/planta-service';
 import { FavoritesService } from '../../data-access/favorites-service';
 import { CardSkeleton } from '../../../shared/ui/card-skeleton/card-skeleton';
 import { RouterLink } from '@angular/router';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 @Component({
   selector: 'app-planta-list',
-  imports: [PlantaItem, CardSkeleton, RouterLink],
+  imports: [PlantaItem, CardSkeleton, RouterLink, Icon],
   templateUrl: './planta-list.html',
   styleUrl: './planta-list.scss',
 })

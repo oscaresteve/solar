@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 gap-6">
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
   @if (loading()) {
     <app-card-skeleton />
     <app-card-skeleton />
@@ -9,14 +9,15 @@
   }
   @if (error()) {
     <section
-      class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+      class="border-error/20 bg-error/5 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
       aria-live="assertive"
     >
-      <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
-      <p class="text-error-content mt-3">
+      <app-icon className="size-8 text-error/60" name="exclamation-circle-outline"></app-icon>
+      <h2 class="text-base-content text-base font-semibold">Error de conexión</h2>
+      <p class="text-base-content/50 max-w-xs text-sm">
         Verifica tu conexión o vuelve a intentarlo en unos segundos.
       </p>
-      <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+      <button type="button" class="btn btn-outline btn-error btn-sm mt-2" (click)="onRetryLoad()">
         Reintentar
       </button>
     </section>
@@ -30,18 +31,15 @@
       ></app-planta-item>
     } @empty {
       <section
-        class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
+        class="border-base-300 bg-base-200/50 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
         aria-live="assertive"
       >
-        <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
-        <p class="text-base-content mt-3">
+        <app-icon className="size-8 text-base-content/30" name="squares-2x2-outline"></app-icon>
+        <h2 class="text-base-content text-base font-semibold">Sin plantas registradas</h2>
+        <p class="text-base-content/50 max-w-xs text-sm">
           Cuando registres la primera planta, aparecerá aquí con su información.
         </p>
-        <a
-          type="button"
-          class="btn btn-success btn-soft mt-6"
-          [routerLink]="['/plantas/new-planta']"
-        >
+        <a class="btn btn-primary btn-sm mt-2" [routerLink]="['/plantas/new-planta']">
           Nueva planta
         </a>
       </section>
