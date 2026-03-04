@@ -138,6 +138,7 @@ export class Mapa implements OnInit, AfterViewInit, OnDestroy {
             <p class="text-base-content/70">${planta.description ?? ''}</p>
           </div>
           `,
+          { className: 'mapa-popup' },
         )
         .on('mouseover', function () {
           marker.openPopup();

@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+.leaflet-popup.mapa-popup .leaflet-popup-content-wrapper {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  border: 1px solid color-mix(in srgb, var(--color-base-content) 14%, transparent);
+  box-shadow: 0 10px 25px color-mix(in srgb, var(--color-base-content) 12%, transparent);
+}
+
+.leaflet-popup.mapa-popup .leaflet-popup-tip {
+  background-color: var(--color-base-100);
+  border: 1px solid color-mix(in srgb, var(--color-base-content) 14%, transparent);
+}
+
+.leaflet-popup.mapa-popup .leaflet-popup-content {
+  margin: 0;
+  padding: 0.75rem;
+}
+
+.leaflet-popup.mapa-popup .leaflet-popup-close-button {
+  color: color-mix(in srgb, var(--color-base-content) 62%, transparent);
+}
+
+.leaflet-popup.mapa-popup .leaflet-popup-close-button:hover {
+  color: var(--color-base-content);
+}
