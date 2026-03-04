@@ -14,7 +14,7 @@
         Fecha de creación: {{ planta()?.created_at | date: 'medium' }}
       </p>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-4">
       @if (isOwner()) {
         <button
           class="btn btn-soft btn-lg btn-warning font-bold shadow-md"
@@ -29,11 +29,34 @@
         <button
           class="btn btn-soft btn-lg btn-error font-bold shadow-md"
           type="button"
-          (click)="onDelete()"
+          onclick="modalEliminar.showModal()"
         >
           <app-icon name="trash-outline" className="size-5" />
           Eliminar
         </button>
+
+        <dialog id="modalEliminar" class="modal">
+          <div class="modal-box">
+            <h3 class="text-xl font-bold">¿Estas seguro?</h3>
+            <p class="py-4 font-semibold">Los cambios serán premanentes</p>
+            <form method="dialog">
+              <div class="modal-action flex items-center gap-4">
+                <button class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md">
+                  <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
+                  Cancelar
+                </button>
+                <button
+                  class="btn btn-soft btn-lg btn-error font-bold shadow-md"
+                  type="button"
+                  (click)="onDelete()"
+                >
+                  <app-icon name="trash-outline" className="size-5" />
+                  Eliminar
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>
       }
     </div>
   </header>
