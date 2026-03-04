@@ -135,7 +135,7 @@ export class Mapa implements OnInit, AfterViewInit, OnDestroy {
             <span class="badge badge-xs badge-soft badge-info shadow-md">${planta.id} </span>
             </div>
             <h1 class="mt-2 text-lg font-semibold">${this.escapeHtml(planta.name)}</h1>
-            <p class="text-base-content/70">Capacidad: ${planta.description}</p>
+            <p class="text-base-content/70">${planta.description ?? ''}</p>
           </div>
           `,
         )
