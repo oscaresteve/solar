@@ -1,11 +1,15 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
-    <div class="flex items-center">
-      <app-icon className="size-12 mr-4" strokeWidth="2.5" name="heart-outline"></app-icon>
-      <h1 class="text-base-content text-5xl font-bold">Favoritos</h1>
+<section class="mx-auto max-w-6xl px-6">
+  <header class="mt-8 mb-8 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <app-icon
+        className="size-5 text-base-content/50"
+        strokeWidth="2.0"
+        name="heart-outline"
+      ></app-icon>
+      <h1 class="text-xl font-semibold">Favoritos</h1>
     </div>
     <button class="btn btn-ghost" (click)="onRetryLoad()">
-      <app-icon className="size-6 text-base-content" name="arrow-path"></app-icon>
+      <app-icon className="size-4 text-base-content/60" name="arrow-path"></app-icon>
     </button>
   </header>
 

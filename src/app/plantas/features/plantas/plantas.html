@@ -1,22 +1,26 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12 flex flex-row items-center justify-between gap-3">
-    <div class="flex items-center">
-      <app-icon className="size-12 mr-4" strokeWidth="2.5" name="bolt-outline"></app-icon>
+<section class="mx-auto max-w-6xl px-6">
+  <header class="mt-8 mb-8 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <app-icon
+        className="size-5 text-base-content/50"
+        strokeWidth="2.0"
+        name="bolt-outline"
+      ></app-icon>
 
-      <h1 class="text-base-content text-5xl font-bold">Plantas</h1>
+      <h1 class="text-base-content text-xl font-semibold">Plantas</h1>
     </div>
 
     <div>
       <button
-        class="btn btn-lg btn-success btn-soft font-bold shadow-md"
+        class="btn btn-primary btn-sm gap-1.5"
         type="button"
         [routerLink]="['/plantas/new-planta']"
       >
-        <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
-        Crear planta
+        <app-icon name="plus-circle-outline" className="size-3.5" strokeWidth="2.5" />
+        Nueva planta
       </button>
       <button class="btn btn-ghost" (click)="onRetryLoad()">
-        <app-icon className="size-6 text-base-content" name="arrow-path"></app-icon>
+        <app-icon className="size-4 text-base-content/60" name="arrow-path"></app-icon>
       </button>
     </div>
   </header>

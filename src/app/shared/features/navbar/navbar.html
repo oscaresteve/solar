@@ -1,10 +1,10 @@
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar border-base-300 border-b">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
+          class="size-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -19,18 +19,19 @@
       </div>
       <ul
         tabindex="-1"
-        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1200 mt-2 w-xs p-2 font-semibold shadow-xl"
+        class="menu menu-lg dropdown-content bg-base-100 rounded-box border-base-300 z-1200 mt-4 w-xs border p-4 font-semibold"
       >
         <li>
           <a
             [routerLink]="['/home']"
-            routerLinkActive="font-bold text-primary"
+            routerLinkActive="bg-base-200 text-base-content"
             #dashboardLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
           >
             <app-icon
               [name]="dashboardLink.isActive ? 'home-solid' : 'home-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon>
             Home
           </a>
@@ -38,13 +39,14 @@
         <li>
           <a
             [routerLink]="['/plantas']"
-            routerLinkActive="font-bold text-primary"
+            routerLinkActive="bg-base-200 text-base-content"
             #plantasLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
           >
             <app-icon
               [name]="plantasLink.isActive ? 'bolt-solid' : 'bolt-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon>
             Plantas</a
           >
@@ -52,13 +54,14 @@
         <li>
           <a
             [routerLink]="['/mapa']"
-            routerLinkActive="font-bold text-primary"
+            routerLinkActive="bg-base-200 text-base-content"
             #mapaLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
           >
             <app-icon
               [name]="mapaLink.isActive ? 'globe-alt-solid' : 'globe-alt-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon>
             Mapa</a
           >
@@ -66,13 +69,14 @@
         <li>
           <a
             [routerLink]="['/favorites']"
-            routerLinkActive="font-bold text-primary"
+            routerLinkActive="bg-base-200 text-base-content"
             #favoritesLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
           >
             <app-icon
               [name]="favoritesLink.isActive ? 'heart-solid' : 'heart-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon>
             Favoritos</a
           >
@@ -82,11 +86,11 @@
   </div>
 
   <div class="navbar-center">
-    <a class="btn btn-ghost text-3xl font-bold" [routerLink]="['/home']">Solar</a>
+    <a class="btn btn-ghost text-xl font-bold" [routerLink]="['/home']">Solar</a>
   </div>
 
-  <div class="navbar-end">
-    <label class="swap swap-rotate mr-4">
+  <div class="navbar-end flex gap-2">
+    <label class="swap swap-rotate">
       <input
         type="checkbox"
         class="theme-controller"
@@ -95,9 +99,8 @@
         (change)="onThemeChange($event)"
       />
 
-      <!-- Icono sol (tema claro activo) -->
       <svg
-        class="swap-off size-6 fill-current"
+        class="swap-off text-base-content/50 size-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -106,9 +109,8 @@
         />
       </svg>
 
-      <!-- Icono luna (tema oscuro activo) -->
       <svg
-        class="swap-on size-6 fill-current"
+        class="swap-on text-base-content/50 size-6 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -117,6 +119,8 @@
         />
       </svg>
     </label>
+
+    <div class="bg-base-300 h-5 w-px"></div>
 
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
@@ -143,34 +147,44 @@
             [routerLink]="['/user/cuenta']"
             routerLinkActive="font-bold text-primary"
             #cuentaLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
           >
             <app-icon
               [name]="cuentaLink.isActive ? 'user-solid' : 'user-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon>
             Cuenta</a
           >
         </li>
         <li>
-          <a routerLinkActive="font-bold text-primary" #configuracionLink="routerLinkActive">
+          <a
+            routerLinkActive="font-bold text-primary"
+            #configuracionLink="routerLinkActive"
+            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
+          >
             <app-icon
               [name]="configuracionLink.isActive ? 'cog-solid' : 'cog-outline'"
               strokeWidth="2.0"
-              className="size-5"
+              className="size-3.5"
             ></app-icon
             >Configuración</a
           >
         </li>
         <li>
-          <button (click)="logOut()" class="text-error" [disabled]="loading()">
+          <button
+            (click)="logOut()"
+            class="text-error"
+            [disabled]="loading()"
+            class="text-error/60 hover:text-error hover:bg-base-200/60 flex items-center text-sm transition-colors"
+          >
             @if (loading()) {
               <span class="loading loading-spinner"></span>
             } @else {
               <app-icon
                 name="arrow-right-on-rectangle-outline"
                 strokeWidth="2.0"
-                className="size-5"
+                className="size-3.5"
               ></app-icon
               >Cerrar sesión
             }
