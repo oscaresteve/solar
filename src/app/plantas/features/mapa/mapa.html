@@ -1,0 +1,29 @@
+<section class="relative z-0 h-[calc(100dvh-9rem)] min-h-130 w-full overflow-hidden">
+  @if (error()) {
+    <div
+      class="bg-base-100/35 absolute inset-0 z-20 grid place-items-center backdrop-blur-[1px]"
+      aria-live="assertive"
+    >
+      <section
+        class="rounded-box border-error/30 bg-base-100 w-88 max-w-[90vw] border p-6 text-center shadow-md"
+      >
+        <h2 class="text-error text-2xl font-semibold">Error de conexion</h2>
+        <p class="text-base-content mt-3">
+          Verifica tu conexion o vuelve a intentarlo en unos segundos.
+        </p>
+        <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+          Reintentar
+        </button>
+      </section>
+    </div>
+  } @else if (loading() && plantas().length === 0) {
+    <div
+      class="bg-base-100 rounded-box border-base-300 absolute top-1/2 left-1/2 z-10 grid -translate-x-1/2 -translate-y-1/2 justify-items-center gap-3 border p-4 text-center shadow-sm"
+    >
+      <span class="loading loading-spinner loading-lg"></span>
+      <p>Cargando mapa...</p>
+    </div>
+  }
+
+  <div #mapContainer class="relative z-0 h-full w-full"></div>
+</section>

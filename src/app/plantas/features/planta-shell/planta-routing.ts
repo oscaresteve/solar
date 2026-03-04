@@ -6,10 +6,12 @@ import { Plantas } from '../plantas/plantas';
 import { plantaOwnerGuard } from '../../guards/planta-owner-guard';
 import { PlantaLogsForm } from '../../../planta-logs/features/planta-logs-form/planta-logs-form';
 import { Favorites } from '../favorites/favorites';
+import { Mapa } from '../mapa/mapa';
 
 export default [
   { path: 'dashboard', component: Dashboard },
   { path: 'plantas', component: Plantas },
+  { path: 'mapa', component: Mapa },
   { path: 'favorites', component: Favorites },
   { path: 'plantas/new-planta', component: PlantaForm },
   { path: 'plantas/:id/edit', component: PlantaForm, canActivate: [plantaOwnerGuard] },

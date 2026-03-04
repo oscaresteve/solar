@@ -19,7 +19,7 @@
       </div>
       <ul
         tabindex="-1"
-        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
+        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1200 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
           <a
@@ -47,6 +47,20 @@
               className="size-5"
             ></app-icon>
             Plantas</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/mapa']"
+            routerLinkActive="font-bold text-primary"
+            #mapaLink="routerLinkActive"
+          >
+            <app-icon
+              [name]="mapaLink.isActive ? 'globe-alt-solid' : 'globe-alt-outline'"
+              strokeWidth="2.0"
+              className="size-5"
+            ></app-icon>
+            Mapa</a
           >
         </li>
         <li>
@@ -114,7 +128,7 @@
       </div>
       <ul
         tabindex="-1"
-        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1 mt-2 w-xs p-2 font-semibold shadow-xl"
+        class="menu menu-lg dropdown-content bg-base-200 rounded-box z-1200 mt-2 w-xs p-2 font-semibold shadow-xl"
       >
         <li>
           <a
