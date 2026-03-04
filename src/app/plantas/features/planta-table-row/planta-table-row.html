@@ -12,7 +12,7 @@
   <p class="text-base-content">{{ planta().latitude }}, {{ planta().longitude }}</p>
 </td>
 <td>
-  <p class="text-base-content">{{ planta().capacity }}</p>
+  <p class="text-base-content">{{ planta().capacity | number }}</p>
 </td>
 <td>
   @if (planta().active) {

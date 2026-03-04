@@ -34,7 +34,11 @@ export type IconName =
   | 'globe-alt-outline'
   | 'globe-alt-solid'
   | 'arrow-trending-up-outline'
-  | 'arrow-trending-down-outline';
+  | 'arrow-trending-down-outline'
+  | 'exclamation-circle-outline'
+  | 'check-circle-outline'
+  | 'exclamation-triangle-outline'
+  | 'info-circle-outline';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

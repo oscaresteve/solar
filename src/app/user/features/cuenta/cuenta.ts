@@ -4,6 +4,7 @@ import { UserService } from '../../data-access/user-service';
 import { AuthService } from '../../../auth/data-access/auth-service';
 import { form, FormField, required } from '@angular/forms/signals';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 interface CuentaFormData {
   first_name: string;
@@ -19,6 +20,7 @@ interface CuentaFormData {
 export class Cuenta implements OnInit, OnDestroy {
   _userService = inject(UserService);
   _authService = inject(AuthService);
+  _toastService = inject(ToastService);
 
   first_name = this._userService.first_name;
   last_name = this._userService.last_name;
@@ -64,13 +66,20 @@ export class Cuenta implements OnInit, OnDestroy {
     event.preventDefault();
 
     const formValue = this.cuentaFormModel();
-    await this._userService.updateProfile(
+    const updated = await this._userService.updateProfile(
       {
         first_name: formValue.first_name,
         last_name: formValue.last_name,
       },
       this.selectedPhoto(),
     );
+
+    if (updated) {
+      this._toastService.show('Perfil actualizado correctamente.', 'success');
+      return;
+    }
+
+    this._toastService.show('No se pudo actualizar el perfil. Intentalo de nuevo.', 'error');
   }
 
   onPhotoSelected(event: Event) {

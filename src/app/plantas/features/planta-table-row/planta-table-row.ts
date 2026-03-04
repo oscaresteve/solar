@@ -2,11 +2,11 @@ import { Component, input } from '@angular/core';
 import { Planta } from '../../interfaces/planta';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../../shared/ui/icon/icon';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: '[app-planta-table-row]',
-  imports: [RouterLink, Icon, DatePipe],
+  imports: [RouterLink, Icon, DatePipe, DecimalPipe],
   templateUrl: './planta-table-row.html',
   styleUrl: './planta-table-row.scss',
 })

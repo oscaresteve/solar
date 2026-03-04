@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 interface SignUpForm {
   firstName: FormControl<null | string>;
@@ -37,6 +38,7 @@ const passwordsMatchValidator = (control: AbstractControl): ValidationErrors | n
 export class Register {
   private _authService = inject(AuthService);
   private _formBuilder = inject(FormBuilder);
+  private _toastService = inject(ToastService);
   loading = this._authService.loading;
 
   form = this._formBuilder.group<SignUpForm>(
@@ -66,10 +68,10 @@ export class Register {
         },
       });
       if (authResponse.error) throw authResponse.error;
-      alert('Revisa tu correo para confirmar tu cuenta.');
+      this._toastService.show('Cuenta creada. Revisa tu correo para confirmarla.', 'success');
     } catch (error) {
       console.error(error);
-      alert('No se pudo crear la cuenta. Inténtalo de nuevo.');
+      this._toastService.show('No se pudo crear la cuenta. Intentalo de nuevo.', 'error');
     }
   }
 }

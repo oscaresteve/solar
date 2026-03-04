@@ -5,6 +5,7 @@ import { form, FormField, min, minLength, required, validate } from '@angular/fo
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 import { DatePipe } from '@angular/common';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 interface PlantaFormData {
   name: string;
@@ -25,6 +26,8 @@ export class PlantaForm implements OnInit, OnDestroy {
   private _router = inject(Router);
   private _plantaService = inject(PlantaService);
   private _geolocationService = inject(GeolocationService);
+
+  _toastService = inject(ToastService);
 
   private plantas = this._plantaService.plantas;
   loading = this._plantaService.loading;
@@ -134,14 +137,20 @@ export class PlantaForm implements OnInit, OnDestroy {
       );
       if (updatedPlanta) {
         await this._router.navigate(['/plantas', updatedPlanta.id]);
+        this._toastService.show('Planta actualizada correctamente', 'success');
+        return;
       }
+      this._toastService.show('No se pudo actualizar la planta. Intentalo de nuevo.', 'error');
       return;
     }
 
     const createdPlanta = await this._plantaService.createPlanta(payload, this.selectedPhoto());
     if (createdPlanta) {
       await this._router.navigate(['/plantas', createdPlanta.id]);
+      this._toastService.show('Planta creada correctamente', 'success');
+      return;
     }
+    this._toastService.show('No se pudo crear la planta. Intentalo de nuevo.', 'error');
   }
 
   onPhotoSelected(event: Event) {
@@ -168,8 +177,10 @@ export class PlantaForm implements OnInit, OnDestroy {
       const pos = await this._geolocationService.getCurrentPosition();
       this.plantaForm.latitude().value.set(pos.coords.latitude);
       this.plantaForm.longitude().value.set(pos.coords.longitude);
+      this._toastService.show('Ubicacion obtenida correctamente.', 'info');
     } catch (error) {
       console.error(error);
+      this._toastService.show('No se pudo obtener tu ubicacion actual.', 'warning');
     }
   }
 

@@ -5,6 +5,7 @@ import { form, required, FormField } from '@angular/forms/signals';
 import { PlantaLogsService } from '../../data-access/planta-logs-service';
 import { DatePipe } from '@angular/common';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 interface PlantaLogsFormData {
   production: number;
@@ -23,6 +24,7 @@ export class PlantaLogsForm implements OnInit {
   private _router = inject(Router);
   private _plantaService = inject(PlantaService);
   private _plantaLogsService = inject(PlantaLogsService);
+  private _toastService = inject(ToastService);
 
   private plantas = this._plantaService.plantas;
   loading = this._plantaLogsService.loading;
@@ -54,14 +56,23 @@ export class PlantaLogsForm implements OnInit {
     event.preventDefault();
     const formValue = this.plantaLogsFormModel();
     const id = this.planta()?.id;
-    if (!id) return;
+    if (!id) {
+      this._toastService.show('No se encontro la planta para registrar el dato.', 'error');
+      return;
+    }
     if (this.loading()) return;
 
     const production = Number(formValue.production);
     const consumption = Number(formValue.consumption);
 
-    if (!Number.isFinite(production) || !Number.isFinite(consumption)) return;
-    if (production <= 0 || consumption <= 0) return;
+    if (!Number.isFinite(production) || !Number.isFinite(consumption)) {
+      this._toastService.show('Produccion y consumo deben ser numeros validos.', 'warning');
+      return;
+    }
+    if (production <= 0 || consumption <= 0) {
+      this._toastService.show('Produccion y consumo deben ser mayores que cero.', 'warning');
+      return;
+    }
 
     const payload = {
       ...formValue,
@@ -74,7 +85,10 @@ export class PlantaLogsForm implements OnInit {
 
     if (createdPlantaLog) {
       await this._router.navigate(['/plantas', id]);
+      this._toastService.show('Registro creado correctamente.', 'success');
+      return;
     }
+    this._toastService.show('No se pudo crear el registro. Intentalo de nuevo.', 'error');
   }
 
   async ngOnInit(): Promise<void> {

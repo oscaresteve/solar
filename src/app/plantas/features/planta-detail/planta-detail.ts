@@ -8,6 +8,7 @@ import { AuthService } from '../../../auth/data-access/auth-service';
 import { PlantaLog } from '../../interfaces/planta-log';
 import { LineChart } from '../../../shared/ui/line-chart/line-chart';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 type SortField = 'created_at' | 'production' | 'consumption' | 'balance';
 type SortDirection = 'asc' | 'desc';
@@ -23,6 +24,7 @@ export class PlantaDetail implements OnInit {
   private _plantaLogsService: PlantaLogsService = inject(PlantaLogsService);
   private _authService: AuthService = inject(AuthService);
   private _router: Router = inject(Router);
+  private _toastService = inject(ToastService);
 
   id = input.required<string>();
 
@@ -55,7 +57,10 @@ export class PlantaDetail implements OnInit {
     const deleted = await this._plantaService.deletePlanta(this.id());
     if (deleted) {
       this._router.navigateByUrl('plantas');
+      this._toastService.show('Planta eliminada correctamente', 'success');
+      return;
     }
+    this._toastService.show('No se pudo eliminar la planta. Intentalo de nuevo.', 'error');
   }
 
   onNextPage() {

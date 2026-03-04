@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { AuthService } from '../../data-access/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import { Icon } from '../../../shared/ui/icon/icon';
+import { ToastService } from '../../../shared/utils/toast-service';
 
 interface LogInForm {
   email: FormControl<null | string>;
@@ -19,6 +20,7 @@ export class Login {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   private _formBuilder = inject(FormBuilder);
+  private _toastService = inject(ToastService);
   loading = this._authService.loading;
 
   form = this._formBuilder.group<LogInForm>({
@@ -38,9 +40,10 @@ export class Login {
       if (error) throw error;
 
       this._router.navigateByUrl('/dashboard');
+      this._toastService.show('Sesion iniciada correctamente.', 'success');
     } catch (error) {
       console.error(error);
-      alert('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
+      this._toastService.show('No se pudo iniciar sesion. Verifica tu correo y contrasena.', 'error');
     }
   }
 }
