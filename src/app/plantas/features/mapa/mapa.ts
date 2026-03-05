@@ -138,34 +138,24 @@ export class Mapa implements OnInit, AfterViewInit, OnDestroy {
       marker
         .bindPopup(
           `
-    <div class="flex flex-col gap-2 min-w-44">
-
-      <div class="flex items-center gap-1.5">
         <span class="badge badge-xs badge-soft ${planta.active ? 'badge-success' : 'badge-error'}">
           ${planta.active ? 'Activa' : 'Inactiva'}
         </span>
-        <span class="text-xs text-base-content/40 font-mono">${planta.id}</span>
-      </div>
+        
+        <p class="text-xs text-base-content/40 font-mono">${planta.id}</p>
 
-      <div>
         <p class="text-sm font-medium text-base-content leading-snug">
           ${this.escapeHtml(planta.name)}
         </p>
+
         ${
           planta.description
-            ? `<p class="text-xs text-base-content/50 mt-0.5 line-clamp-2">${this.escapeHtml(planta.description)}</p>`
+            ? `<div class="border-t border-base-300 pt-2 mt-0.5">
+                <p class="text-xs text-base-content/50 mt-0.5 line-clamp-2">${this.escapeHtml(planta.description)}</p>
+              </div>`
             : ''
         }
-      </div>
-
-      <div class="border-t border-base-300 pt-2 mt-0.5">
-        <p class="text-xs text-base-content/40 font-mono">
-          ${planta.latitude}, ${planta.longitude}
-        </p>
-      </div>
-
-    </div>
-    `,
+        `,
           {
             className: 'mapa-popup',
             maxWidth: 240,
