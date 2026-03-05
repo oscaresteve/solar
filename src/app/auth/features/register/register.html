@@ -1,124 +1,171 @@
-<section class="mx-48">
-  <form
-    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-6 shadow-xl"
-    [formGroup]="form"
-    (ngSubmit)="onSubmit($event)"
-  >
-    <h1 class="text-base-content text-3xl font-bold">Crear cuenta</h1>
-
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon name="identification" className="size-6 text-base-content/50" strokeWidth="2.0" />
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          formControlName="firstName"
-          [aria-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Tu nombre"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">El nombre es requerido.</p>
+<section class="bg-base-100 flex min-h-screen items-center justify-center px-4 py-12">
+  <div class="flex w-full min-w-md flex-col gap-6">
+    <!-- Marca -->
+    <div class="flex flex-col items-center gap-3">
+      <h1 class="text-xl font-bold">Solar</h1>
+      <div class="text-center">
+        <h1 class="text-base-content text-base font-semibold">Crear cuenta</h1>
+        <p class="text-base-content/40 mt-0.5 text-xs">Completa los datos para registrarte</p>
+      </div>
     </div>
 
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon name="identification" className="size-6 text-base-content/50" strokeWidth="2.0" />
-        <input
-          type="text"
-          name="lastName"
-          id="lastName"
-          formControlName="lastName"
-          [aria-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Tu apellidos"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">Los apellidos son requeridos.</p>
-    </div>
-
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon
-          name="envelope-outline"
-          className="size-6 text-base-content/50"
-          strokeWidth="2.0"
-        />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          formControlName="email"
-          [aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Tu correo electrónico"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">
-        Introduce un correo electrónico válido.
-      </p>
-    </div>
-
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon
-          name="lock-closed-outline"
-          className="size-6 text-base-content/50"
-          strokeWidth="2.0"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          formControlName="password"
-          [aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Tu contraseña"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">Introduce una contraseña válida.</p>
-    </div>
-
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon
-          name="lock-closed-outline"
-          className="size-6 text-base-content/50"
-          strokeWidth="2.0"
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          formControlName="confirmPassword"
-          [aria-invalid]="
-            form.controls.confirmPassword.touched &&
-            (form.hasError('passwordMismatch') || form.controls.confirmPassword.invalid)
-          "
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Confirma tu contraseña"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">Las contraseñas deben coincidir.</p>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-block btn-lg btn-soft btn-primary my-4 shadow-md"
-      [disabled]="loading() || form.invalid"
+    <!-- Formulario -->
+    <form
+      class="border-base-300 flex flex-col gap-0 overflow-hidden rounded-lg border"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit($event)"
     >
-      @if (loading()) {
-        <span class="loading loading-spinner"></span>
-      }
-      Crear cuenta
-    </button>
+      <!-- Nombre -->
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs" for="firstName">Nombre</label>
+        <div class="flex items-center gap-2">
+          <app-icon
+            name="user-outline"
+            className="size-3.5 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            formControlName="firstName"
+            [attr.aria-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
+            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder="Tu nombre"
+          />
+        </div>
+        @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
+          <p class="text-error/70 text-xs">El nombre es requerido.</p>
+        }
+      </div>
 
-    <p class="text-base-content/70 text-sm">
+      <!-- Apellidos -->
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs" for="lastName">Apellidos</label>
+        <div class="flex items-center gap-2">
+          <app-icon
+            name="user-outline"
+            className="size-3.5 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            formControlName="lastName"
+            [attr.aria-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
+            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder="Tus apellidos"
+          />
+        </div>
+        @if (form.controls.lastName.invalid && form.controls.lastName.touched) {
+          <p class="text-error/70 text-xs">Los apellidos son requeridos.</p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs" for="email">Correo electrónico</label>
+        <div class="flex items-center gap-2">
+          <app-icon
+            name="envelope-outline"
+            className="size-3.5 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder="tu@email.com"
+          />
+        </div>
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          <p class="text-error/70 text-xs">Introduce un correo electrónico válido.</p>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs" for="password">Contraseña</label>
+        <div class="flex items-center gap-2">
+          <app-icon
+            name="lock-closed-outline"
+            className="size-3.5 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+            [attr.aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
+            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder="••••••••"
+          />
+        </div>
+        @if (form.controls.password.invalid && form.controls.password.touched) {
+          <p class="text-error/70 text-xs">Introduce una contraseña válida.</p>
+        }
+      </div>
+
+      <!-- Confirmar contraseña -->
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs" for="confirmPassword">
+          Confirmar contraseña
+        </label>
+        <div class="flex items-center gap-2">
+          <app-icon
+            name="lock-closed-outline"
+            className="size-3.5 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+            [attr.aria-invalid]="
+              form.controls.confirmPassword.touched &&
+              (form.hasError('passwordMismatch') || form.controls.confirmPassword.invalid)
+            "
+            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            placeholder="••••••••"
+          />
+        </div>
+        @if (form.controls.confirmPassword.touched && form.hasError('passwordMismatch')) {
+          <p class="text-error/70 text-xs">Las contraseñas no coinciden.</p>
+        }
+      </div>
+
+      <!-- Submit -->
+      <div class="bg-base-200 px-4 py-3">
+        <button
+          type="submit"
+          class="btn btn-primary btn-sm w-full gap-1.5"
+          [disabled]="loading() || form.invalid"
+        >
+          @if (loading()) {
+            <span class="loading loading-spinner loading-xs"></span>
+            Creando cuenta...
+          } @else {
+            Crear cuenta
+          }
+        </button>
+      </div>
+    </form>
+
+    <!-- Login -->
+    <p class="text-base-content/40 text-center text-xs">
       ¿Ya tienes una cuenta?
-      <a [routerLink]="['/auth/log-in']" class="link link-hover text-base-content/70 font-semibold"
-        >Inicia sesión aquí</a
+      <a
+        [routerLink]="['/auth/log-in']"
+        class="text-base-content/60 hover:text-base-content underline-offset-2 transition-colors hover:underline"
       >
+        Inicia sesión
+      </a>
     </p>
-  </form>
+  </div>
 </section>

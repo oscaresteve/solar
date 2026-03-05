@@ -1,69 +1,88 @@
-<section class="mx-48">
-  <form
-    class="bg-base-200 border-base-300 rounded-box fieldset m-auto w-xl border p-6 shadow-xl"
-    [formGroup]="form"
-    (ngSubmit)="onSubmit($event)"
-  >
-    <h1 class="text-base-content text-3xl font-bold">Iniciar sesión</h1>
-
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon
-          name="envelope-outline"
-          className="size-6 text-base-content/50"
-          strokeWidth="2.0"
-        />
-        <input
-          type="email"
-          name="email"
-          [aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
-          id="email"
-          formControlName="email"
-          class="text-base-content/90 validator text-lg font-semibold"
-          placeholder="Correo electrónico"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">
-        Introduzca una dirección de correo electrónico válido.
-      </p>
+<section class="bg-base-100 flex min-h-screen items-center justify-center px-4">
+  <div class="w-full min-w-md">
+    <div class="mb-8 flex flex-col items-center gap-3">
+      <h1 class="text-xl font-bold">Solar</h1>
+      <div class="text-center">
+        <h1 class="text-base-content text-base font-semibold">Bienvenido de nuevo</h1>
+        <p class="text-base-content/40 mt-0.5 text-xs">Inicia sesión para continuar</p>
+      </div>
     </div>
 
-    <div class="mt-4">
-      <label class="input validator w-full">
-        <app-icon
-          name="lock-closed-outline"
-          className="size-6 text-base-content/50"
-          strokeWidth="2.0"
-        />
-        <input
-          type="password"
-          [aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
-          name="password"
-          id="password"
-          formControlName="password"
-          placeholder="Contraseña"
-          class="text-base-content/90 validator text-lg font-semibold"
-        />
-      </label>
-      <p class="validator-hint hidden text-sm font-semibold">Introduzca una contraseña válida.</p>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-block btn-lg btn-soft btn-primary my-4 shadow-md"
-      [disabled]="form.invalid || loading()"
+    <form
+      class="border-base-300 bg-base-100 rounded-box border"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit($event)"
     >
-      @if (loading()) {
-        <span class="loading loading-spinner"></span>
-      }
-      Iniciar sesión
-    </button>
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-5 py-4">
+        <label class="text-base-content/40 text-xs" for="email">Correo electrónico</label>
+        <div class="flex items-center gap-2.5">
+          <app-icon
+            name="envelope-outline"
+            className="size-4 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
+            class="input input-ghost input-sm text-base-content placeholder:text-base-content/25 flex-1 px-0 text-sm focus:outline-none"
+            placeholder="tu@email.com"
+          />
+        </div>
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          <p class="text-error/70 text-xs">Introduce un correo electrónico válido.</p>
+        }
+      </div>
 
-    <p class="text-base-content/70 text-sm">
-      ¿Aún no tienes una cuenta?
-      <a [routerLink]="['/auth/sign-up']" class="link link-hover text-base-content/70 font-semibold"
-        >Regístrate</a
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-5 py-4">
+        <label class="text-base-content/40 text-xs" for="password">Contraseña</label>
+        <div class="flex items-center gap-2.5">
+          <app-icon
+            name="lock-closed-outline"
+            className="size-4 text-base-content/30 shrink-0"
+            strokeWidth="1.5"
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+            [attr.aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
+            class="input input-ghost input-sm text-base-content placeholder:text-base-content/25 flex-1 px-0 text-sm focus:outline-none"
+            placeholder="••••••••"
+          />
+        </div>
+        @if (form.controls.password.invalid && form.controls.password.touched) {
+          <p class="text-error/70 text-xs">Introduce una contraseña válida.</p>
+        }
+      </div>
+
+      <div class="bg-base-200/60 flex flex-col gap-3 px-5 py-4">
+        <button
+          type="submit"
+          class="btn btn-primary btn-sm w-full gap-1.5"
+          [disabled]="form.invalid || loading()"
+        >
+          @if (loading()) {
+            <span class="loading loading-spinner loading-xs"></span>
+            Iniciando sesión...
+          } @else {
+            Iniciar sesión
+          }
+        </button>
+      </div>
+    </form>
+
+    <p class="text-base-content/40 mt-5 text-center text-xs">
+      ¿Aún no tienes cuenta?
+      <a
+        [routerLink]="['/auth/sign-up']"
+        class="text-base-content/60 hover:text-base-content underline-offset-2 transition-colors hover:underline"
       >
+        Regístrate
+      </a>
     </p>
-  </form>
+  </div>
 </section>
