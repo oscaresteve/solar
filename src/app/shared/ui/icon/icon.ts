@@ -39,7 +39,8 @@ export type IconName =
   | 'check-circle-outline'
   | 'exclamation-triangle-outline'
   | 'info-circle-outline'
-  | 'squares-2x2-outline';
+  | 'squares-2x2-outline'
+  | 'x-mark-outline';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

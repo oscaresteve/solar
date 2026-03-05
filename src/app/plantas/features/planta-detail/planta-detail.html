@@ -1,68 +1,91 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
-    <div>
-      <div class="mb-2 flex items-center gap-2">
+<section class="mx-auto max-w-6xl px-6 pb-16">
+  <!-- Breadcrumb -->
+  <nav class="mt-6 mb-8 flex items-center gap-1.5 text-sm">
+    <a routerLink="/plantas" class="text-base-content/40 hover:text-base-content transition-colors">
+      Plantas
+    </a>
+    <span class="text-base-content/20">/</span>
+    <span class="text-base-content/70 max-w-xs truncate">{{ planta()?.name }}</span>
+  </nav>
+
+  <header class="mb-8 flex items-start justify-between gap-6">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-1.5">
         @if (planta()?.active) {
-          <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
+          <span class="badge badge-xs badge-success badge-soft">Activa</span>
         } @else {
-          <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
+          <span class="badge badge-soft badge-xs badge-error">Inactiva</span>
         }
-        <span class="badge badge-soft badge-info font-semibold shadow-md">{{ planta()?.id }} </span>
+        <span class="badge badge-xs badge-ghost text-base-content/40">{{ planta()?.id }}</span>
       </div>
-      <h1 class="text-base-content mb-2 text-5xl font-bold">{{ planta()?.name }}</h1>
-      <p class="text-base-content/70">
-        Fecha de creación: {{ planta()?.created_at | date: 'medium' }}
+      <h1 class="text-base-content text-2xl leading-tight font-semibold">
+        {{ planta()?.name }}
+      </h1>
+      <p class="text-base-content/40 text-xs">
+        Creado el {{ planta()?.created_at | date: 'mediumDate' }}
       </p>
     </div>
-    <div class="flex items-center gap-4">
-      @if (isOwner()) {
+
+    @if (isOwner()) {
+      <div class="flex shrink-0 items-center gap-2">
         <button
-          class="btn btn-soft btn-lg btn-warning font-bold shadow-md"
+          class="btn btn-outline btn-primary btn-sm gap-1.5"
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
-          <app-icon name="pencil-square-outline" className="size-5" />
+          <app-icon name="pencil-square-outline" className="size-3.5" />
           Editar
         </button>
-      }
-      @if (isOwner()) {
+
         <button
-          class="btn btn-soft btn-lg btn-error font-bold shadow-md"
+          class="btn btn-outline btn-error btn-sm gap-1.5"
           type="button"
           onclick="modalEliminar.showModal()"
         >
-          <app-icon name="trash-outline" className="size-5" />
+          <app-icon name="trash-outline" className="size-3.5" />
           Eliminar
         </button>
-
-        <dialog id="modalEliminar" class="modal">
-          <div class="modal-box">
-            <h3 class="text-xl font-bold">¿Estas seguro?</h3>
-            <p class="py-4 font-semibold">Los cambios serán premanentes</p>
-            <form method="dialog">
-              <div class="modal-action flex items-center gap-4">
-                <button class="btn btn-lg btn-soft btn-primary min-w-max font-bold shadow-md">
-                  <app-icon name="chevron-left-outline" className="size-5" strokeWidth="2.5" />
-                  Volver
-                </button>
-                <button
-                  class="btn btn-soft btn-lg btn-error font-bold shadow-md"
-                  type="button"
-                  (click)="onDelete()"
-                >
-                  <app-icon name="trash-outline" className="size-5" />
-                  Eliminar
-                </button>
-              </div>
-            </form>
-          </div>
-        </dialog>
-      }
-    </div>
+      </div>
+    }
   </header>
 
-  <div class="grid grid-cols-2 gap-4">
-    <div class="rounded-box aspect-video overflow-hidden shadow-xl">
+  <dialog id="modalEliminar" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-base-100 border-base-300 max-w-md rounded-lg border p-6 shadow-none">
+      <div class="mb-4 flex items-start justify-between">
+        <div>
+          <h3 class="text-base-content text-base font-semibold">Eliminar planta</h3>
+          <p class="text-base-content/50 mt-0.5 text-sm">Esta acción no se puede deshacer.</p>
+        </div>
+        <button class="btn btn-ghost btn-xs btn-square -mt-1 -mr-1" onclick="modalEliminar.close()">
+          <app-icon name="x-mark-outline" className="size-4 text-base-content/40" />
+        </button>
+      </div>
+
+      <div class="bg-base-200 border-base-300 mb-6 rounded-md border p-3">
+        <p class="text-base-content/60 text-sm">
+          Vas a eliminar permanentemente
+          <span class="text-base-content font-medium">{{ planta()?.name }}</span
+          >.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-end gap-2">
+        <form method="dialog">
+          <button class="btn btn-ghost btn-primary btn-sm">Cancelar</button>
+        </form>
+        <button class="btn btn-error btn-sm gap-1.5" type="button" (click)="onDelete()">
+          <app-icon name="trash-outline" className="size-3.5" />
+          Eliminar
+        </button>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop bg-base-content/20">
+      <button>close</button>
+    </form>
+  </dialog>
+
+  <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="bg-base-200 border-base-300 aspect-video overflow-hidden rounded-lg border">
       <img
         [src]="planta()?.photo_url"
         alt="Imagen de la planta"
@@ -70,80 +93,80 @@
       />
     </div>
 
-    <div>
-      <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
+    <div class="flex flex-col gap-2">
+      <h2 class="text-base-content mb-1 text-sm font-semibold">Información</h2>
 
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Descripción</p>
-        <p class="text-base-content/90 text-lg font-semibold">{{ planta()?.description }}</p>
-      </div>
+      <div class="border-base-300 overflow-hidden rounded-lg border">
+        <div class="border-base-300 flex flex-col gap-0.5 border-b px-4 py-3">
+          <span class="text-base-content/40 text-xs">Descripción</span>
+          <span class="text-base-content text-sm">{{ planta()?.description }}</span>
+        </div>
 
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Capacidad instalada (MW)</p>
-        <p class="text-base-content/90 text-lg font-semibold">
-          {{ planta()?.capacity | number: '1.0-0' }} MW
-        </p>
-      </div>
+        <div class="border-base-300 flex flex-col gap-0.5 border-b px-4 py-3">
+          <span class="text-base-content/40 text-xs">Capacidad instalada</span>
+          <span class="text-base-content text-sm font-medium">
+            {{ planta()?.capacity | number: '1.0-0' }} MW
+          </span>
+        </div>
 
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Ubicación (Lat, Long)</p>
-        <p class="text-base-content/90 text-lg font-semibold">
-          {{ planta()?.latitude ?? 'N/A' }}, {{ planta()?.longitude ?? 'N/A' }}
-        </p>
-      </div>
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Responsable</p>
-        <p class="text-base-content/90 text-lg font-semibold">{{ planta()?.user_id }}</p>
+        <div class="border-base-300 flex flex-col gap-0.5 border-b px-4 py-3">
+          <span class="text-base-content/40 text-xs">Ubicación</span>
+          <span class="text-base-content font-mono text-sm">
+            {{ planta()?.latitude ?? 'N/A' }}, {{ planta()?.longitude ?? 'N/A' }}
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-0.5 px-4 py-3">
+          <span class="text-base-content/40 text-xs">Responsable</span>
+          <span class="text-base-content text-sm">{{ planta()?.user_id }}</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="divider"></div>
+  <div class="border-base-300 my-8 border-t"></div>
 
-  <div class="flex flex-row items-center justify-between">
-    <h1 class="text-base-content text-4xl font-bold">Registros</h1>
+  <div class="mb-6 flex items-center justify-between">
+    <h2 class="text-base-content text-base font-semibold">Registros</h2>
     <div class="flex items-center gap-2">
       @if (isOwner()) {
-        <button
-          class="btn btn-lg btn-soft btn-success font-bold shadow-md"
-          type="button"
+        <a
+          class="btn btn-primary btn-sm gap-1.5"
           [routerLink]="['/plantas', planta()?.id, 'new-log']"
         >
-          <app-icon name="plus-circle-outline" className="size-5" />
-          Crear Registro
-        </button>
+          <app-icon name="plus-circle-outline" className="size-3.5" strokeWidth="2.5" />
+          Nuevo registro
+        </a>
       }
-      <button class="btn btn-ghost" (click)="onRetryLoad()">
-        <app-icon className="size-6 text-base-content" name="arrow-path"></app-icon>
+      <button class="btn btn-ghost btn-sm btn-square" type="button" (click)="onRetryLoad()">
+        <app-icon className="size-4 text-base-content/50" name="arrow-path"></app-icon>
       </button>
     </div>
   </div>
 
-  <div class="my-10">
+  <div class="border-base-300 bg-base-100 rounded-box mb-6 border p-4">
     <app-line-chart [logs]="plantaLogs()" />
   </div>
 
-  <div class="mb-4 flex justify-between">
-    <div class="flex items-center gap-4">
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend">Ordenar por</legend>
-        <select
-          class="select select-sm w-44"
-          [value]="sortField()"
-          (change)="sortField.set($any($event.target).value)"
-        >
-          <option value="created_at">Fecha de creación</option>
-          <option value="production">Producción (kWh)</option>
-          <option value="consumption">Consumo (kWh)</option>
-          <option value="balance">Balance (kWh)</option>
-        </select>
-      </fieldset>
-    </div>
-
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">Dirección</legend>
+  <div class="mb-4 flex items-center justify-between">
+    <fieldset class="fieldset gap-1">
+      <legend class="fieldset-legend text-base-content/50 text-xs">Ordenar por</legend>
       <select
-        class="select select-sm w-36"
+        class="select select-bordered select-sm w-48"
+        [value]="sortField()"
+        (change)="sortField.set($any($event.target).value)"
+      >
+        <option value="created_at">Fecha de creación</option>
+        <option value="production">Producción (kWh)</option>
+        <option value="consumption">Consumo (kWh)</option>
+        <option value="balance">Balance (kWh)</option>
+      </select>
+    </fieldset>
+
+    <fieldset class="fieldset gap-1">
+      <legend class="fieldset-legend text-base-content/50 text-xs">Dirección</legend>
+      <select
+        class="select select-bordered select-sm w-36"
         [value]="sortDirection()"
         (change)="sortDirection.set($any($event.target).value)"
       >
@@ -159,21 +182,28 @@
     (retryLoad)="onRetryLoad()"
     [loading]="plantaLogsLoaing()"
     [error]="plantaLogsError()"
-  >
-  </app-planta-logs-list>
+  />
 
   @if (!plantaLogsError() && plantas().length > 0) {
-    <div class="join mt-10 flex justify-center">
+    <div class="mt-8 flex items-center justify-center gap-1">
       <button
-        class="join-item btn btn-ghost"
+        class="btn btn-ghost btn-sm btn-square"
         [disabled]="!hasPreviousPage()"
         (click)="onPreviousPage()"
       >
-        «
+        <app-icon className="size-4" name="chevron-left-outline" />
       </button>
-      <button class="join-item btn btn-ghost">{{ currentPage() + 1 }}</button>
-      <button class="join-item btn btn-ghost" [disabled]="!hasNextPage()" (click)="onNextPage()">
-        »
+
+      <span class="text-base-content/60 min-w-10 px-3 py-1.5 text-center text-sm">
+        {{ currentPage() + 1 }}
+      </span>
+
+      <button
+        class="btn btn-ghost btn-sm btn-square"
+        [disabled]="!hasNextPage()"
+        (click)="onNextPage()"
+      >
+        <app-icon className="size-4" name="chevron-right-outline" />
       </button>
     </div>
   }
