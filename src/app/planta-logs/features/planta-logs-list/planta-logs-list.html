@@ -1,111 +1,164 @@
-<table class="table-sm table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Fecha de creación</th>
-      <th>ID de Planta</th>
-      <th>
-        <div class="flex items-center">
-          Producción (kWh)
-          <div class="status status-success ml-2"></div>
-        </div>
-      </th>
-      <th>
-        <div class="flex items-center">
-          Consumo (kWh)
-          <div class="status status-error ml-2"></div>
-        </div>
-      </th>
-      <th>Balance (kWh)</th>
-      <th>Mensaje</th>
-    </tr>
-  </thead>
-  <tbody>
-    @if (loading()) {
-      @for (row of [1, 2, 3, 4, 5]; track row) {
-        <tr>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-          <td><div class="skeleton h-6 w-full"></div></td>
-        </tr>
-      }
-    }
-    @if (error()) {
-      <tr>
-        <td colspan="7" class="p-6">
-          <section
-            class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
-            aria-live="assertive"
-          >
-            <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
-            <p class="text-error-content mt-3">
-              Verifica tu conexión o vuelve a intentarlo en unos segundos.
-            </p>
-            <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
-              Reintentar
-            </button>
-          </section>
-        </td>
+<div class="border-base-300 rounded-box overflow-hidden border">
+  <table class="table-sm table w-full">
+    <thead>
+      <tr class="bg-base-200 border-base-300 border-b">
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          ID
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          Fecha
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          Planta
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          <div class="flex items-center gap-1.5">
+            <div class="bg-success size-1.5 rounded-full"></div>
+            Producción (kWh)
+          </div>
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          <div class="flex items-center gap-1.5">
+            <div class="bg-error size-1.5 rounded-full"></div>
+            Consumo (kWh)
+          </div>
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          Balance (kWh)
+        </th>
+        <th
+          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
+        >
+          Mensaje
+        </th>
       </tr>
-    }
-    @if (!loading() && !error()) {
-      @for (plantaLog of plantaLogs(); track plantaLog.id) {
-        <tr class="hover:bg-base-200">
-          <td>
-            <span class="badge badge-soft badge-gray font-semibold text-nowrap shadow-md">{{
-              plantaLog.id
-            }}</span>
-          </td>
-          <td>
-            {{ plantaLog.created_at | date: 'short' }}
-          </td>
-          <td>
-            <span class="badge badge-soft badge-info font-semibold text-nowrap shadow-md">{{
-              plantaLog.planta_id
-            }}</span>
-          </td>
-          <td>{{ plantaLog.production | number }}</td>
-          <td>{{ plantaLog.consumption | number }}</td>
-          <td>
-            @let balance = plantaLog.production | energyBalance: plantaLog.consumption;
-            <div class="inline-flex items-center gap-1">
-              <app-icon
-                [name]="balance | balanceStatus"
-                [className]="'size-4 ' + (balance > 0 ? 'text-success' : 'text-error')"
-              />
-              <span>
-                {{ balance | number }}
-              </span>
+    </thead>
+
+    <tbody>
+      <!-- Estado: cargando -->
+      @if (loading()) {
+        @for (row of [1, 2, 3, 4, 5]; track row) {
+          <tr class="border-base-300 border-b last:border-0">
+            <td class="px-4 py-3"><div class="skeleton h-4 w-16 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-28 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-16 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-20 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-20 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-20 rounded"></div></td>
+            <td class="px-4 py-3"><div class="skeleton h-4 w-32 rounded"></div></td>
+          </tr>
+        }
+      }
+
+      <!-- Estado: error -->
+      @if (error()) {
+        <tr>
+          <td colspan="7">
+            <div class="flex flex-col items-center gap-3 py-16 text-center" aria-live="assertive">
+              <app-icon className="size-7 text-error/50" name="exclamation-circle-outline" />
+              <div>
+                <p class="text-base-content text-sm font-medium">Error de conexión</p>
+                <p class="text-base-content/40 mt-0.5 text-xs">
+                  Verifica tu conexión o vuelve a intentarlo.
+                </p>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline btn-error btn-sm"
+                (click)="onRetryLoad()"
+              >
+                Reintentar
+              </button>
             </div>
           </td>
-          <td>{{ plantaLog.message }}</td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="7" class="p-6">
-            <section
-              class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
-              aria-live="assertive"
-            >
-              <h2 class="text-2xl font-semibold">Aún no hay registros</h2>
-              <p class="text-base-content mt-3">
-                Cuando crees el primer registro, aparecerá aquí con su información.
-              </p>
-              <a
-                type="button"
-                class="btn btn-success btn-soft mt-6"
-                [routerLink]="['/plantas', id(), 'new-log']"
-              >
-                Nuevo registro
-              </a>
-            </section>
-          </td>
         </tr>
       }
-    }
-  </tbody>
-</table>
+
+      @if (!loading() && !error()) {
+        @for (plantaLog of plantaLogs(); track plantaLog.id) {
+          <tr class="border-base-300 hover:bg-base-200/50 border-b transition-colors last:border-0">
+            <td class="px-4 py-3">
+              <span class="text-base-content/40 font-mono text-xs">{{ plantaLog.id }}</span>
+            </td>
+
+            <td class="px-4 py-3">
+              <span class="text-base-content/60 font-mono text-sm text-nowrap">
+                {{ plantaLog.created_at | date: 'short' }}
+              </span>
+            </td>
+
+            <td class="px-4 py-3">
+              <span class="text-base-content/40 font-mono text-xs">
+                {{ plantaLog.planta_id }}
+              </span>
+            </td>
+
+            <td class="px-4 py-3">
+              <span class="text-base-content font-mono text-sm">{{
+                plantaLog.production | number
+              }}</span>
+            </td>
+
+            <td class="px-4 py-3">
+              <span class="text-base-content font-mono text-sm">{{
+                plantaLog.consumption | number
+              }}</span>
+            </td>
+
+            <td class="px-4 py-3">
+              @let balance = plantaLog.production | energyBalance: plantaLog.consumption;
+              <div class="inline-flex items-center gap-1">
+                <app-icon
+                  [name]="balance | balanceStatus"
+                  [className]="'size-3.5 ' + (balance > 0 ? 'text-success' : 'text-error')"
+                />
+                <span
+                  class="font-mono text-sm font-medium"
+                  [class]="balance > 0 ? 'text-success' : 'text-error'"
+                >
+                  {{ balance | number }}
+                </span>
+              </div>
+            </td>
+
+            <td class="px-4 py-3">
+              <span class="text-base-content/60 block max-w-48 truncate font-mono text-sm">
+                {{ plantaLog.message }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7">
+              <div class="flex flex-col items-center gap-3 py-16 text-center" aria-live="assertive">
+                <app-icon className="size-7 text-base-content/20" name="document-text-outline" />
+                <div>
+                  <p class="text-base-content text-sm font-medium">Sin registros</p>
+                  <p class="text-base-content/40 mt-0.5 text-xs">
+                    Cuando crees el primer registro, aparecerá aquí.
+                  </p>
+                </div>
+                <a class="btn btn-primary btn-sm" [routerLink]="['/plantas', id(), 'new-log']">
+                  <app-icon name="plus-outline" className="size-3.5" strokeWidth="2.5" />
+                  Nuevo registro
+                </a>
+              </div>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

@@ -40,7 +40,9 @@ export type IconName =
   | 'exclamation-triangle-outline'
   | 'info-circle-outline'
   | 'squares-2x2-outline'
-  | 'x-mark-outline';
+  | 'x-mark-outline'
+  | 'plus-outline'
+  | 'document-text-outline';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 
