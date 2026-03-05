@@ -1,28 +1,53 @@
-<div class="toast toast-center">
-  @for (toast of toasts(); track toast) {
-    <div
-      class="alert alert-soft font-semibold shadow-xl"
-      [class.alert-success]="toast.type === 'success'"
-      [class.alert-error]="toast.type === 'error'"
-      [class.alert-warning]="toast.type === 'warning'"
-      [class.alert-info]="toast.type === 'info'"
-    >
+<div class="toast">
+  @for (toast of toasts(); track toast.id) {
+    <div class="alert border-base-300 bg-base-100 border shadow-sm">
+      <div
+        class="w-1 shrink-0 self-stretch rounded-full"
+        [class.bg-success]="toast.type === 'success'"
+        [class.bg-error]="toast.type === 'error'"
+        [class.bg-warning]="toast.type === 'warning'"
+        [class.bg-info]="toast.type === 'info'"
+      ></div>
+
       @switch (toast.type) {
         @case ('success') {
-          <app-icon name="check-circle-outline" strokeWidth="2.0" />
+          <app-icon
+            name="check-circle-outline"
+            className="size-5 text-success shrink-0"
+            strokeWidth="2.0"
+          />
         }
         @case ('error') {
-          <app-icon name="exclamation-circle-outline" strokeWidth="2.0" />
+          <app-icon
+            name="exclamation-circle-outline"
+            className="size-5 text-error shrink-0"
+            strokeWidth="2.0"
+          />
         }
         @case ('warning') {
-          <app-icon name="exclamation-triangle-outline" strokeWidth="2.0" />
+          <app-icon
+            name="exclamation-triangle-outline"
+            className="size-5 text-warning shrink-0"
+            strokeWidth="2.0"
+          />
         }
         @case ('info') {
-          <app-icon name="info-circle-outline" strokeWidth="2.0" />
+          <app-icon
+            name="info-circle-outline"
+            className="size-5 text-info shrink-0"
+            strokeWidth="2.0"
+          />
         }
       }
 
-      <span>{{ toast.message }}</span>
+      <span class="text-base-content flex-1 text-sm leading-snug">{{ toast.message }}</span>
+
+      <button
+        class="btn btn-ghost btn-xs btn-square text-base-content/50 hover:text-base-content shrink-0"
+        (click)="_toastService.dismiss(toast.id)"
+      >
+        <app-icon name="x-mark-outline" className="size-4" />
+      </button>
     </div>
   }
 </div>
