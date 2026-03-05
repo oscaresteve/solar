@@ -12,6 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
 import { ToastService } from '../../../shared/utils/toast-service';
+import { Icon } from '../../../shared/ui/icon/icon';
 
 interface LeafletLike {
   map: (element: HTMLElement, options?: unknown) => any;
@@ -30,7 +31,7 @@ declare global {
 
 @Component({
   selector: 'app-mapa',
-  imports: [],
+  imports: [Icon],
   templateUrl: './mapa.html',
   styleUrl: './mapa.scss',
 })
@@ -120,25 +121,56 @@ export class Mapa implements OnInit, AfterViewInit, OnDestroy {
       const marker = leaflet.marker([lat, lng], {
         icon: leaflet.divIcon({
           className: '',
-          html: `<span class="block h-4 w-4 rounded-full border-2 border-base-100 shadow-md ${planta.active ? 'bg-success' : 'bg-error'}"></span>`,
-          iconSize: [22, 22],
-          iconAnchor: [11, 11],
+          html: `
+      <span class="
+        block size-3 rounded-full
+        border-2 border-base-100
+        shadow-md
+        transition-transform duration-100
+        ${planta.active ? 'bg-success' : 'bg-error'}
+      "></span>
+    `,
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
         }),
       });
 
       marker
         .bindPopup(
           `
-          <div>
-            <div class="flex gap-2">
-            <span class="badge badge-xs badge-soft ${planta.active ? 'badge-success' : 'badge-error'} font-semibold shadow-xs">${planta.active ? 'Activa' : 'Inactiva'}</span>
-            <span class="badge badge-xs badge-soft badge-info shadow-md">${planta.id} </span>
-            </div>
-            <h1 class="mt-2 text-lg font-semibold">${this.escapeHtml(planta.name)}</h1>
-            <p class="text-base-content/70">${planta.description ?? ''}</p>
-          </div>
-          `,
-          { className: 'mapa-popup' },
+    <div class="flex flex-col gap-2 min-w-44">
+
+      <div class="flex items-center gap-1.5">
+        <span class="badge badge-xs badge-soft ${planta.active ? 'badge-success' : 'badge-error'}">
+          ${planta.active ? 'Activa' : 'Inactiva'}
+        </span>
+        <span class="text-xs text-base-content/40 font-mono">${planta.id}</span>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium text-base-content leading-snug">
+          ${this.escapeHtml(planta.name)}
+        </p>
+        ${
+          planta.description
+            ? `<p class="text-xs text-base-content/50 mt-0.5 line-clamp-2">${this.escapeHtml(planta.description)}</p>`
+            : ''
+        }
+      </div>
+
+      <div class="border-t border-base-300 pt-2 mt-0.5">
+        <p class="text-xs text-base-content/40 font-mono">
+          ${planta.latitude}, ${planta.longitude}
+        </p>
+      </div>
+
+    </div>
+    `,
+          {
+            className: 'mapa-popup',
+            maxWidth: 240,
+            offset: [0, -4],
+          },
         )
         .on('mouseover', function () {
           marker.openPopup();
