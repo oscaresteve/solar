@@ -42,7 +42,8 @@ export type IconName =
   | 'squares-2x2-outline'
   | 'x-mark-outline'
   | 'plus-outline'
-  | 'document-text-outline';
+  | 'document-text-outline'
+  | 'check-outline';
 
 export type StrokeWidth = '1.5' | '2.0' | '2.5';
 

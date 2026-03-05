@@ -1,80 +1,78 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12">
-    <div class="flex items-center">
-      <app-icon className="size-12 mr-4" strokeWidth="2.5" name="user-outline"></app-icon>
-      <h1 class="text-base-content text-5xl font-bold">Cuenta</h1>
-    </div>
+<section class="mx-auto max-w-6xl px-6 pb-16">
+  <header class="mt-8 mb-8 flex items-center gap-3">
+    <app-icon className="size-5 text-base-content/50" strokeWidth="2.0" name="user-outline" />
+    <h1 class="text-base-content text-xl font-semibold">Cuenta</h1>
   </header>
 
   <form (submit)="onSubmit($event)">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-base-200 rounded-box flex h-full flex-col p-6 shadow-md">
-        <h1 class="text-base-content mb-4 text-4xl font-bold">Foto de perfil</h1>
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="flex flex-col gap-4">
+        <h2 class="text-base-content text-sm font-semibold">Foto de perfil</h2>
 
-        <div class="mb-4 flex flex-1 items-center justify-center">
+        <div class="border-base-300 flex flex-col items-center gap-6 rounded-lg border p-6">
           @if (previewURL()) {
-            <div class="avatar">
-              <div class="w-72 rounded-full shadow-xl">
-                <img [src]="previewURL()" alt="Foto de perfil" />
-              </div>
+            <div class="border-base-300 size-32 shrink-0 overflow-hidden rounded-full border">
+              <img [src]="previewURL()" alt="Foto de perfil" class="h-full w-full object-cover" />
             </div>
           } @else {
-            <div class="avatar avatar-placeholder">
-              <div class="bg-neutral text-neutral-content w-72 rounded-full shadow-xl">
-                <span class="text-9xl font-bold">{{ first_name()?.charAt(0) }}</span>
-              </div>
+            <div
+              class="bg-base-200 border-base-300 flex size-32 shrink-0 items-center justify-center rounded-full border"
+            >
+              <span class="text-base-content/40 text-4xl font-medium">
+                {{ first_name()?.charAt(0) }}
+              </span>
             </div>
           }
-        </div>
 
-        <input
-          type="file"
-          accept="image/*"
-          class="file-input w-full shadow-md"
-          (change)="onPhotoSelected($event)"
-          [disabled]="loading()"
-        />
+          <input
+            type="file"
+            accept="image/*"
+            class="file-input file-input-bordered file-input-sm w-full"
+            (change)="onPhotoSelected($event)"
+            [disabled]="loading()"
+          />
+        </div>
       </div>
 
-      <div>
-        <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
+      <div class="flex flex-col gap-4">
+        <h2 class="text-base-content text-sm font-semibold">Información</h2>
 
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Nombre</p>
-          <input
-            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-            type="text"
-            [formField]="cuentaForm.first_name"
-          />
+        <div class="border-base-300 overflow-hidden rounded-lg border">
+          <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+            <label class="text-base-content/40 text-xs">Nombre</label>
+            <input
+              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              type="text"
+              [formField]="cuentaForm.first_name"
+            />
+          </div>
+
+          <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+            <label class="text-base-content/40 text-xs">Apellidos</label>
+            <input
+              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              type="text"
+              [formField]="cuentaForm.last_name"
+            />
+          </div>
+
+          <div class="border-base-300 flex flex-col gap-1 border-b px-4 py-3">
+            <span class="text-base-content/40 text-xs">Correo electrónico</span>
+            <span class="text-base-content/60 text-sm">{{ email() }}</span>
+          </div>
+
+          <div class="flex flex-col gap-1 px-4 py-3">
+            <span class="text-base-content/40 text-xs">UID</span>
+            <span class="text-base-content/60 font-mono text-xs break-all">{{ uid() }}</span>
+          </div>
         </div>
 
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Apellidos</p>
-          <input
-            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-            type="text"
-            [formField]="cuentaForm.last_name"
-          />
-        </div>
-
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Correo electrónico</p>
-          <p class="text-base-content/90 text-lg font-semibold">{{ email() }}</p>
-        </div>
-
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">UID</p>
-          <p class="text-base-content/90 text-lg font-semibold">{{ uid() }}</p>
-        </div>
-
-        <button
-          class="btn btn-soft btn-block btn-success mt-4 min-w-max font-bold shadow-md"
-          type="submit"
-          [disabled]="loading()"
-        >
+        <button class="btn btn-primary btn-sm w-full gap-1.5" type="submit" [disabled]="loading()">
           @if (loading()) {
-            <span class="loading loading-spinner"></span>
+            <span class="loading loading-spinner loading-xs"></span>
+            Guardando...
           } @else {
+            <app-icon name="check-outline" className="size-3.5" strokeWidth="2.0" />
             Guardar cambios
           }
         </button>
