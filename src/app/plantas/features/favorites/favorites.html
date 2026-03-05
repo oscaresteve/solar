@@ -1,58 +1,60 @@
 <section class="mx-auto max-w-6xl px-6">
   <header class="mt-8 mb-8 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <app-icon
-        className="size-5 text-base-content/50"
-        strokeWidth="2.0"
-        name="heart-outline"
-      ></app-icon>
+      <app-icon className="size-5 text-base-content/50" strokeWidth="2.0" name="heart-outline" />
       <h1 class="text-xl font-semibold">Favoritos</h1>
     </div>
-    <button class="btn btn-ghost" (click)="onRetryLoad()">
-      <app-icon className="size-4 text-base-content/60" name="arrow-path"></app-icon>
+    <button class="btn btn-ghost btn-sm btn-square" (click)="onRetryLoad()">
+      <app-icon className="size-4 text-base-content/50" strokeWidth="2.0" name="arrow-path" />
     </button>
   </header>
 
-  <div class="grid grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
     @if (loading()) {
       <app-card-skeleton />
       <app-card-skeleton />
       <app-card-skeleton />
     }
+
     @if (error()) {
-      <section
-        class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
+      <div
+        class="border-error/20 bg-error/5 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
         aria-live="assertive"
       >
-        <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
-        <p class="text-error-content mt-3">
-          Verifica tu conexión o vuelve a intentarlo en unos segundos.
-        </p>
-        <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
+        <app-icon className="size-7 text-error/50" name="exclamation-circle-outline" />
+        <div>
+          <p class="text-base-content text-sm font-medium">Error de conexión</p>
+          <p class="text-base-content/40 mt-0.5 text-xs">
+            Verifica tu conexión o vuelve a intentarlo.
+          </p>
+        </div>
+        <button type="button" class="btn btn-outline btn-error btn-sm" (click)="onRetryLoad()">
           Reintentar
         </button>
-      </section>
+      </div>
     }
+
     @if (!loading() && !error()) {
       @for (planta of plantasFavorites(); track planta.id) {
         <app-planta-item
           [planta]="planta"
           [isFavorite]="isFavorite(planta.id)"
           (favoriteToggled)="toggleFavorite(planta)"
-        ></app-planta-item>
+        />
       } @empty {
-        <section
-          class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
+        <div
+          class="border-base-300 bg-base-200/50 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
           aria-live="assertive"
         >
-          <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
-          <p class="text-base-content mt-3">
-            Cuando registres la primera planta, aparecerá aquí como favorita.
-          </p>
-          <a type="button" class="btn btn-success btn-soft mt-6" [routerLink]="['/home']">
-            Ver Plantas
-          </a>
-        </section>
+          <app-icon className="size-7 text-base-content/20" name="heart-outline" />
+          <div>
+            <p class="text-base-content text-sm font-medium">Sin favoritos</p>
+            <p class="text-base-content/40 mt-0.5 text-xs">
+              Marca plantas como favoritas y aparecerán aquí.
+            </p>
+          </div>
+          <a class="btn btn-primary btn-sm" [routerLink]="['/home']"> Ver plantas </a>
+        </div>
       }
     }
   </div>
