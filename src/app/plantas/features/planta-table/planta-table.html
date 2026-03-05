@@ -1,66 +1,92 @@
-<table class="table-sm table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Ubicación (Lat, Long)</th>
-      <th>Capacidad (MW)</th>
-      <th>Estado</th>
-      <th>Responsable</th>
-      <th>Fecha de creación</th>
-      <th>Imagen</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @if (loading()) {
-      @for (row of [1, 2, 3, 4, 5]; track row) {
-        <tr app-table-row-skeleton></tr>
-      }
-    }
-    @if (error()) {
-      <tr>
-        <td colspan="9" class="p-6">
-          <section
-            class="rounded-box border-error/30 bg-error/5 col-span-3 h-130 content-center border text-center shadow-md"
-            aria-live="assertive"
-          >
-            <h2 class="text-error text-2xl font-semibold">Error de conexión</h2>
-            <p class="text-error-content mt-3">
-              Verifica tu conexión o vuelve a intentarlo en unos segundos.
-            </p>
-            <button type="button" class="btn btn-error btn-soft mt-6" (click)="onRetryLoad()">
-              Reintentar
-            </button>
-          </section>
-        </td>
+<div class="border-base-300 overflow-hidden rounded-lg border">
+  <table class="table-sm table w-full">
+    <thead>
+      <tr class="bg-base-200 border-base-300 border-b">
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          ID
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Nombre
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Ubicación
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Capacidad (MW)
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Estado
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Responsable
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Creado
+        </th>
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
+          Imagen
+        </th>
+        <th class="px-4 py-3"></th>
       </tr>
-    }
-    @if (!loading() && !error()) {
-      @for (planta of plantas(); track planta.id) {
-        <tr class="hover:bg-base-200" app-planta-table-row [plantaId]="planta"></tr>
-      } @empty {
+    </thead>
+
+    <tbody>
+      @if (loading()) {
+        @for (row of [1, 2, 3, 4, 5]; track row) {
+          <tr app-table-row-skeleton></tr>
+        }
+      }
+
+      @if (error()) {
         <tr>
-          <td colspan="9" class="p-6">
-            <section
-              class="rounded-box border-base-300 bg-base-200 col-span-3 h-130 content-center border text-center shadow-md"
-              aria-live="assertive"
-            >
-              <h2 class="text-2xl font-semibold">Aún no hay plantas</h2>
-              <p class="text-base-content mt-3">
-                Cuando registres la primera planta, aparecerá aquí con su información.
-              </p>
-              <a
+          <td colspan="9">
+            <div class="flex flex-col items-center gap-3 py-16 text-center" aria-live="assertive">
+              <app-icon className="size-7 text-error/50" name="exclamation-circle-outline" />
+              <div>
+                <p class="text-base-content text-sm font-medium">Error de conexión</p>
+                <p class="text-base-content/40 mt-0.5 text-xs">
+                  Verifica tu conexión o vuelve a intentarlo.
+                </p>
+              </div>
+              <button
                 type="button"
-                class="btn btn-success btn-soft mt-6"
-                [routerLink]="['/plantas/new-planta']"
+                class="btn btn-outline btn-error btn-sm"
+                (click)="onRetryLoad()"
               >
-                Nueva planta
-              </a>
-            </section>
+                Reintentar
+              </button>
+            </div>
           </td>
         </tr>
       }
-    }
-  </tbody>
-</table>
+
+      @if (!loading() && !error()) {
+        @for (planta of plantas(); track planta.id) {
+          <tr
+            class="border-base-300 hover:bg-base-200/50 border-b transition-colors last:border-0"
+            app-planta-table-row
+            [plantaId]="planta"
+          ></tr>
+        } @empty {
+          <tr>
+            <td colspan="9">
+              <div class="flex flex-col items-center gap-3 py-16 text-center" aria-live="assertive">
+                <app-icon className="size-7 text-base-content/20" name="bolt-outline" />
+                <div>
+                  <p class="text-base-content text-sm font-medium">Sin plantas registradas</p>
+                  <p class="text-base-content/40 mt-0.5 text-xs">
+                    Cuando registres la primera planta, aparecerá aquí.
+                  </p>
+                </div>
+                <a class="btn btn-primary btn-sm" [routerLink]="['/plantas/new-planta']">
+                  <app-icon name="plus-outline" className="size-3.5" strokeWidth="2.5" />
+                  Nueva planta
+                </a>
+              </div>
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

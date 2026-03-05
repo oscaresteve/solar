@@ -2,45 +2,31 @@
   <table class="table-sm table w-full">
     <thead>
       <tr class="bg-base-200 border-base-300 border-b">
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           ID
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           Fecha
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           Planta
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           <div class="flex items-center gap-1.5">
             <div class="bg-success size-1.5 rounded-full"></div>
             Producción (kWh)
           </div>
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           <div class="flex items-center gap-1.5">
             <div class="bg-error size-1.5 rounded-full"></div>
             Consumo (kWh)
           </div>
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           Balance (kWh)
         </th>
-        <th
-          class="text-base-content/50 px-4 py-3 font-mono text-xs font-medium tracking-wide uppercase"
-        >
+        <th class="text-base-content/50 px-4 py-3 text-xs font-medium tracking-wide uppercase">
           Mensaje
         </th>
       </tr>
@@ -94,7 +80,7 @@
             </td>
 
             <td class="px-4 py-3">
-              <span class="text-base-content/60 font-mono text-sm text-nowrap">
+              <span class="text-base-content/60 text-sm text-nowrap">
                 {{ plantaLog.created_at | date: 'short' }}
               </span>
             </td>
@@ -134,7 +120,7 @@
             </td>
 
             <td class="px-4 py-3">
-              <span class="text-base-content/60 block max-w-48 truncate font-mono text-sm">
+              <span class="text-base-content/60 block max-w-48 truncate text-sm">
                 {{ plantaLog.message }}
               </span>
             </td>

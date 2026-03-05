@@ -1,45 +1,54 @@
-<td>
-  <span class="badge badge-sm badge-soft badge-info font-semibold text-nowrap shadow-md">{{
-    planta().id
-  }}</span>
+<td class="px-4 py-3">
+  <span class="text-base-content/40 font-mono text-xs">{{ planta().id }}</span>
 </td>
-<td>
-  <p class="text-base-content text-sm font-bold">
-    {{ planta().name }}
-  </p>
+
+<td class="px-4 py-3">
+  <span class="text-base-content text-sm font-medium">{{ planta().name }}</span>
 </td>
-<td>
-  <p class="text-base-content">{{ planta().latitude }}, {{ planta().longitude }}</p>
-</td>
-<td>
-  <p class="text-base-content">{{ planta().capacity | number }}</p>
-</td>
-<td>
-  @if (planta().active) {
-    <span class="badge badge-sm badge-soft badge-success font-semibold shadow-md">Activa</span>
-  } @else {
-    <span class="badge badge-sm badge-soft badge-error font-semibold shadow-md">Inactiva</span>
-  }
-</td>
-<td>
-  <span class="badge badge-sm badge-soft badge-gray font-semibold text-nowrap shadow-md">
-    {{ planta().user_id }}
+
+<td class="px-4 py-3">
+  <span class="text-base-content/50 font-mono text-xs text-nowrap">
+    {{ planta().latitude }}, {{ planta().longitude }}
   </span>
 </td>
-<td>
-  <p class="text-base-content">{{ planta().created_at | date: 'short' }}</p>
+
+<td class="px-4 py-3">
+  <span class="text-base-content text-sm">{{ planta().capacity | number }}</span>
 </td>
-<td>
-  <div class="rounded-box aspect-video h-20 overflow-hidden shadow-md">
-    <img [src]="planta().photo_url" class="h-full w-full object-cover" />
+
+<td class="px-4 py-3">
+  @if (planta().active) {
+    <span class="badge badge-xs badge-success badge-soft">Activa</span>
+  } @else {
+    <span class="badge badge-xs badge-error badge-soft">Inactiva</span>
+  }
+</td>
+
+<td class="px-4 py-3">
+  <span class="text-base-content/50 font-mono text-xs">{{ planta().user_id }}</span>
+</td>
+
+<td class="px-4 py-3">
+  <span class="text-base-content/40 text-xs text-nowrap">
+    {{ planta().created_at | date: 'short' }}
+  </span>
+</td>
+
+<td class="px-4 py-3">
+  <div class="bg-base-200 border-base-300 aspect-video h-10 overflow-hidden rounded border">
+    <img [src]="planta().photo_url" alt="Imagen" class="h-full w-full object-cover" />
   </div>
 </td>
-<td>
+
+<td class="px-4 py-3">
   <a
     [routerLink]="['/plantas', planta().id]"
-    class="btn btn-md btn-primary btn-soft min-w-max font-semibold shadow-md"
+    class="btn btn-ghost btn-xs btn-square cursor-pointer"
   >
-    Ver Más
-    <app-icon className="size-4" name="chevron-right-outline" strokeWidth="2.0" />
+    <app-icon
+      className="size-3.5 text-base-content/50"
+      name="chevron-right-outline"
+      strokeWidth="2.0"
+    />
   </a>
 </td>
