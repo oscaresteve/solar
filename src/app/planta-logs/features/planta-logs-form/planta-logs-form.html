@@ -1,94 +1,108 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
-    <div class="flex-row items-center justify-between">
-      <div class="mb-2 flex items-center gap-2">
-        @if (planta()?.active) {
-          <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
-        } @else {
-          <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
-        }
-        <span class="badge badge-soft badge-info font-semibold shadow-md">{{ planta()?.id }} </span>
-      </div>
-      <h1 class="text-base-content mb-2 text-4xl font-bold">
-        Nuevo registro en {{ planta()?.name }}
-      </h1>
-      <p class="text-base-content/70">Fecha de creación: {{ today | date: 'medium' }}</p>
-    </div>
-    <div class="flex items-center gap-2 text-sm font-bold">
-      <button
-        class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
-        onclick="modalEliminar.showModal()"
-      >
-        <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
-        Cancelar
-      </button>
+<section class="mx-auto max-w-6xl px-6 pb-16">
+  <nav class="mt-6 mb-8 flex items-center gap-1.5 text-sm">
+    <a routerLink="/plantas" class="text-base-content/40 hover:text-base-content transition-colors">
+      Plantas
+    </a>
+    <span class="text-base-content/20">/</span>
+    <a
+      [routerLink]="['/plantas', planta()?.id]"
+      class="text-base-content/40 hover:text-base-content max-w-xs truncate transition-colors"
+    >
+      {{ planta()?.name }}
+    </a>
+    <span class="text-base-content/20">/</span>
+    <span class="text-base-content/70">Nuevo registro</span>
+  </nav>
 
-      <dialog id="modalEliminar" class="modal">
-        <div class="modal-box">
-          <h3 class="text-xl font-bold">¿Estas seguro?</h3>
-          <p class="py-4 font-semibold">Los cambios serán premanentes</p>
-          <form method="dialog">
-            <div class="modal-action flex items-center gap-4">
-              <button class="btn btn-lg btn-soft btn-primary min-w-max font-bold shadow-md">
-                <app-icon name="chevron-left-outline" className="size-5" strokeWidth="2.5" />
-                Volver
-              </button>
-              <a
-                class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
-                [routerLink]="['/plantas', planta()?.id]"
-              >
-                <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
-                Cancelar
-              </a>
-            </div>
-          </form>
-        </div>
-      </dialog>
+  <header class="mb-8 flex items-start justify-between gap-6">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-1.5">
+        @if (planta()?.active) {
+          <span class="badge badge-xs badge-success badge-soft">Activa</span>
+        } @else {
+          <span class="badge badge-xs badge-error badge-soft">Inactiva</span>
+        }
+        <span class="badge badge-xs badge-ghost text-base-content/40">{{ planta()?.id }}</span>
+      </div>
+      <h1 class="text-base-content text-2xl leading-tight font-semibold">
+        Nuevo registro
+        <span class="text-base-content/40 font-normal"> — {{ planta()?.name }}</span>
+      </h1>
+      <p class="text-base-content/40 text-xs">{{ today | date: 'mediumDate' }}</p>
     </div>
+
+    <button class="btn btn-ghost btn-sm shrink-0 gap-1.5" onclick="modalCancelar.showModal()">
+      <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
+      Cancelar
+    </button>
   </header>
 
-  <form (submit)="onSubmit($event)">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Producción (kWh)</p>
+  <dialog id="modalCancelar" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-base-100 border-base-300 max-w-md rounded-lg border p-6 shadow-none">
+      <div class="mb-4 flex items-start justify-between">
+        <div>
+          <h3 class="text-base-content text-base font-semibold">¿Descartar registro?</h3>
+          <p class="text-base-content/50 mt-0.5 text-sm">Los datos introducidos se perderán.</p>
+        </div>
+        <button class="btn btn-ghost btn-xs btn-square -mt-1 -mr-1" onclick="modalCancelar.close()">
+          <app-icon name="x-mark-outline" className="size-4 text-base-content/40" />
+        </button>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <form method="dialog">
+          <button class="btn btn-ghost btn-sm">Seguir editando</button>
+        </form>
+        <a class="btn btn-outline btn-sm gap-1.5" [routerLink]="['/plantas', planta()?.id]">
+          <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
+          Descartar
+        </a>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop bg-base-content/20">
+      <button>close</button>
+    </form>
+  </dialog>
+
+  <form (submit)="onSubmit($event)" class="max-w-lg">
+    <div class="border-base-300 mb-4 overflow-hidden rounded-lg border">
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs">Producción (kWh)</label>
         <input
-          class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
+          class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
           type="number"
           placeholder="46000"
           [formField]="plantaLogsForm.production"
         />
       </div>
 
-      <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-        <p class="text-base-content/50 text-sm font-semibold">Consumo (kWh)</p>
+      <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+        <label class="text-base-content/40 text-xs">Consumo (kWh)</label>
         <input
-          class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
+          class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
           type="number"
           placeholder="25000"
           [formField]="plantaLogsForm.consumption"
         />
       </div>
-    </div>
-    <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-      <p class="text-base-content/50 text-sm font-semibold">Mensaje</p>
-      <textarea
-        class="textarea text-base-content/90 mt-2 w-full text-lg font-semibold"
-        type="text"
-        placeholder="Mensaje del registro"
-        [formField]="plantaLogsForm.message"
-      ></textarea>
+
+      <div class="flex flex-col gap-1.5 px-4 py-3">
+        <label class="text-base-content/40 text-xs">Mensaje</label>
+        <textarea
+          class="textarea textarea-ghost textarea-sm text-base-content w-full resize-none px-0 text-sm focus:outline-none"
+          rows="3"
+          placeholder="Descripción del registro..."
+          [formField]="plantaLogsForm.message"
+        ></textarea>
+      </div>
     </div>
 
-    <button
-      class="btn btn-lg btn-success btn-soft btn-block mt-4 font-bold shadow-md"
-      type="submit"
-      [disabled]="loading()"
-    >
+    <button class="btn btn-primary btn-sm w-full gap-1.5" type="submit" [disabled]="loading()">
       @if (loading()) {
-        <span class="loading-spinner"></span>
+        <span class="loading loading-spinner loading-xs"></span>
+        Guardando...
       } @else {
-        <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
-        Crear Registro
+        <app-icon name="plus-circle-outline" className="size-3.5" strokeWidth="2.0" />
+        Crear registro
       }
     </button>
   </form>

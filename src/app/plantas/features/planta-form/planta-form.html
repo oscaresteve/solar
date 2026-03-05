@@ -39,7 +39,8 @@
 
       <h1 class="text-base-content text-2xl leading-tight font-semibold">
         @if (isEditing()) {
-          Editar {{ planta()?.name }}
+          Editar planta
+          <span class="text-base-content/40 font-normal"> — {{ plantaFormModel().name }}</span>
         } @else {
           Nueva planta
           @if (plantaFormModel().name) {
