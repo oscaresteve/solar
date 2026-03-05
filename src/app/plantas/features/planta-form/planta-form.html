@@ -1,172 +1,201 @@
-<section class="mx-48">
-  <header class="mt-12 mb-12 flex flex-row items-center justify-between">
-    <div>
-      @if (isEditing()) {
-        <div class="mb-2 flex items-center gap-2">
+<section class="mx-auto max-w-6xl px-6 pb-16">
+  <nav class="mt-6 mb-8 flex items-center gap-1.5 text-sm">
+    <a routerLink="/plantas" class="text-base-content/40 hover:text-base-content transition-colors">
+      Plantas
+    </a>
+    <span class="text-base-content/20">/</span>
+    @if (isEditing()) {
+      <a
+        [routerLink]="['/plantas', planta()?.id]"
+        class="text-base-content/40 hover:text-base-content max-w-xs truncate transition-colors"
+      >
+        {{ planta()?.name }}
+      </a>
+      <span class="text-base-content/20">/</span>
+      <span class="text-base-content/70">Editar</span>
+    } @else {
+      <span class="text-base-content/70">Nueva planta</span>
+    }
+  </nav>
+
+  <header class="mb-8 flex items-start justify-between gap-6">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-1.5">
+        @if (isEditing()) {
           @if (planta()?.active) {
-            <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
+            <span class="badge badge-xs badge-success badge-soft">Activa</span>
           } @else {
-            <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
+            <span class="badge badge-xs badge-error badge-soft">Inactiva</span>
           }
-          <span class="badge badge-soft badge-info font-semibold shadow-md"
-            >{{ planta()?.id }}
-          </span>
-        </div>
-      } @else {
-        <div class="mb-2 flex items-center gap-2">
+          <span class="badge badge-xs badge-ghost text-base-content/40">{{ planta()?.id }}</span>
+        } @else {
           @if (plantaFormModel().active) {
-            <span class="badge badge-soft badge-success font-semibold shadow-md">Activa</span>
+            <span class="badge badge-xs badge-success badge-soft">Activa</span>
           } @else {
-            <span class="badge badge-soft badge-error font-semibold shadow-md">Inactiva</span>
+            <span class="badge badge-xs badge-error badge-soft">Inactiva</span>
           }
-        </div>
-      }
-      @if (isEditing()) {
-        <h1 class="text-base-content mb-2 text-5xl font-bold">Editar {{ planta()?.name }}</h1>
-      } @else {
-        <h1 class="text-base-content mb-2 text-5xl font-bold">
-          Nueva planta {{ plantaFormModel().name }}
-        </h1>
-      }
-      @if (isEditing()) {
-        <p class="text-base-content/70">
-          Fecha de creación: {{ planta()?.created_at | date: 'medium' }}
-        </p>
-      } @else {
-        <p class="text-base-content/70">Fecha de creación: {{ today | date: 'medium' }}</p>
-      }
+        }
+      </div>
+
+      <h1 class="text-base-content text-2xl leading-tight font-semibold">
+        @if (isEditing()) {
+          Editar {{ planta()?.name }}
+        } @else {
+          Nueva planta
+          @if (plantaFormModel().name) {
+            <span class="text-base-content/40 font-normal"> — {{ plantaFormModel().name }}</span>
+          }
+        }
+      </h1>
+
+      <p class="text-base-content/40 text-xs">
+        @if (isEditing()) {
+          Creado el {{ planta()?.created_at | date: 'mediumDate' }}
+        } @else {
+          Hoy, {{ today | date: 'mediumDate' }}
+        }
+      </p>
     </div>
-    <button
-      class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
-      onclick="modalEliminar.showModal()"
-    >
-      <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
+
+    <button class="btn btn-ghost btn-sm shrink-0 gap-1.5" onclick="modalCancelar.showModal()">
+      <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
       Cancelar
     </button>
-
-    <dialog id="modalEliminar" class="modal">
-      <div class="modal-box">
-        <h3 class="text-xl font-bold">¿Estas seguro?</h3>
-        <p class="py-4 font-semibold">Los cambios serán premanentes</p>
-        <form method="dialog">
-          <div class="modal-action flex items-center gap-4">
-            <button class="btn btn-lg btn-soft btn-primary min-w-max font-bold shadow-md">
-              <app-icon name="chevron-left-outline" className="size-5" strokeWidth="2.5" />
-              Volver
-            </button>
-            <a
-              class="btn btn-lg btn-soft btn-warning min-w-max font-bold shadow-md"
-              [routerLink]="cancelLink()"
-            >
-              <app-icon name="arrow-uturn-left-outline" className="size-5" strokeWidth="2.5" />
-              Cancelar
-            </a>
-          </div>
-        </form>
-      </div>
-    </dialog>
   </header>
 
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <div class="rounded-box aspect-video overflow-hidden shadow-xl">
-        <img [src]="previewURL()" alt="Imagen de la planta" class="h-full w-full object-cover" />
+  <dialog id="modalCancelar" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box bg-base-100 border-base-300 max-w-md rounded-lg border p-6 shadow-none">
+      <div class="mb-4 flex items-start justify-between">
+        <div>
+          <h3 class="text-base-content text-base font-semibold">¿Descartar cambios?</h3>
+          <p class="text-base-content/50 mt-0.5 text-sm">Los cambios no guardados se perderán.</p>
+        </div>
+        <button class="btn btn-ghost btn-xs btn-square -mt-1 -mr-1" onclick="modalCancelar.close()">
+          <app-icon name="x-mark-outline" className="size-4 text-base-content/40" />
+        </button>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <form method="dialog">
+          <button class="btn btn-ghost btn-sm">Seguir editando</button>
+        </form>
+        <a class="btn btn-outline btn-sm gap-1.5" [routerLink]="cancelLink()">
+          <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
+          Descartar
+        </a>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop bg-base-content/20">
+      <button>close</button>
+    </form>
+  </dialog>
+
+  <form (submit)="onSubmit($event)">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div class="flex flex-col gap-3">
+        <div class="bg-base-200 border-base-300 aspect-video overflow-hidden rounded-lg border">
+          <img [src]="previewURL()" alt="Preview" class="h-full w-full object-cover" />
+        </div>
+        <input
+          type="file"
+          accept="image/*"
+          class="file-input file-input-bordered file-input-sm w-full"
+          (change)="onPhotoSelected($event)"
+          [disabled]="loading()"
+        />
       </div>
 
-      <input
-        type="file"
-        accept="image/*"
-        class="file-input mt-4 w-full shadow-md"
-        (change)="onPhotoSelected($event)"
-        [disabled]="loading()"
-      />
-    </div>
+      <div class="flex flex-col gap-2">
+        <h2 class="text-base-content mb-1 text-sm font-semibold">Información</h2>
 
-    <div>
-      <h1 class="text-base-content mb-4 text-4xl font-bold">Información</h1>
-
-      <form (submit)="onSubmit($event)">
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Nombre</p>
-          <input
-            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-            type="text"
-            placeholder="Parque Solar Andino"
-            [formField]="plantaForm.name"
-          />
-        </div>
-
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Capacidad (MW)</p>
-          <input
-            class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-            type="number"
-            placeholder="120"
-            [formField]="plantaForm.capacity"
-          />
-        </div>
-
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <div class="mb-4 grid grid-cols-2 gap-4">
-            <div>
-              <p class="text-base-content/50 text-sm font-semibold">Latitud</p>
-              <input
-                class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-                type="number"
-                step="any"
-                placeholder="-33.456"
-                [formField]="plantaForm.latitude"
-              />
-            </div>
-            <div>
-              <p class="text-base-content/50 text-sm font-semibold">Longitud</p>
-              <input
-                class="input text-base-content/90 mt-2 w-full text-lg font-semibold"
-                type="number"
-                step="any"
-                placeholder="-70.648"
-                [formField]="plantaForm.longitude"
-              />
-            </div>
+        <div class="border-base-300 overflow-hidden rounded-lg border">
+          <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+            <label class="text-base-content/40 text-xs">Nombre</label>
+            <input
+              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              type="text"
+              placeholder="Parque Solar Andino"
+              [formField]="plantaForm.name"
+            />
           </div>
 
-          <button
-            class="btn btn-md btn-soft btn-primary btn-block font-bold shadow-md"
-            type="button"
-            (click)="setCurrentPosition()"
-            [disabled]="loading()"
-          >
-            <app-icon name="globe-alt-outline" className="size-4" strokeWidth="2.5" />
-            Obtener ubicación actual
-          </button>
-        </div>
+          <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+            <label class="text-base-content/40 text-xs">Capacidad (MW)</label>
+            <input
+              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              type="number"
+              placeholder="120"
+              [formField]="plantaForm.capacity"
+            />
+          </div>
 
-        <div class="bg-base-200 rounded-box my-2 p-4 shadow-md">
-          <p class="text-base-content/50 text-sm font-semibold">Estado</p>
-          <label class="label mt-2">
-            <input type="checkbox" class="toggle" [formField]="plantaForm.active" />
-            {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
-          </label>
+          <div class="border-base-300 flex flex-col gap-3 border-b px-4 py-3">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label class="text-base-content/40 text-xs">Latitud</label>
+                <input
+                  class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+                  type="number"
+                  step="any"
+                  placeholder="-33.456"
+                  [formField]="plantaForm.latitude"
+                />
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="text-base-content/40 text-xs">Longitud</label>
+                <input
+                  class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+                  type="number"
+                  step="any"
+                  placeholder="-70.648"
+                  [formField]="plantaForm.longitude"
+                />
+              </div>
+            </div>
+            <button
+              class="btn btn-outline btn-sm w-full gap-1.5"
+              type="button"
+              (click)="setCurrentPosition()"
+              [disabled]="loading()"
+            >
+              <app-icon name="globe-alt-outline" className="size-3.5" strokeWidth="2.0" />
+              Usar ubicación actual
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between px-4 py-3">
+            <div>
+              <p class="text-base-content/40 text-xs">Estado</p>
+              <p class="text-base-content text-sm">
+                {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
+              </p>
+            </div>
+            <input
+              type="checkbox"
+              class="toggle toggle-sm toggle-success"
+              [formField]="plantaForm.active"
+            />
+          </div>
         </div>
 
         <button
-          class="btn btn-lg btn-soft btn-block btn-success mt-2 min-w-max font-bold shadow-md"
+          class="btn btn-primary btn-sm mt-2 w-full gap-1.5"
           type="submit"
           [disabled]="loading()"
         >
           @if (loading()) {
-            <span class="loading loading-spinner"></span>
+            <span class="loading loading-spinner loading-xs"></span>
+            Guardando...
           } @else {
             @if (isEditing()) {
-              <app-icon name="pencil-square-outline" className="size-5" strokeWidth="2.5" />
-              Guardar Cambios
+              <app-icon name="pencil-square-outline" className="size-3.5" strokeWidth="2.0" />
+              Guardar cambios
             } @else {
-              <app-icon name="plus-circle-outline" className="size-5" strokeWidth="2.5" />
-              Crear Planta
+              <app-icon name="plus-circle-outline" className="size-3.5" strokeWidth="2.0" />
+              Crear planta
             }
           }
         </button>
-      </form>
+      </div>
     </div>
-  </div>
+  </form>
 </section>

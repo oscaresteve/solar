@@ -115,6 +115,7 @@ export class PlantaForm implements OnInit, OnDestroy {
 
     const id = this.id();
     if (!id) return;
+    this._plantaService.readPlantaById(id);
   }
 
   async onSubmit(event: Event) {
