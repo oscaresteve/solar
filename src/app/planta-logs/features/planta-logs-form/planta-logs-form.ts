@@ -43,6 +43,10 @@ export class PlantaLogsForm implements OnInit {
 
   private initialFormValues = signal<PlantaLogsFormData | null>(null);
 
+  cancelLink = computed(() => {
+    const plantaId = this.planta()?.id;
+    return plantaId ? ['/plantas', plantaId] : ['/plantas'];
+  });
   hasUnsavedChanges = computed(() => {
     const initial = this.initialFormValues();
 
@@ -103,6 +107,15 @@ export class PlantaLogsForm implements OnInit {
       return;
     }
     this._toastService.show('No se pudo crear el registro. Intentalo de nuevo.', 'error');
+  }
+
+  async onCancelClick(cancelDialog: HTMLDialogElement) {
+    if (this.hasUnsavedChanges()) {
+      cancelDialog.showModal();
+      return;
+    }
+
+    await this._router.navigate(this.cancelLink());
   }
 
   async ngOnInit(): Promise<void> {

@@ -184,6 +184,15 @@ export class PlantaForm implements OnInit, OnDestroy {
     this._toastService.show('No se pudo crear la planta. Intentalo de nuevo.', 'error');
   }
 
+  async onCancelClick(cancelDialog: HTMLDialogElement) {
+    if (this.hasUnsavedChanges()) {
+      cancelDialog.showModal();
+      return;
+    }
+
+    await this._router.navigate(this.cancelLink());
+  }
+
   onPhotoSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] ?? null;
