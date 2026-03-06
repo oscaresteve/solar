@@ -41,6 +41,20 @@ export class PlantaLogsForm implements OnInit {
     return this.plantas().find((planta) => planta.id.toString() === id) ?? null;
   });
 
+  private initialFormValues = signal<PlantaLogsFormData | null>(null);
+
+  hasUnsavedChanges = computed(() => {
+    const initial = this.initialFormValues();
+
+    if (!initial) return false;
+
+    return (
+      initial.production !== this.plantaLogsFormModel().production ||
+      initial.consumption !== this.plantaLogsFormModel().consumption ||
+      initial.message !== this.plantaLogsFormModel().message
+    );
+  });
+
   private plantaLogsFormModel = signal<PlantaLogsFormData>({
     production: 0,
     consumption: 0,
@@ -98,5 +112,11 @@ export class PlantaLogsForm implements OnInit {
     if (!id) return;
 
     await this._plantaService.readPlantaById(id);
+
+    this.initialFormValues.set({
+      production: this.plantaLogsFormModel().production,
+      consumption: this.plantaLogsFormModel().consumption,
+      message: this.plantaLogsFormModel().message,
+    });
   }
 }
