@@ -114,7 +114,7 @@
             <input
               class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
               type="text"
-              placeholder="Nombre de la Planta"
+              placeholder="Nombre de la Planta..."
               [formField]="plantaForm.name"
             />
           </div>
@@ -191,7 +191,7 @@
         <button
           class="btn btn-primary btn-sm mt-2 w-full gap-1.5"
           type="submit"
-          [disabled]="loading()"
+          [disabled]="loading() || (isEditing() && !hasUnsavedChanges())"
         >
           @if (loading()) {
             <span class="loading loading-spinner loading-xs"></span>

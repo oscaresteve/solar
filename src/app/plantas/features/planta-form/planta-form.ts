@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
-import { form, FormField, min, minLength, required, validate } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 import { DatePipe } from '@angular/common';
 import { Icon } from '../../../shared/ui/icon/icon';
@@ -49,6 +49,24 @@ export class PlantaForm implements OnInit, OnDestroy {
     capacity: 0,
     latitude: 0,
     longitude: 0,
+  });
+
+  private initialFormValues = signal<PlantaFormData | null>(null);
+
+  hasUnsavedChanges = computed(() => {
+    const initial = this.initialFormValues();
+
+    if (!initial) return false;
+
+    return (
+      initial.name !== this.plantaFormModel().name ||
+      initial.description !== this.plantaFormModel().description ||
+      initial.active !== this.plantaFormModel().active ||
+      initial.capacity !== this.plantaFormModel().capacity ||
+      initial.latitude !== this.plantaFormModel().latitude ||
+      initial.longitude !== this.plantaFormModel().longitude ||
+      this.selectedPhoto()
+    );
   });
 
   planta = computed(() => {
@@ -105,10 +123,20 @@ export class PlantaForm implements OnInit, OnDestroy {
       if (!planta) return;
 
       this.plantaForm.name().value.set(planta.name);
+      this.plantaForm.description().value.set(planta.description ?? '');
       this.plantaForm.active().value.set(planta.active);
       this.plantaForm.capacity().value.set(planta.capacity);
       this.plantaForm.latitude().value.set(planta.latitude);
       this.plantaForm.longitude().value.set(planta.longitude);
+
+      this.initialFormValues.set({
+        name: planta.name,
+        description: planta.description ?? '',
+        active: planta.active,
+        capacity: planta.capacity,
+        latitude: planta.latitude,
+        longitude: planta.longitude,
+      });
     });
   }
 
