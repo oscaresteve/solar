@@ -24,6 +24,12 @@ export class Navbar implements OnInit {
 
   isDark = false;
 
+  private applyTheme(theme: 'light' | 'dark') {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    this.isDark = theme === 'dark';
+  }
+
   async logOut() {
     const response = await this._authService.signOut();
     if (response.error) {
@@ -36,13 +42,20 @@ export class Navbar implements OnInit {
   ngOnInit(): void {
     this._userService.readProfile();
     const saved = localStorage.getItem('theme');
-    this.isDark = saved === 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const theme: 'light' | 'dark' =
+      saved === 'dark' || saved === 'light'
+        ? saved
+        : currentTheme === 'dark'
+          ? 'dark'
+          : 'light';
+
+    this.applyTheme(theme);
   }
 
   onThemeChange(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
-    const theme = checked ? 'dark' : 'light';
-    this.isDark = checked;
-    localStorage.setItem('theme', theme);
+    const theme: 'light' | 'dark' = checked ? 'dark' : 'light';
+    this.applyTheme(theme);
   }
 }
