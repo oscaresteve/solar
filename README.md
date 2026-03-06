@@ -1,59 +1,51 @@
-# Solar
+# 🌿 Solar
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+Proyecto de **DWEC (2.ª evaluación)** desarrollado con **Angular 21** y **Supabase (BaaS)**.
 
-## Development server
+## ¿De qué trata?
 
-To start a local development server, run:
+Aplicación para gestionar plantas energéticas:
 
-```bash
-ng serve
-```
+- Alta y edición de plantas.
+- Registro de logs de producción/consumo por planta.
+- Gestión de favoritos y perfil de usuario.
+- Autenticación y almacenamiento de imágenes con Supabase.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## ⚙ Stack
 
-## Code scaffolding
+- Angular 21
+- Supabase (Auth, PostgreSQL, RLS y Storage)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Cómo arrancar el proyecto
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Instala dependencias:
 
 ```bash
-ng generate --help
+npm install
 ```
 
-## Building
+2. Configura variables de entorno en `src/environments/environment.development.ts`:
 
-To build the project run:
+```ts
+export const environment = {
+  production: false,
+  SUPABASE_URL: 'https://TU_PROJECT_ID.supabase.co',
+  SUPABASE_ANON_KEY: 'TU_ANON_KEY',
+};
+```
+
+3. Arranca en desarrollo:
 
 ```bash
-ng build
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+La app quedará disponible en `http://localhost:4200/`.
 
-## Running unit tests
+## 🔌 Replicar backend (Supabase)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Todas las instrucciones para replicar la base de datos, políticas RLS, storage y seed están en:
 
-```bash
-ng test
-```
+- `supabase-setup/README.md`
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ejecuta los SQL en el orden indicado dentro de esa guía.
