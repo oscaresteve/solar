@@ -67,7 +67,11 @@
           </div>
         </div>
 
-        <button class="btn btn-primary btn-sm w-full gap-1.5" type="submit" [disabled]="loading()">
+        <button
+          class="btn btn-primary btn-sm w-full gap-1.5"
+          type="submit"
+          [disabled]="loading() || !hasUnsavedChanges()"
+        >
           @if (loading()) {
             <span class="loading loading-spinner loading-xs"></span>
             Guardando...

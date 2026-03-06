@@ -33,6 +33,20 @@ export class Cuenta implements OnInit, OnDestroy {
   private selectedPhoto = signal<File | null>(null);
   private previewObjectUrl = signal<string | null>(null);
 
+  private initialFormValues = signal<CuentaFormData | null>(null);
+
+  hasUnsavedChanges = computed(() => {
+    const initial = this.initialFormValues();
+
+    if (!initial) return false;
+
+    return (
+      initial.first_name !== this.cuentaFormModel().first_name ||
+      initial.last_name !== this.cuentaFormModel().last_name ||
+      this.selectedPhoto()
+    );
+  });
+
   private cuentaFormModel = signal<CuentaFormData>({
     first_name: '',
     last_name: '',
@@ -54,6 +68,11 @@ export class Cuenta implements OnInit, OnDestroy {
     effect(() => {
       this.cuentaForm.first_name().value.set(this.first_name() ?? '');
       this.cuentaForm.last_name().value.set(this.last_name() ?? '');
+
+      this.initialFormValues.set({
+        first_name: this.first_name() ?? '',
+        last_name: this.last_name() ?? '',
+      });
     });
   }
 
