@@ -65,7 +65,7 @@
   </header>
 
   <dialog id="modalCancelar" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box bg-base-100 border-base-300 max-w-md rounded-lg border p-6 shadow-none">
+    <div class="modal-box bg-base-100 border-base-300 rounded-box max-w-md border p-6 shadow-none">
       <div class="mb-4 flex items-start justify-between">
         <div>
           <h3 class="text-base-content text-base font-semibold">¿Descartar cambios?</h3>
@@ -93,7 +93,7 @@
   <form (submit)="onSubmit($event)">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <div class="flex flex-col gap-3">
-        <div class="bg-base-200 border-base-300 aspect-video overflow-hidden rounded-lg border">
+        <div class="bg-base-200 border-base-300 rounded-box aspect-video overflow-hidden border">
           <img [src]="previewURL()" alt="Preview" class="h-full w-full object-cover" />
         </div>
         <input
@@ -108,15 +108,25 @@
       <div class="flex flex-col gap-2">
         <h2 class="text-base-content mb-1 text-sm font-semibold">Información</h2>
 
-        <div class="border-base-300 overflow-hidden rounded-lg border">
+        <div class="border-base-300 rounded-box overflow-hidden border">
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
             <label class="text-base-content/40 text-xs">Nombre</label>
             <input
               class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
               type="text"
-              placeholder="Parque Solar Andino"
+              placeholder="Nombre de la Planta"
               [formField]="plantaForm.name"
             />
+          </div>
+
+          <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
+            <label class="text-base-content/40 text-xs">Descripción</label>
+            <textarea
+              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              type="text"
+              placeholder="Descripción de la Planta..."
+              [formField]="plantaForm.description"
+            ></textarea>
           </div>
 
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">

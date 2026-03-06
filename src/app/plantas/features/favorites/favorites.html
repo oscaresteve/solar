@@ -18,7 +18,7 @@
 
     @if (error()) {
       <div
-        class="border-error/20 bg-error/5 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
+        class="border-error/20 bg-error/5 rounded-box col-span-full flex flex-col items-center gap-3 border py-20 text-center"
         aria-live="assertive"
       >
         <app-icon className="size-7 text-error/50" name="exclamation-circle-outline" />
@@ -43,7 +43,7 @@
         />
       } @empty {
         <div
-          class="border-base-300 bg-base-200/50 col-span-full flex flex-col items-center gap-3 rounded-lg border py-20 text-center"
+          class="border-base-300 bg-base-200/50 rounded-box col-span-full flex flex-col items-center gap-3 border py-20 text-center"
           aria-live="assertive"
         >
           <app-icon className="size-7 text-base-content/20" name="heart-outline" />

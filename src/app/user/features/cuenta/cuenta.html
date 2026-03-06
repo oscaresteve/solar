@@ -9,7 +9,7 @@
       <div class="flex flex-col gap-4">
         <h2 class="text-base-content text-sm font-semibold">Foto de perfil</h2>
 
-        <div class="border-base-300 flex flex-col items-center gap-6 rounded-lg border p-6">
+        <div class="border-base-300 rounded-box flex flex-col items-center gap-6 border p-6">
           @if (previewURL()) {
             <div class="border-base-300 size-32 shrink-0 overflow-hidden rounded-full border">
               <img [src]="previewURL()" alt="Foto de perfil" class="h-full w-full object-cover" />
@@ -37,7 +37,7 @@
       <div class="flex flex-col gap-4">
         <h2 class="text-base-content text-sm font-semibold">Información</h2>
 
-        <div class="border-base-300 overflow-hidden rounded-lg border">
+        <div class="border-base-300 rounded-box overflow-hidden border">
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
             <label class="text-base-content/40 text-xs">Nombre</label>
             <input

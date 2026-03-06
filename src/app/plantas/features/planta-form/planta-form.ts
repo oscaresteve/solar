@@ -9,6 +9,7 @@ import { ToastService } from '../../../shared/utils/toast-service';
 
 interface PlantaFormData {
   name: string;
+  description: string;
   active: boolean;
   capacity: number;
   latitude: number;
@@ -43,6 +44,7 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   plantaFormModel = signal<PlantaFormData>({
     name: '',
+    description: '',
     active: true,
     capacity: 0,
     latitude: 0,

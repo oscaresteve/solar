@@ -5,7 +5,7 @@
       aria-live="assertive"
     >
       <div
-        class="bg-base-100 border-base-300 flex w-80 max-w-[90vw] flex-col items-center gap-3 rounded-lg border p-6 text-center shadow-lg"
+        class="bg-base-100 border-base-300 rounded-box flex w-80 max-w-[90vw] flex-col items-center gap-3 border p-6 text-center shadow-lg"
       >
         <app-icon className="size-7 text-error/50" name="exclamation-circle-outline" />
         <div>
@@ -23,7 +23,7 @@
 
   @if (loading() && plantas().length === 0) {
     <div
-      class="bg-base-100 border-base-300 absolute top-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5 rounded-lg border px-4 py-2.5 shadow-md"
+      class="bg-base-100 border-base-300 rounded-box absolute top-4 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5 border px-4 py-2.5 shadow-md"
     >
       <span class="loading loading-spinner loading-xs text-base-content/50"></span>
       <p class="text-base-content/60 text-xs">Cargando mapa...</p>

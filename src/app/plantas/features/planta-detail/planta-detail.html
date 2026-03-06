@@ -1,5 +1,4 @@
 <section class="mx-auto max-w-6xl px-6 pb-16">
-  <!-- Breadcrumb -->
   <nav class="mt-6 mb-8 flex items-center gap-1.5 text-sm">
     <a routerLink="/plantas" class="text-base-content/40 hover:text-base-content transition-colors">
       Plantas
@@ -33,7 +32,7 @@
           type="button"
           [routerLink]="['/plantas', planta()?.id, 'edit']"
         >
-          <app-icon name="pencil-square-outline" className="size-3.5" />
+          <app-icon name="pencil-square-outline" className="size-3.5" strokeWidth="2.0" />
           Editar
         </button>
 
@@ -42,7 +41,7 @@
           type="button"
           onclick="modalEliminar.showModal()"
         >
-          <app-icon name="trash-outline" className="size-3.5" />
+          <app-icon name="trash-outline" className="size-3.5" strokeWidth="2.0" />
           Eliminar
         </button>
       </div>
@@ -50,18 +49,22 @@
   </header>
 
   <dialog id="modalEliminar" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box bg-base-100 border-base-300 max-w-md rounded-lg border p-6 shadow-none">
+    <div class="modal-box bg-base-100 border-base-300 rounded-box max-w-md border p-6 shadow-none">
       <div class="mb-4 flex items-start justify-between">
         <div>
           <h3 class="text-base-content text-base font-semibold">Eliminar planta</h3>
           <p class="text-base-content/50 mt-0.5 text-sm">Esta acción no se puede deshacer.</p>
         </div>
         <button class="btn btn-ghost btn-xs btn-square -mt-1 -mr-1" onclick="modalEliminar.close()">
-          <app-icon name="x-mark-outline" className="size-4 text-base-content/40" />
+          <app-icon
+            name="x-mark-outline"
+            className="size-4 text-base-content/40"
+            strokeWidth="2.0"
+          />
         </button>
       </div>
 
-      <div class="bg-base-200 border-base-300 mb-6 rounded-md border p-3">
+      <div class="bg-base-200 border-base-300 rounded-box mb-6 border p-3">
         <p class="text-base-content/60 text-sm">
           Vas a eliminar permanentemente
           <span class="text-base-content font-medium">{{ planta()?.name }}</span
@@ -74,18 +77,15 @@
           <button class="btn btn-ghost btn-sm">Cancelar</button>
         </form>
         <button class="btn btn-error btn-outline btn-sm gap-1.5" type="button" (click)="onDelete()">
-          <app-icon name="trash-outline" className="size-3.5" />
+          <app-icon name="trash-outline" className="size-3.5" strokeWidth="2.0" />
           Eliminar
         </button>
       </div>
     </div>
-    <form method="dialog" class="modal-backdrop bg-base-content/20">
-      <button>close</button>
-    </form>
   </dialog>
 
   <div class="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
-    <div class="bg-base-200 border-base-300 aspect-video overflow-hidden rounded-lg border">
+    <div class="bg-base-200 border-base-300 rounded-box aspect-video overflow-hidden border">
       <img
         [src]="planta()?.photo_url"
         alt="Imagen de la planta"
@@ -96,15 +96,15 @@
     <div class="flex flex-col gap-2">
       <h2 class="text-base-content mb-1 text-sm font-semibold">Información</h2>
 
-      <div class="border-base-300 overflow-hidden rounded-lg border">
+      <div class="border-base-300 rounded-box overflow-hidden border">
         <div class="border-base-300 flex flex-col gap-0.5 border-b px-4 py-3">
           <span class="text-base-content/40 text-xs">Descripción</span>
-          <span class="text-base-content font-mono text-sm">{{ planta()?.description }}</span>
+          <span class="text-base-content text-sm">{{ planta()?.description }}</span>
         </div>
 
         <div class="border-base-300 flex flex-col gap-0.5 border-b px-4 py-3">
           <span class="text-base-content/40 text-xs">Capacidad instalada</span>
-          <span class="text-base-content font-mono text-sm font-medium">
+          <span class="text-base-content text-sm font-medium">
             {{ planta()?.capacity | number: '1.0-0' }} MW
           </span>
         </div>
@@ -139,7 +139,11 @@
         </a>
       }
       <button class="btn btn-ghost btn-sm btn-square" type="button" (click)="onRetryLoad()">
-        <app-icon className="size-4 text-base-content/50" name="arrow-path"></app-icon>
+        <app-icon
+          className="size-4 text-base-content/50"
+          name="arrow-path"
+          strokeWidth="2.0"
+        ></app-icon>
       </button>
     </div>
   </div>
