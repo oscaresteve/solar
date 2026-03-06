@@ -3,9 +3,6 @@
     <app-card-skeleton />
     <app-card-skeleton />
     <app-card-skeleton />
-    <app-card-skeleton />
-    <app-card-skeleton />
-    <app-card-skeleton />
   }
   @if (error()) {
     <section
@@ -26,8 +23,8 @@
     @for (planta of sortedPlantas(); track planta.id) {
       <app-planta-item
         [planta]="planta"
-        [isFavorite]="isFavorite(planta.id)"
-        (favoriteToggled)="toggleFavorite(planta)"
+        [isFavorite]="favoriteIds().has(planta.id)"
+        (favoriteToggled)="onFavoriteToggled(planta.id)"
       ></app-planta-item>
     } @empty {
       <section

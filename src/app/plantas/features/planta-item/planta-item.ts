@@ -11,7 +11,7 @@ import { Icon } from '../../../shared/ui/icon/icon';
 })
 export class PlantaItem {
   planta = input.required<Planta>();
-  isFavorite = input(false);
+  isFavorite = input<boolean>(false);
 
   favoriteToggled = output<void>();
 

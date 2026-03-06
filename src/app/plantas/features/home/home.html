@@ -4,10 +4,17 @@
       <app-icon className="size-5 text-base-content/50" strokeWidth="2.0" name="home-outline" />
       <h1 class="text-xl font-semibold">Home</h1>
     </div>
-    <button class="btn btn-ghost btn-sm btn-square">
+    <button class="btn btn-ghost btn-sm btn-square" (click)="onRetryLoad()">
       <app-icon className="size-4 text-base-content/50" strokeWidth="2.0" name="arrow-path" />
     </button>
   </header>
 
-  <app-planta-list></app-planta-list>
+  <app-planta-list
+    [loading]="loading()"
+    [error]="error()"
+    [sortedPlantas]="sortedPlantas()"
+    [favoriteIds]="favoritePlantaIds()"
+    (retryLoad)="onRetryLoad()"
+    (favoriteToggled)="onToggleFavorite($event)"
+  ></app-planta-list>
 </section>
