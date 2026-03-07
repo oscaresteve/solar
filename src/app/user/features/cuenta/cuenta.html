@@ -7,7 +7,7 @@
   <form (submit)="onSubmit($event)">
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
       <div class="flex flex-col gap-4">
-        <h2 class="text-base-content text-sm font-semibold">Foto de perfil</h2>
+        <h2 class="text-base-content text-base font-semibold">Foto de perfil</h2>
 
         <div class="border-base-300 rounded-box flex flex-col items-center gap-6 border p-6">
           @if (previewURL()) {
@@ -27,7 +27,7 @@
           <input
             type="file"
             accept="image/*"
-            class="file-input file-input-bordered file-input-sm w-full"
+            class="file-input file-input-bordered w-full"
             (change)="onPhotoSelected($event)"
             [disabled]="loading()"
           />
@@ -35,40 +35,40 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        <h2 class="text-base-content text-sm font-semibold">Información</h2>
+        <h2 class="text-base-content text-base font-semibold">Información</h2>
 
         <div class="border-base-300 rounded-box overflow-hidden border">
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-            <label class="text-base-content/40 text-xs">Nombre</label>
+            <label class="text-base-content/40 text-sm">Nombre</label>
             <input
-              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
               type="text"
               [formField]="cuentaForm.first_name"
             />
           </div>
 
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-            <label class="text-base-content/40 text-xs">Apellidos</label>
+            <label class="text-base-content/40 text-sm">Apellidos</label>
             <input
-              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
               type="text"
               [formField]="cuentaForm.last_name"
             />
           </div>
 
           <div class="border-base-300 flex flex-col gap-1 border-b px-4 py-3">
-            <span class="text-base-content/40 text-xs">Correo electrónico</span>
-            <span class="text-base-content/60 text-sm">{{ email() }}</span>
+            <span class="text-base-content/40 text-sm">Correo electrónico</span>
+            <span class="text-base-content/60 text-base">{{ email() }}</span>
           </div>
 
           <div class="flex flex-col gap-1 px-4 py-3">
-            <span class="text-base-content/40 text-xs">UID</span>
-            <span class="text-base-content/60 font-mono text-xs break-all">{{ uid() }}</span>
+            <span class="text-base-content/40 text-sm">UID</span>
+            <span class="text-base-content/60 font-mono text-base break-all">{{ uid() }}</span>
           </div>
         </div>
 
         <button
-          class="btn btn-primary btn-sm w-full gap-1.5"
+          class="btn btn-primary w-full gap-1.5"
           type="submit"
           [disabled]="loading() || !hasUnsavedChanges()"
         >

@@ -1,7 +1,6 @@
 <section class="bg-base-100 flex min-h-screen items-center justify-center px-4 py-12">
-  <div class="flex w-full min-w-md flex-col gap-6">
-    <!-- Marca -->
-    <div class="flex flex-col items-center gap-3">
+  <div class="w-xs sm:w-md">
+    <div class="mb-8 flex flex-col items-center gap-3">
       <h1 class="text-xl font-bold">Solar</h1>
       <div class="text-center">
         <h1 class="text-base-content text-base font-semibold">Crear cuenta</h1>
@@ -19,7 +18,7 @@
         <div class="flex items-center gap-2">
           <app-icon
             name="user-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -28,7 +27,7 @@
             name="firstName"
             formControlName="firstName"
             [attr.aria-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
-            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="Tu nombre"
           />
         </div>
@@ -42,7 +41,7 @@
         <div class="flex items-center gap-2">
           <app-icon
             name="user-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -51,7 +50,7 @@
             name="lastName"
             formControlName="lastName"
             [attr.aria-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
-            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="Tus apellidos"
           />
         </div>
@@ -65,7 +64,7 @@
         <div class="flex items-center gap-2">
           <app-icon
             name="envelope-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -74,7 +73,7 @@
             name="email"
             formControlName="email"
             [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
-            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="tu@email.com"
           />
         </div>
@@ -88,7 +87,7 @@
         <div class="flex items-center gap-2">
           <app-icon
             name="lock-closed-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -97,7 +96,7 @@
             name="password"
             formControlName="password"
             [attr.aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
-            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="••••••••"
           />
         </div>
@@ -113,7 +112,7 @@
         <div class="flex items-center gap-2">
           <app-icon
             name="lock-closed-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -125,7 +124,7 @@
               form.controls.confirmPassword.touched &&
               (form.hasError('passwordMismatch') || form.controls.confirmPassword.invalid)
             "
-            class="text-base-content placeholder:text-base-content/30 flex-1 bg-transparent text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="••••••••"
           />
         </div>
@@ -137,7 +136,7 @@
       <div class="bg-base-200 px-4 py-3">
         <button
           type="submit"
-          class="btn btn-primary btn-sm w-full gap-1.5"
+          class="btn btn-primary w-full gap-1.5"
           [disabled]="loading() || form.invalid"
         >
           @if (loading()) {
@@ -150,7 +149,7 @@
       </div>
     </form>
 
-    <p class="text-base-content/40 text-center text-xs">
+    <p class="text-base-content/40 mt-5 text-center text-xs">
       ¿Ya tienes una cuenta?
       <a
         [routerLink]="['/auth/log-in']"

@@ -48,11 +48,7 @@
                   Verifica tu conexión o vuelve a intentarlo.
                 </p>
               </div>
-              <button
-                type="button"
-                class="btn btn-outline btn-error btn-sm"
-                (click)="onRetryLoad()"
-              >
+              <button type="button" class="btn btn-outline btn-error" (click)="onRetryLoad()">
                 Reintentar
               </button>
             </div>
@@ -78,7 +74,7 @@
                     Cuando registres la primera planta, aparecerá aquí.
                   </p>
                 </div>
-                <a class="btn btn-primary btn-sm" [routerLink]="['/plantas/new-planta']">
+                <a class="btn btn-primary" [routerLink]="['/plantas/new-planta']">
                   <app-icon name="plus-outline" className="size-3.5" strokeWidth="2.5" />
                   Nueva planta
                 </a>

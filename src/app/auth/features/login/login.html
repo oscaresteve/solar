@@ -1,5 +1,5 @@
 <section class="bg-base-100 flex min-h-screen items-center justify-center px-4">
-  <div class="w-full min-w-md">
+  <div class="w-xs sm:w-md">
     <div class="mb-8 flex flex-col items-center gap-3">
       <h1 class="text-xl font-bold">Solar</h1>
       <div class="text-center">
@@ -18,7 +18,7 @@
         <div class="flex items-center gap-2.5">
           <app-icon
             name="envelope-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -27,7 +27,7 @@
             name="email"
             formControlName="email"
             [attr.aria-invalid]="form.controls.email.invalid && form.controls.email.touched"
-            class="input input-ghost input-sm text-base-content placeholder:text-base-content/25 flex-1 px-0 text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="tu@email.com"
           />
         </div>
@@ -41,7 +41,7 @@
         <div class="flex items-center gap-2.5">
           <app-icon
             name="lock-closed-outline"
-            className="size-4 text-base-content/30 shrink-0"
+            className="size-5 text-base-content/30 shrink-0"
             strokeWidth="1.5"
           />
           <input
@@ -50,7 +50,7 @@
             name="password"
             formControlName="password"
             [attr.aria-invalid]="form.controls.password.invalid && form.controls.password.touched"
-            class="input input-ghost input-sm text-base-content placeholder:text-base-content/25 flex-1 px-0 text-sm focus:outline-none"
+            class="input input-ghost text-base-content placeholder:text-base-content/25 flex-1 px-0 text-base focus:outline-none"
             placeholder="••••••••"
           />
         </div>
@@ -62,7 +62,7 @@
       <div class="bg-base-200/60 flex flex-col gap-3 px-5 py-4">
         <button
           type="submit"
-          class="btn btn-primary btn-sm w-full gap-1.5"
+          class="btn btn-primary w-full gap-1.5"
           [disabled]="form.invalid || loading()"
         >
           @if (loading()) {

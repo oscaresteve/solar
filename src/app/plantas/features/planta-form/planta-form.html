@@ -18,7 +18,7 @@
     }
   </nav>
 
-  <header class="mb-8 flex items-start justify-between gap-6">
+  <header class="mb-8 flex flex-col items-start justify-between gap-6 sm:flex-row">
     <div class="flex flex-col gap-1.5">
       <div class="flex items-center gap-1.5">
         @if (isEditing()) {
@@ -49,7 +49,7 @@
         }
       </h1>
 
-      <p class="text-base-content/40 text-xs">
+      <p class="text-base-content/40 text-sm">
         @if (isEditing()) {
           Creado el {{ planta()?.created_at | date: 'mediumDate' }}
         } @else {
@@ -60,7 +60,7 @@
 
     <button
       type="button"
-      class="btn btn-ghost btn-sm shrink-0 gap-1.5"
+      class="btn btn-ghost shrink-0 gap-1.5"
       (click)="onCancelClick(cancelDialog)"
     >
       <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
@@ -85,9 +85,9 @@
       </div>
       <div class="flex items-center justify-end gap-2">
         <form method="dialog">
-          <button class="btn btn-ghost btn-sm">Seguir editando</button>
+          <button class="btn btn-ghost">Seguir editando</button>
         </form>
-        <a class="btn btn-outline btn-sm gap-1.5" [routerLink]="cancelLink()">
+        <a class="btn btn-outline gap-1.5" [routerLink]="cancelLink()">
           <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
           Descartar
         </a>
@@ -107,20 +107,20 @@
         <input
           type="file"
           accept="image/*"
-          class="file-input file-input-bordered file-input-sm w-full"
+          class="file-input file-input-bordered w-full"
           (change)="onPhotoSelected($event)"
           [disabled]="loading()"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <h2 class="text-base-content mb-1 text-sm font-semibold">Información</h2>
+        <h2 class="text-base-content mb-1 text-base font-semibold">Información</h2>
 
         <div class="border-base-300 rounded-box overflow-hidden border">
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-            <label class="text-base-content/40 text-xs">Nombre</label>
+            <label class="text-base-content/40 text-sm">Nombre</label>
             <input
-              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
               type="text"
               placeholder="Nombre de la Planta..."
               [formField]="plantaForm.name"
@@ -128,9 +128,9 @@
           </div>
 
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-            <label class="text-base-content/40 text-xs">Descripción</label>
+            <label class="text-base-content/40 text-sm">Descripción</label>
             <textarea
-              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
               type="text"
               placeholder="Descripción de la Planta..."
               [formField]="plantaForm.description"
@@ -138,9 +138,9 @@
           </div>
 
           <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-            <label class="text-base-content/40 text-xs">Capacidad (MW)</label>
+            <label class="text-base-content/40 text-sm">Capacidad (MW)</label>
             <input
-              class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+              class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
               type="number"
               placeholder="120"
               [formField]="plantaForm.capacity"
@@ -150,9 +150,9 @@
           <div class="border-base-300 flex flex-col gap-3 border-b px-4 py-3">
             <div class="grid grid-cols-2 gap-4">
               <div class="flex flex-col gap-1.5">
-                <label class="text-base-content/40 text-xs">Latitud</label>
+                <label class="text-base-content/40 text-sm">Latitud</label>
                 <input
-                  class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+                  class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
                   type="number"
                   step="any"
                   placeholder="-33.456"
@@ -160,9 +160,9 @@
                 />
               </div>
               <div class="flex flex-col gap-1.5">
-                <label class="text-base-content/40 text-xs">Longitud</label>
+                <label class="text-base-content/40 text-sm">Longitud</label>
                 <input
-                  class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+                  class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
                   type="number"
                   step="any"
                   placeholder="-70.648"
@@ -171,7 +171,7 @@
               </div>
             </div>
             <button
-              class="btn btn-outline btn-sm w-full gap-1.5"
+              class="btn btn-outline w-full gap-1.5"
               type="button"
               (click)="setCurrentPosition()"
               [disabled]="loading()"
@@ -183,7 +183,7 @@
 
           <div class="flex items-center justify-between px-4 py-3">
             <div>
-              <p class="text-base-content/40 text-xs">Estado</p>
+              <p class="text-base-content/40 text-sm">Estado</p>
               <p class="text-base-content text-sm">
                 {{ plantaForm.active().value() ? 'Activa' : 'Inactiva' }}
               </p>
@@ -197,7 +197,7 @@
         </div>
 
         <button
-          class="btn btn-primary btn-sm mt-2 w-full gap-1.5"
+          class="btn btn-primary mt-2 w-full gap-1.5"
           type="submit"
           [disabled]="loading() || (isEditing() && !hasUnsavedChanges())"
         >

@@ -14,7 +14,7 @@
     <span class="text-base-content/70">Nuevo registro</span>
   </nav>
 
-  <header class="mb-8 flex items-start justify-between gap-6">
+  <header class="mb-8 flex flex-col items-start justify-between gap-6 sm:flex-row">
     <div class="flex flex-col gap-1.5">
       <div class="flex items-center gap-1.5">
         @if (planta()?.active) {
@@ -33,7 +33,7 @@
 
     <button
       type="button"
-      class="btn btn-ghost btn-sm shrink-0 gap-1.5"
+      class="btn btn-ghost shrink-0 gap-1.5"
       (click)="onCancelClick(cancelDialog)"
     >
       <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
@@ -62,9 +62,9 @@
       </div>
       <div class="flex items-center justify-end gap-2">
         <form method="dialog">
-          <button class="btn btn-ghost btn-sm">Seguir editando</button>
+          <button class="btn btn-ghost">Seguir editando</button>
         </form>
-        <a class="btn btn-outline btn-sm gap-1.5" [routerLink]="cancelLink()">
+        <a class="btn btn-outline gap-1.5" [routerLink]="cancelLink()">
           <app-icon name="arrow-uturn-left-outline" className="size-3.5" strokeWidth="2.0" />
           Descartar
         </a>
@@ -78,9 +78,9 @@
   <form (submit)="onSubmit($event)" class="max-w-lg">
     <div class="border-base-300 rounded-box mb-4 overflow-hidden border">
       <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-        <label class="text-base-content/40 text-xs">Producción (kWh)</label>
+        <label class="text-base-content/40 text-sm">Producción (kWh)</label>
         <input
-          class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+          class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
           type="number"
           placeholder="46000"
           [formField]="plantaLogsForm.production"
@@ -88,9 +88,9 @@
       </div>
 
       <div class="border-base-300 flex flex-col gap-1.5 border-b px-4 py-3">
-        <label class="text-base-content/40 text-xs">Consumo (kWh)</label>
+        <label class="text-base-content/40 text-sm">Consumo (kWh)</label>
         <input
-          class="input input-ghost input-sm text-base-content w-full px-0 text-sm focus:outline-none"
+          class="input input-ghost text-base-content w-full px-0 text-base focus:outline-none"
           type="number"
           placeholder="25000"
           [formField]="plantaLogsForm.consumption"
@@ -98,9 +98,9 @@
       </div>
 
       <div class="flex flex-col gap-1.5 px-4 py-3">
-        <label class="text-base-content/40 text-xs">Mensaje</label>
+        <label class="text-base-content/40 text-sm">Mensaje</label>
         <textarea
-          class="textarea textarea-ghost textarea-sm text-base-content w-full resize-none px-0 text-sm focus:outline-none"
+          class="textarea textarea-ghost text-base-content w-full resize-none px-0 text-base focus:outline-none"
           rows="3"
           placeholder="Descripción del registro..."
           [formField]="plantaLogsForm.message"
@@ -109,7 +109,7 @@
     </div>
 
     <button
-      class="btn btn-primary btn-sm w-full gap-1.5"
+      class="btn btn-primary w-full gap-1.5"
       type="submit"
       [disabled]="loading() || !hasUnsavedChanges()"
     >

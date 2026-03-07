@@ -14,7 +14,7 @@
       <p class="text-base-content/50 max-w-xs text-sm">
         Verifica tu conexión o vuelve a intentarlo en unos segundos.
       </p>
-      <button type="button" class="btn btn-outline btn-error btn-sm mt-2" (click)="onRetryLoad()">
+      <button type="button" class="btn btn-outline btn-error mt-2" (click)="onRetryLoad()">
         Reintentar
       </button>
     </section>
@@ -36,9 +36,7 @@
         <p class="text-base-content/50 max-w-xs text-sm">
           Cuando registres la primera planta, aparecerá aquí con su información.
         </p>
-        <a class="btn btn-primary btn-sm mt-2" [routerLink]="['/plantas/new-planta']">
-          Nueva planta
-        </a>
+        <a class="btn btn-primary mt-2" [routerLink]="['/plantas/new-planta']"> Nueva planta </a>
       </section>
     }
   }

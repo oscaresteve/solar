@@ -33,7 +33,6 @@
     </thead>
 
     <tbody>
-      <!-- Estado: cargando -->
       @if (loading()) {
         @for (row of [1, 2, 3, 4, 5]; track row) {
           <tr class="border-base-300 border-b last:border-0">
@@ -48,7 +47,6 @@
         }
       }
 
-      <!-- Estado: error -->
       @if (error()) {
         <tr>
           <td colspan="7">
@@ -60,11 +58,7 @@
                   Verifica tu conexión o vuelve a intentarlo.
                 </p>
               </div>
-              <button
-                type="button"
-                class="btn btn-outline btn-error btn-sm"
-                (click)="onRetryLoad()"
-              >
+              <button type="button" class="btn btn-outline btn-error" (click)="onRetryLoad()">
                 Reintentar
               </button>
             </div>
@@ -136,7 +130,7 @@
                     Cuando crees el primer registro, aparecerá aquí.
                   </p>
                 </div>
-                <a class="btn btn-primary btn-sm" [routerLink]="['/plantas', id(), 'new-log']">
+                <a class="btn btn-primary" [routerLink]="['/plantas', id(), 'new-log']">
                   <app-icon name="plus-outline" className="size-3.5" strokeWidth="2.0" />
                   Nuevo registro
                 </a>
