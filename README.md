@@ -49,3 +49,20 @@ Todas las instrucciones para replicar la base de datos, políticas RLS, storage 
 - `supabase-setup/README.md`
 
 Ejecuta los SQL en el orden indicado dentro de esa guía.
+
+## 🌍 Aplicación desplegada (Vercel)
+
+La aplicación está desplegada en:
+<https://solar-oscaresteve.vercel.app/>.
+
+Puedes acceder con el siguiente usuario administrador:
+
+```bash
+email: admin@admin.com
+password: admin1
+```
+
+También puedes crear tu propia cuenta si lo prefieres.
+
+** ⚠ Nota: ** Es posible que el servicio de Supabase se deshabilite por inactividad.
+En ese caso, puedes contactar con oscarestevea24@gmail.com o iniciar la aplicación en local siguiendo las instrucciones indicadas en esta guía.
