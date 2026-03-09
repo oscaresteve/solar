@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlantaService } from '../../data-access/planta-service';
-import { form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required, validate } from '@angular/forms/signals';
 import { GeolocationService } from '../../../shared/data-access/geolocation-service';
 import { DatePipe } from '@angular/common';
 import { Icon } from '../../../shared/ui/icon/icon';
@@ -93,28 +93,28 @@ export class PlantaForm implements OnInit, OnDestroy {
     required(schemaPath.name, { message: 'El nombre es obligatorio.' });
 
     required(schemaPath.capacity, { message: 'La capacidad es obligatoria.' });
-    /*     validate(schemaPath.capacity, ({ value }) => {
-      if (value() > 0) {
-        return { kind: 'capacity-invalid', message: 'capacity must be bigger than 0 ' };
+    validate(schemaPath.capacity, ({ value }) => {
+      if (value() <= 0) {
+        return { kind: 'capacity-invalid', message: 'La capacidad debe ser mayor que 0.' };
       }
       return undefined;
-    }); */
+    });
 
     required(schemaPath.latitude, { message: 'La latitud es obligatoria.' });
-    /*     validate(schemaPath.latitude, ({ value }) => {
-      if (value() > 0) {
-        return { kind: 'latitude-invalid', message: 'latitude must be bigger than 0 ' };
+    validate(schemaPath.latitude, ({ value }) => {
+      if (value() < -90 || value() > 90) {
+        return { kind: 'latitude-invalid', message: 'La latitud debe estar entre -90 y 90.' };
       }
       return undefined;
-    }); */
+    });
 
     required(schemaPath.longitude, { message: 'La longitud es obligatoria.' });
-    /*     validate(schemaPath.longitude, ({ value }) => {
-      if (value() > 0) {
-        return { kind: 'longitude-invalid', message: 'longitude must be bigger than 0 ' };
+    validate(schemaPath.longitude, ({ value }) => {
+      if (value() < -180 || value() > 180) {
+        return { kind: 'longitude-invalid', message: 'La longitud debe estar entre -180 y 180.' };
       }
       return undefined;
-    }); */
+    });
   });
 
   constructor() {
@@ -150,9 +150,21 @@ export class PlantaForm implements OnInit, OnDestroy {
 
   async onSubmit(event: Event) {
     event.preventDefault();
+
+    if (
+      this.plantaForm.name().invalid() ||
+      this.plantaForm.description().invalid() ||
+      this.plantaForm.active().invalid() ||
+      this.plantaForm.capacity().invalid() ||
+      this.plantaForm.latitude().invalid() ||
+      this.plantaForm.longitude().invalid()
+    )
+      return;
+
     const formValue = this.plantaFormModel();
     const payload = {
       ...formValue,
+      capacity: Number(formValue.capacity),
       latitude: Number(formValue.latitude),
       longitude: Number(formValue.longitude),
     };
