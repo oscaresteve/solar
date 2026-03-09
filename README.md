@@ -64,5 +64,5 @@ password: admin1
 
 También puedes crear tu propia cuenta si lo prefieres.
 
-** ⚠ Nota: ** Es posible que el servicio de Supabase se deshabilite por inactividad.
+**⚠ Nota:** Es posible que el servicio de Supabase se deshabilite por inactividad.
 En ese caso, puedes contactar con oscarestevea24@gmail.com o iniciar la aplicación en local siguiendo las instrucciones indicadas en esta guía.
