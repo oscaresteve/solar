@@ -157,20 +157,7 @@
             Cuenta</a
           >
         </li>
-        <li>
-          <a
-            routerLinkActive="font-bold text-primary"
-            #configuracionLink="routerLinkActive"
-            class="text-base-content/60 hover:text-base-content hover:bg-base-200/60 flex items-center text-sm transition-colors"
-          >
-            <app-icon
-              [name]="configuracionLink.isActive ? 'cog-solid' : 'cog-outline'"
-              strokeWidth="2.0"
-              className="size-3.5"
-            ></app-icon
-            >Configuración</a
-          >
-        </li>
+
         <li>
           <button
             (click)="logOut()"
