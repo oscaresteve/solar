@@ -2,6 +2,8 @@
 
 Proyecto de **DWEC (2.ª evaluación)** desarrollado con **Angular 21** y **Supabase (BaaS)**.
 
+![solar](https://github.com/user-attachments/assets/a70e413d-34f9-4bbd-99a5-1ad72d9362a7)
+
 ## ¿De qué trata?
 
 Aplicación para gestionar plantas energéticas:
